@@ -236,7 +236,7 @@
       </div>
       <div>
         <label>Artifact set</label>
-        <input id="r-set" placeholder="e.g. Marechaussee Hunter" />
+        <input id="r-set" list="artifact-datalist" placeholder="e.g. Marechaussee Hunter" />
       </div>
       <div>
         <label>Crit Rate % / Crit DMG %</label>
@@ -263,6 +263,7 @@
       <label>Character</label>
       <input id="t-name" list="char-datalist" placeholder="Start typing a character name..." oninput="onCharNameInput()" />
       <datalist id="char-datalist"></datalist>
+      <datalist id="artifact-datalist"></datalist>
       <div class="char-autofill" id="t-autofill"></div>
     </div>
     <div class="field">
@@ -277,7 +278,7 @@
     </div>
     <div class="field">
       <label>Artifact set(s)</label>
-      <input id="t-sets" placeholder="e.g. Marechaussee Hunter, or 2pc CW + 2pc GT" />
+      <input id="t-sets" list="artifact-datalist" placeholder="e.g. Marechaussee Hunter, or 2pc CW + 2pc GT" />
     </div>
     <div class="field-row">
       <div class="field"><label>Sands main</label><input id="t-sands" placeholder="ATK%" /></div>
@@ -343,6 +344,7 @@ var currentView = "targets";
 var editingTargetId = null;
 var showArchived = false;
 var CHAR_DB = [];
+var ARTIFACT_DB = [];
 var db = { main: { targets: [], rolls: [] }, alt1: { targets: [], rolls: [] }, alt2: { targets: [], rolls: [] } };
 
 async function loadCharacters() {
@@ -354,6 +356,17 @@ async function loadCharacters() {
   }
   var dl = document.getElementById("char-datalist");
   dl.innerHTML = CHAR_DB.map(function(c) { return '<option value="' + escapeHtml(c.name) + '">'; }).join('');
+}
+
+async function loadArtifactSets() {
+  try {
+    var res = await fetch("artifacts.json?t=" + Date.now());
+    ARTIFACT_DB = await res.json();
+  } catch (e) {
+    ARTIFACT_DB = [];
+  }
+  var dl = document.getElementById("artifact-datalist");
+  dl.innerHTML = ARTIFACT_DB.map(function(s) { return '<option value="' + escapeHtml(s) + '">'; }).join('');
 }
 
 function findChar(name) {
@@ -715,7 +728,7 @@ function escapeHtml(str) {
 
 (async function init() {
   loadDB();
-  await loadCharacters();
+  await Promise.all([loadCharacters(), loadArtifactSets()]);
   onSlotChange();
   renderAll();
 })();
