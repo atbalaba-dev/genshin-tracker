@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genshin Artifact Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16151a;
+    --surface: #201f26;
+    --surface-hover: #26252d;
+    --line: #34333c;
+    --text: #ece9e2;
+    --text-dim: #8f8d97;
+    --text-faint: #5f5d66;
+
+    --main: #c9a94f;
+    --alt1: #9b6fc9;
+    --alt2: #4fb8b0;
+
+    --fodder: #d9534f;
+    --filler: #e8b84f;
+    --good: #6fa85a;
+    --excellent: #4f8fe8;
+    --missing: #5f5d66;
+    --placeholder: #8f8d97;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    padding: 32px 20px 80px;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 16px;
+  }
+  h1 { font-size: 20px; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+  .sub { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-faint); margin-top: 4px; }
+
+  .acct-tabs { display: flex; gap: 6px; margin: 20px 0 14px; }
+  .acct-tab {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--text-dim);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px; font-weight: 500;
+    padding: 10px 8px; cursor: pointer; border-radius: 10px;
+    text-align: center;
+  }
+  .acct-tab.active { color: var(--bg); font-weight: 700; }
+  .acct-tab[data-acct="main"].active { background: var(--main); border-color: var(--main); }
+  .acct-tab[data-acct="alt1"].active { background: var(--alt1); border-color: var(--alt1); }
+  .acct-tab[data-acct="alt2"].active { background: var(--alt2); border-color: var(--alt2); }
+
+  .tabs { display: flex; gap: 4px; margin: 6px 0 16px; border-bottom: 1px solid var(--line); }
+  .tab {
+    background: none; border: none; color: var(--text-dim);
+    font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 500;
+    padding: 8px 14px; cursor: pointer; border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+  .tab.active { color: var(--text); border-bottom-color: var(--text); }
+
+  .view { display: none; }
+  .view.active { display: block; }
+
+  .add-row { display: flex; gap: 8px; margin: 4px 0 20px; flex-wrap: wrap; align-items: center; }
+  .add-row button {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .add-row button:hover { background: var(--surface-hover); }
+  .add-row button.ghost { color: var(--text-dim); font-size: 11px; font-family: 'IBM Plex Mono', monospace; }
+  .add-row button.active-toggle { color: var(--text); border-color: var(--text-dim); }
+
+  .empty { color: var(--text-faint); font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 24px 0; text-align: center; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .card-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .char-name { font-weight: 700; font-size: 15px; }
+  .char-meta-inline { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-faint); margin-left: 6px; }
+  .stars { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--filler); letter-spacing: 1px; }
+  .card-actions { display: flex; gap: 6px; }
+  .icon-btn { background: none; border: 1px solid var(--line); color: var(--text-dim); border-radius: 6px; padding: 3px 8px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
+  .icon-btn:hover { color: var(--text); }
+
+  .meta-row { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); margin-bottom: 8px; line-height: 1.6; }
+  .meta-row b { color: var(--text); font-weight: 500; }
+
+  .slot-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .slot-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    display: flex; gap: 5px; align-items: center;
+    cursor: pointer;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .archived-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--excellent); border: 1px solid var(--excellent); padding: 2px 6px; border-radius: 999px; margin-left: 8px; }
+
+  .queue-card { display: flex; align-items: center; gap: 14px; }
+  .queue-rank { font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 700; color: var(--text-faint); width: 26px; text-align: center; }
+  .queue-body { flex: 1; }
+  .queue-bar-track { background: var(--bg); border-radius: 999px; height: 6px; margin-top: 6px; overflow: hidden; }
+  .queue-bar-fill { height: 100%; border-radius: 999px; }
+  .queue-pct { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); }
+
+  .roll-form { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+  .roll-form .full { grid-column: 1 / -1; }
+  .roll-form label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-dim); display: block; margin-bottom: 3px; }
+  .roll-form select, .roll-form input, .roll-form textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--line); color: var(--text);
+    border-radius: 6px; padding: 7px 8px; font-family: 'Space Grotesk', sans-serif; font-size: 13px;
+  }
+  .roll-form textarea { resize: vertical; min-height: 40px; }
+  .roll-form .submit-row { grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-top: 4px; }
+  .roll-form .submit-row button {
+    background: var(--text); color: var(--bg); border: none; padding: 8px 18px;
+    border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer;
+  }
+
+  .roll-card { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .roll-info { flex: 1; }
+  .roll-cv { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 700; }
+  .roll-cv-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--text-faint); text-align: center; }
+  .verdict-tag {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 999px; letter-spacing: 0.04em; display: inline-block; margin-top: 4px;
+  }
+  .flag { color: var(--fodder); font-family: 'IBM Plex Mono', monospace; font-size: 10px; margin-top: 4px; }
+
+  .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 16px; z-index: 10; }
+  .modal-backdrop.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto; }
+  .modal h2 { margin: 0 0 14px; font-size: 16px; }
+  .field { margin-bottom: 12px; }
+  .field label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-dim); display: block; margin-bottom: 4px; }
+  .field input, .field select, .field textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--line); color: var(--text);
+    border-radius: 6px; padding: 8px 10px; font-family: 'Space Grotesk', sans-serif; font-size: 13px;
+  }
+  .field textarea { resize: vertical; min-height: 44px; }
+  .field-row { display: flex; gap: 8px; }
+  .field-row .field { flex: 1; }
+  .char-autofill { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-faint); margin-top: 4px; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+  .modal-actions button { background: none; border: 1px solid var(--line); color: var(--text); padding: 8px 16px; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; }
+  .modal-actions button.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .modal-actions button.danger { border-color: var(--fodder); color: var(--fodder); }
+  .modal-actions button.secondary { border-color: var(--excellent); color: var(--excellent); }
+
+  .io-textarea { width: 100%; min-height: 160px; background: var(--bg); border: 1px solid var(--line); color: var(--text); border-radius: 8px; padding: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Genshin Artifact Tracker</h1>
+      <div class="sub">atbalaba-dev/genshin-tracker</div>
+    </div>
+  </header>
+
+  <div class="acct-tabs">
+    <button class="acct-tab active" data-acct="main" onclick="switchAccount('main')">Main (Khym)</button>
+    <button class="acct-tab" data-acct="alt1" onclick="switchAccount('alt1')">Alt 1 (Beelzebul)</button>
+    <button class="acct-tab" data-acct="alt2" onclick="switchAccount('alt2')">Alt 2 (Barbatos)</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-targets" onclick="switchView('targets')">Targets</button>
+    <button class="tab" id="tab-queue" onclick="switchView('queue')">Priority Queue</button>
+    <button class="tab" id="tab-rolls" onclick="switchView('rolls')">Roll Log</button>
+  </div>
+
+  <div id="view-targets" class="view active">
+    <div class="add-row">
+      <button onclick="openTargetModal()">+ Add character</button>
+      <button class="ghost" onclick="openIOModal()">Export / Import backup</button>
+    </div>
+    <div id="targets-list"></div>
+  </div>
+
+  <div id="view-queue" class="view">
+    <div class="add-row">
+      <span class="empty" style="padding:0;font-size:11px;flex:1;">Ranked by star priority, then lowest completion % first</span>
+      <button class="ghost" id="archive-toggle-btn" onclick="toggleArchiveView()">Show archived</button>
+    </div>
+    <div id="queue-list"></div>
+  </div>
+
+  <div id="view-rolls" class="view">
+    <div class="roll-form">
+      <div class="full">
+        <label>Character</label>
+        <select id="r-char"></select>
+      </div>
+      <div>
+        <label>Slot</label>
+        <select id="r-slot" onchange="onSlotChange()">
+          <option value="flower">Flower</option>
+          <option value="plume">Plume</option>
+          <option value="sands">Sands</option>
+          <option value="goblet">Goblet</option>
+          <option value="circlet">Circlet</option>
+        </select>
+      </div>
+      <div>
+        <label>Main stat</label>
+        <input id="r-mainstat" placeholder="e.g. Crit DMG" />
+      </div>
+      <div>
+        <label>Artifact set</label>
+        <input id="r-set" placeholder="e.g. Marechaussee Hunter" />
+      </div>
+      <div>
+        <label>Crit Rate % / Crit DMG %</label>
+        <div style="display:flex;gap:6px;">
+          <input id="r-cr" type="number" step="0.1" placeholder="CR%" />
+          <input id="r-cd" type="number" step="0.1" placeholder="CD%" />
+        </div>
+      </div>
+      <div class="full">
+        <label>Other substats (notes)</label>
+        <textarea id="r-notes" placeholder="e.g. ATK% 5.8, EM 19, HP% 4.7"></textarea>
+      </div>
+      <div class="submit-row"><button onclick="addRoll()">Log roll</button></div>
+    </div>
+    <div id="rolls-list"></div>
+  </div>
+</div>
+
+<!-- Target modal -->
+<div class="modal-backdrop" id="target-backdrop">
+  <div class="modal">
+    <h2 id="target-modal-title">Add character target</h2>
+    <div class="field">
+      <label>Character</label>
+      <input id="t-name" list="char-datalist" placeholder="Start typing a character name..." oninput="onCharNameInput()" />
+      <datalist id="char-datalist"></datalist>
+      <div class="char-autofill" id="t-autofill"></div>
+    </div>
+    <div class="field">
+      <label>Priority (1-5 stars)</label>
+      <select id="t-priority">
+        <option value="1">1 star</option>
+        <option value="2">2 stars</option>
+        <option value="3" selected>3 stars</option>
+        <option value="4">4 stars</option>
+        <option value="5">5 stars</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Artifact set(s)</label>
+      <input id="t-sets" placeholder="e.g. Marechaussee Hunter, or 2pc CW + 2pc GT" />
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Sands main</label><input id="t-sands" placeholder="ATK%" /></div>
+      <div class="field"><label>Goblet main</label><input id="t-goblet" placeholder="Elemental DMG%" /></div>
+      <div class="field"><label>Circlet main</label><input id="t-circlet" placeholder="Crit Rate/DMG" /></div>
+    </div>
+    <div class="field">
+      <label>Substat priority order</label>
+      <input id="t-substats" placeholder="e.g. Crit Rate/DMG > ATK% > EM > ER%" />
+    </div>
+    <div class="field">
+      <label>CV threshold ("good enough")</label>
+      <input id="t-cv" type="number" placeholder="e.g. 20" />
+    </div>
+    <div class="field">
+      <label>Per-slot status</label>
+      <div class="field-row" style="flex-wrap:wrap;gap:6px;">
+        <select id="t-status-flower"><option value="missing">Flower: Missing</option><option value="placeholder">Flower: Placeholder</option><option value="good">Flower: Good</option><option value="bis">Flower: BiS</option></select>
+        <select id="t-status-plume"><option value="missing">Plume: Missing</option><option value="placeholder">Plume: Placeholder</option><option value="good">Plume: Good</option><option value="bis">Plume: BiS</option></select>
+      </div>
+      <div class="field-row" style="flex-wrap:wrap;gap:6px;margin-top:6px;">
+        <select id="t-status-sands"><option value="missing">Sands: Missing</option><option value="placeholder">Sands: Placeholder</option><option value="good">Sands: Good</option><option value="bis">Sands: BiS</option></select>
+        <select id="t-status-goblet"><option value="missing">Goblet: Missing</option><option value="placeholder">Goblet: Placeholder</option><option value="good">Goblet: Good</option><option value="bis">Goblet: BiS</option></select>
+        <select id="t-status-circlet"><option value="missing">Circlet: Missing</option><option value="placeholder">Circlet: Placeholder</option><option value="good">Circlet: Good</option><option value="bis">Circlet: BiS</option></select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Notes</label>
+      <textarea id="t-notes" placeholder="optional"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="danger" id="t-delete-btn" onclick="deleteTargetFromModal()" style="display:none;">Delete</button>
+      <button class="secondary" id="t-archive-btn" onclick="toggleArchiveFromModal()" style="display:none;">Archive</button>
+      <button onclick="closeTargetModal()">Cancel</button>
+      <button class="primary" onclick="saveTarget()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Import/Export modal -->
+<div class="modal-backdrop" id="io-backdrop">
+  <div class="modal">
+    <h2>Export / Import backup</h2>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);">
+      This data lives in this browser's local storage only. Copy this JSON somewhere safe (or hand it back to Claude to commit into the repo), or paste one in to restore/transfer it.
+    </p>
+    <textarea class="io-textarea" id="io-text"></textarea>
+    <div class="modal-actions">
+      <button onclick="closeIOModal()">Close</button>
+      <button class="primary" onclick="importIOData()">Import (overwrite all)</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var ACCOUNTS = ["main", "alt1", "alt2"];
+var STATUS_ORDER = { missing: 0, placeholder: 1, good: 2, bis: 3 };
+var STATUS_COLOR = { missing: "var(--missing)", placeholder: "var(--placeholder)", good: "var(--good)", bis: "var(--excellent)" };
+var SLOTS = ["flower", "plume", "sands", "goblet", "circlet"];
+
+var currentAccount = "main";
+var currentView = "targets";
+var editingTargetId = null;
+var showArchived = false;
+var CHAR_DB = [];
+var db = { main: { targets: [], rolls: [] }, alt1: { targets: [], rolls: [] }, alt2: { targets: [], rolls: [] } };
+
+async function loadCharacters() {
+  try {
+    var res = await fetch("characters.json?t=" + Date.now());
+    CHAR_DB = await res.json();
+  } catch (e) {
+    CHAR_DB = [];
+  }
+  var dl = document.getElementById("char-datalist");
+  dl.innerHTML = CHAR_DB.map(function(c) { return '<option value="' + escapeHtml(c.name) + '">'; }).join('');
+}
+
+function findChar(name) {
+  if (!name) return null;
+  var lower = name.trim().toLowerCase();
+  return CHAR_DB.find(function(c) { return c.name.toLowerCase() === lower; }) || null;
+}
+
+function onCharNameInput() {
+  var name = document.getElementById("t-name").value;
+  var c = findChar(name);
+  var el = document.getElementById("t-autofill");
+  if (c) {
+    el.textContent = c.rarity + "-star " + c.element + " " + c.weapon;
+    if (!document.getElementById("t-goblet").value && c.element !== "Cryo") {
+      // leave goblet blank, just a hint via placeholder
+    }
+    document.getElementById("t-goblet").placeholder = c.element + " DMG%";
+  } else {
+    el.textContent = name ? "Not in reference list — will still save fine, just no auto stats." : "";
+  }
+}
+
+function loadDB() {
+  try {
+    var raw = localStorage.getItem("gt_db");
+    if (raw) db = JSON.parse(raw);
+  } catch (e) { /* keep defaults */ }
+  ACCOUNTS.forEach(function(a) {
+    if (!db[a]) db[a] = { targets: [], rolls: [] };
+    db[a].targets.forEach(function(t) { if (t.archived === undefined) t.archived = false; });
+  });
+}
+function saveDB() {
+  localStorage.setItem("gt_db", JSON.stringify(db));
+}
+
+function switchAccount(acct) {
+  currentAccount = acct;
+  ACCOUNTS.forEach(function(a) {
+    document.querySelector('.acct-tab[data-acct="' + a + '"]').classList.toggle("active", a === acct);
+  });
+  renderAll();
+}
+
+function switchView(view) {
+  currentView = view;
+  document.getElementById("tab-targets").classList.toggle("active", view === "targets");
+  document.getElementById("tab-queue").classList.toggle("active", view === "queue");
+  document.getElementById("tab-rolls").classList.toggle("active", view === "rolls");
+  document.getElementById("view-targets").classList.toggle("active", view === "targets");
+  document.getElementById("view-queue").classList.toggle("active", view === "queue");
+  document.getElementById("view-rolls").classList.toggle("active", view === "rolls");
+  renderAll();
+}
+
+function renderAll() {
+  renderTargets();
+  renderQueue();
+  populateRollCharacterSelect();
+  renderRolls();
+}
+
+/* ---------- TARGETS ---------- */
+
+function getTargets() { return db[currentAccount].targets; }
+
+function completionPct(t) {
+  var vals = SLOTS.map(function(s) { return STATUS_ORDER[t.status[s]] >= 2 ? 1 : 0; });
+  var sum = vals.reduce(function(a, b) { return a + b; }, 0);
+  return Math.round((sum / 5) * 100);
+}
+
+function renderTargets() {
+  var list = document.getElementById("targets-list");
+  var targets = getTargets().filter(function(t) { return !t.archived; });
+  if (targets.length === 0) {
+    list.innerHTML = '<div class="empty">No characters tracked for this account yet. Add one to start building the pipeline.</div>';
+    return;
+  }
+  var sorted = targets.slice().sort(function(a, b) { return b.priority - a.priority; });
+  list.innerHTML = sorted.map(function(t) {
+    var c = findChar(t.name);
+    var metaInline = c ? '<span class="char-meta-inline">' + c.rarity + '★ ' + c.element + ' ' + c.weapon + '</span>' : '';
+    var slotBadges = SLOTS.map(function(s) {
+      var st = t.status[s];
+      var label = s.charAt(0).toUpperCase() + s.slice(1);
+      return '<span class="slot-badge" title="click to cycle status" onclick="cycleSlotStatus(\'' + t.id + '\',\'' + s + '\')">' +
+        '<span class="dot" style="background:' + STATUS_COLOR[st] + '"></span>' + label + '</span>';
+    }).join('');
+    return '<div class="card">' +
+      '<div class="card-top">' +
+        '<div><span class="char-name">' + escapeHtml(t.name) + '</span>' + metaInline + ' &nbsp; <span class="stars">' + '★'.repeat(t.priority) + '</span></div>' +
+        '<div class="card-actions"><button class="icon-btn" onclick="openTargetModal(\'' + t.id + '\')">Edit</button></div>' +
+      '</div>' +
+      '<div class="meta-row"><b>Set:</b> ' + escapeHtml(t.sets || '—') + ' &nbsp; | &nbsp; <b>Sands:</b> ' + escapeHtml(t.sands || '—') +
+        ' &nbsp; <b>Goblet:</b> ' + escapeHtml(t.goblet || '—') + ' &nbsp; <b>Circlet:</b> ' + escapeHtml(t.circlet || '—') + '</div>' +
+      '<div class="meta-row"><b>Substats:</b> ' + escapeHtml(t.substats || '—') + ' &nbsp; | &nbsp; <b>CV target:</b> ' + (t.cvThreshold || '—') +
+        ' &nbsp; | &nbsp; <b>Complete:</b> ' + completionPct(t) + '%</div>' +
+      '<div class="slot-badges">' + slotBadges + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function cycleSlotStatus(id, slot) {
+  var t = getTargets().find(function(x) { return x.id === id; });
+  if (!t) return;
+  var order = ["missing", "placeholder", "good", "bis"];
+  var idx = order.indexOf(t.status[slot]);
+  t.status[slot] = order[(idx + 1) % order.length];
+  saveDB();
+  renderAll();
+}
+
+function openTargetModal(id) {
+  editingTargetId = id || null;
+  document.getElementById("target-modal-title").textContent = id ? "Edit character target" : "Add character target";
+  document.getElementById("t-delete-btn").style.display = id ? "inline-block" : "none";
+  document.getElementById("t-archive-btn").style.display = id ? "inline-block" : "none";
+  if (id) {
+    var t = getTargets().find(function(x) { return x.id === id; });
+    document.getElementById("t-name").value = t.name;
+    document.getElementById("t-priority").value = t.priority;
+    document.getElementById("t-sets").value = t.sets || "";
+    document.getElementById("t-sands").value = t.sands || "";
+    document.getElementById("t-goblet").value = t.goblet || "";
+    document.getElementById("t-circlet").value = t.circlet || "";
+    document.getElementById("t-substats").value = t.substats || "";
+    document.getElementById("t-cv").value = t.cvThreshold || "";
+    document.getElementById("t-notes").value = t.notes || "";
+    SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = t.status[s]; });
+    document.getElementById("t-archive-btn").textContent = t.archived ? "Un-archive" : "Archive";
+    onCharNameInput();
+  } else {
+    ["t-name","t-sets","t-sands","t-goblet","t-circlet","t-substats","t-cv","t-notes"].forEach(function(id2) {
+      document.getElementById(id2).value = "";
+    });
+    document.getElementById("t-priority").value = "3";
+    document.getElementById("t-autofill").textContent = "";
+    SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "missing"; });
+  }
+  document.getElementById("target-backdrop").classList.add("open");
+}
+function closeTargetModal() { document.getElementById("target-backdrop").classList.remove("open"); }
+
+function saveTarget() {
+  var name = document.getElementById("t-name").value.trim();
+  if (!name) { alert("Character name is required"); return; }
+  var status = {};
+  SLOTS.forEach(function(s) { status[s] = document.getElementById("t-status-" + s).value; });
+  var data = {
+    name: name,
+    priority: parseInt(document.getElementById("t-priority").value, 10),
+    sets: document.getElementById("t-sets").value.trim(),
+    sands: document.getElementById("t-sands").value.trim(),
+    goblet: document.getElementById("t-goblet").value.trim(),
+    circlet: document.getElementById("t-circlet").value.trim(),
+    substats: document.getElementById("t-substats").value.trim(),
+    cvThreshold: parseFloat(document.getElementById("t-cv").value) || null,
+    notes: document.getElementById("t-notes").value.trim(),
+    status: status
+  };
+  if (editingTargetId) {
+    var t = getTargets().find(function(x) { return x.id === editingTargetId; });
+    Object.assign(t, data);
+  } else {
+    data.id = "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+    data.archived = false;
+    getTargets().push(data);
+  }
+  saveDB();
+  closeTargetModal();
+  renderAll();
+}
+
+function toggleArchiveFromModal() {
+  if (!editingTargetId) return;
+  var t = getTargets().find(function(x) { return x.id === editingTargetId; });
+  t.archived = !t.archived;
+  saveDB();
+  closeTargetModal();
+  renderAll();
+}
+
+function deleteTargetFromModal() {
+  if (!editingTargetId) return;
+  if (!confirm("Delete this character's target profile? Roll log entries for them will stay but won't be checked against a target anymore.")) return;
+  db[currentAccount].targets = getTargets().filter(function(x) { return x.id !== editingTargetId; });
+  saveDB();
+  closeTargetModal();
+  renderAll();
+}
+
+/* ---------- PRIORITY QUEUE ---------- */
+
+function toggleArchiveView() {
+  showArchived = !showArchived;
+  document.getElementById("archive-toggle-btn").textContent = showArchived ? "Show active" : "Show archived";
+  document.getElementById("archive-toggle-btn").classList.toggle("active-toggle", showArchived);
+  renderQueue();
+}
+
+function renderQueue() {
+  var list = document.getElementById("queue-list");
+  var targets = getTargets().filter(function(t) { return !!t.archived === showArchived; });
+  if (targets.length === 0) {
+    list.innerHTML = '<div class="empty">' + (showArchived ? "No archived characters yet." : "Add characters in the Targets tab to generate a farm queue.") + '</div>';
+    return;
+  }
+  var ranked = targets.slice().sort(function(a, b) {
+    if (b.priority !== a.priority) return b.priority - a.priority;
+    return completionPct(a) - completionPct(b);
+  });
+  list.innerHTML = ranked.map(function(t, i) {
+    var pct = completionPct(t);
+    var barColor = pct >= 80 ? 'var(--good)' : pct >= 40 ? 'var(--filler)' : 'var(--fodder)';
+    var archTag = t.archived ? '<span class="archived-tag">Archived</span>' : '';
+    return '<div class="card queue-card" style="cursor:pointer;" onclick="openTargetModal(\'' + t.id + '\')">' +
+      '<div class="queue-rank">' + (i + 1) + '</div>' +
+      '<div class="queue-body">' +
+        '<div><span class="char-name">' + escapeHtml(t.name) + '</span> &nbsp; <span class="stars">' + '★'.repeat(t.priority) + '</span>' + archTag + '</div>' +
+        '<div class="queue-bar-track"><div class="queue-bar-fill" style="width:' + pct + '%;background:' + barColor + '"></div></div>' +
+        '<div class="queue-pct">' + pct + '% complete &middot; ' + escapeHtml(t.sets || 'no set set') + '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ---------- ROLL LOG ---------- */
+
+function populateRollCharacterSelect() {
+  var sel = document.getElementById("r-char");
+  var targets = getTargets().filter(function(t) { return !t.archived; });
+  var prev = sel.value;
+  sel.innerHTML = targets.map(function(t) { return '<option value="' + t.id + '">' + escapeHtml(t.name) + '</option>'; }).join('');
+  if (prev) sel.value = prev;
+}
+
+function onSlotChange() {
+  var slot = document.getElementById("r-slot").value;
+  var msInput = document.getElementById("r-mainstat");
+  if (slot === "flower") { msInput.value = "HP"; msInput.disabled = true; }
+  else if (slot === "plume") { msInput.value = "ATK"; msInput.disabled = true; }
+  else { if (msInput.disabled) msInput.value = ""; msInput.disabled = false; }
+}
+
+function computeCV(cr, cd) {
+  return Math.round(((cr || 0) * 2 + (cd || 0)) * 10) / 10;
+}
+
+function verdictFor(cv) {
+  if (cv >= 30) return { label: "Excellent", color: "var(--excellent)" };
+  if (cv >= 20) return { label: "Good", color: "var(--good)" };
+  if (cv >= 10) return { label: "Filler", color: "var(--filler)" };
+  return { label: "Fodder", color: "var(--fodder)" };
+}
+
+function addRoll() {
+  var charId = document.getElementById("r-char").value;
+  if (!charId) { alert("Add a character target first (Targets tab)."); return; }
+  var slot = document.getElementById("r-slot").value;
+  var mainStat = document.getElementById("r-mainstat").value.trim();
+  var setName = document.getElementById("r-set").value.trim();
+  var cr = parseFloat(document.getElementById("r-cr").value) || 0;
+  var cd = parseFloat(document.getElementById("r-cd").value) || 0;
+  var notes = document.getElementById("r-notes").value.trim();
+  var cv = computeCV(cr, cd);
+  var roll = {
+    id: "r_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+    charId: charId, slot: slot, mainStat: mainStat, setName: setName,
+    cr: cr, cd: cd, notes: notes, cv: cv, ts: Date.now()
+  };
+  db[currentAccount].rolls.unshift(roll);
+  saveDB();
+  document.getElementById("r-mainstat").value = "";
+  document.getElementById("r-set").value = "";
+  document.getElementById("r-cr").value = "";
+  document.getElementById("r-cd").value = "";
+  document.getElementById("r-notes").value = "";
+  renderRolls();
+}
+
+function deleteRoll(id) {
+  db[currentAccount].rolls = db[currentAccount].rolls.filter(function(x) { return x.id !== id; });
+  saveDB();
+  renderRolls();
+}
+
+function renderRolls() {
+  var list = document.getElementById("rolls-list");
+  var rolls = db[currentAccount].rolls;
+  var targets = getTargets();
+  if (rolls.length === 0) {
+    list.innerHTML = '<div class="empty">No rolls logged for this account yet.</div>';
+    return;
+  }
+  list.innerHTML = rolls.map(function(r) {
+    var t = targets.find(function(x) { return x.id === r.charId; });
+    var charName = t ? t.name : "(deleted character)";
+    var v = verdictFor(r.cv);
+    var flags = [];
+    if (t) {
+      if (["sands","goblet","circlet"].indexOf(r.slot) >= 0) {
+        var targetMain = { sands: t.sands, goblet: t.goblet, circlet: t.circlet }[r.slot];
+        if (targetMain && r.mainStat && targetMain.toLowerCase().indexOf(r.mainStat.toLowerCase()) === -1 && r.mainStat.toLowerCase().indexOf(targetMain.toLowerCase()) === -1) {
+          flags.push("Main stat (" + escapeHtml(r.mainStat) + ") doesn't match target (" + escapeHtml(targetMain) + ")");
+        }
+      }
+      if (t.sets && r.setName && t.sets.toLowerCase().indexOf(r.setName.toLowerCase()) === -1) {
+        flags.push("Set (" + escapeHtml(r.setName) + ") isn't in target set list");
+      }
+      if (t.cvThreshold && r.cv >= t.cvThreshold) {
+        flags.push("Meets/exceeds this character's CV target (" + t.cvThreshold + ") — potential upgrade!");
+      }
+    }
+    return '<div class="card roll-card">' +
+      '<div class="roll-info">' +
+        '<div><span class="char-name">' + escapeHtml(charName) + '</span> &middot; <span style="color:var(--text-dim);font-family:\'IBM Plex Mono\',monospace;font-size:11px;">' + r.slot + '</span></div>' +
+        '<div class="meta-row">' + escapeHtml(r.mainStat || '—') + (r.setName ? ' &middot; ' + escapeHtml(r.setName) : '') + '</div>' +
+        (r.notes ? '<div class="meta-row">' + escapeHtml(r.notes) + '</div>' : '') +
+        '<span class="verdict-tag" style="background:' + v.color + ';color:var(--bg);">' + v.label + '</span>' +
+        flags.map(function(f) { return '<div class="flag">&#9888; ' + f + '</div>'; }).join('') +
+      '</div>' +
+      '<div style="text-align:center;">' +
+        '<div class="roll-cv">' + r.cv + '</div>' +
+        '<div class="roll-cv-label">CV</div>' +
+        '<button class="icon-btn" style="margin-top:8px;" onclick="deleteRoll(\'' + r.id + '\')">Del</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ---------- IMPORT / EXPORT ---------- */
+
+function openIOModal() {
+  document.getElementById("io-text").value = JSON.stringify(db, null, 2);
+  document.getElementById("io-backdrop").classList.add("open");
+}
+function closeIOModal() { document.getElementById("io-backdrop").classList.remove("open"); }
+function importIOData() {
+  try {
+    var parsed = JSON.parse(document.getElementById("io-text").value);
+    ACCOUNTS.forEach(function(a) { if (!parsed[a]) parsed[a] = { targets: [], rolls: [] }; });
+    db = parsed;
+    saveDB();
+    closeIOModal();
+    renderAll();
+  } catch (e) {
+    alert("That doesn't look like valid JSON. Nothing was imported.");
+  }
+}
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str).replace(/[&<>"']/g, function(c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+  });
+}
+
+(async function init() {
+  loadDB();
+  await loadCharacters();
+  onSlotChange();
+  renderAll();
+})();
+</script>
+</body>
+</html>
