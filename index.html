@@ -232,7 +232,7 @@
       </div>
       <div>
         <label>Main stat</label>
-        <input id="r-mainstat" placeholder="e.g. Crit DMG" />
+        <select id="r-mainstat"></select>
       </div>
       <div>
         <label>Artifact set</label>
@@ -281,9 +281,9 @@
       <input id="t-sets" list="artifact-datalist" placeholder="e.g. Marechaussee Hunter, or 2pc CW + 2pc GT" />
     </div>
     <div class="field-row">
-      <div class="field"><label>Sands main</label><input id="t-sands" placeholder="ATK%" /></div>
-      <div class="field"><label>Goblet main</label><input id="t-goblet" placeholder="Elemental DMG%" /></div>
-      <div class="field"><label>Circlet main</label><input id="t-circlet" placeholder="Crit Rate/DMG" /></div>
+      <div class="field"><label>Sands main</label><select id="t-sands"></select></div>
+      <div class="field"><label>Goblet main</label><select id="t-goblet"></select></div>
+      <div class="field"><label>Circlet main</label><select id="t-circlet"></select></div>
     </div>
     <div class="field">
       <label>Substat priority order</label>
@@ -339,6 +339,18 @@ var STATUS_ORDER = { missing: 0, placeholder: 1, good: 2, bis: 3 };
 var STATUS_COLOR = { missing: "var(--missing)", placeholder: "var(--placeholder)", good: "var(--good)", bis: "var(--excellent)" };
 var SLOTS = ["flower", "plume", "sands", "goblet", "circlet"];
 
+var ELEMENTS = ["Pyro", "Electro", "Hydro", "Cryo", "Anemo", "Geo", "Dendro"];
+var SANDS_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "Energy Recharge%"];
+var GOBLET_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "Physical DMG Bonus%"].concat(ELEMENTS.map(function(e) { return e + " DMG Bonus%"; }));
+var CIRCLET_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "CRIT Rate%", "CRIT DMG%", "CRIT Rate / DMG", "Healing Bonus%"];
+
+function populateSelect(sel, options, current) {
+  var hasCurrent = current && options.indexOf(current) === -1;
+  var opts = hasCurrent ? [current].concat(options) : options;
+  sel.innerHTML = opts.map(function(o) { return '<option value="' + escapeHtml(o) + '">' + escapeHtml(o) + '</option>'; }).join('');
+  if (current) sel.value = current;
+}
+
 var currentAccount = "main";
 var currentView = "targets";
 var editingTargetId = null;
@@ -379,12 +391,12 @@ function onCharNameInput() {
   var name = document.getElementById("t-name").value;
   var c = findChar(name);
   var el = document.getElementById("t-autofill");
+  var gobletSel = document.getElementById("t-goblet");
   if (c) {
     el.textContent = c.rarity + "-star " + c.element + " " + c.weapon;
-    if (!document.getElementById("t-goblet").value && c.element !== "Cryo") {
-      // leave goblet blank, just a hint via placeholder
+    if (ELEMENTS.indexOf(c.element) >= 0 && (!gobletSel.value || gobletSel.value === "None")) {
+      gobletSel.value = c.element + " DMG Bonus%";
     }
-    document.getElementById("t-goblet").placeholder = c.element + " DMG%";
   } else {
     el.textContent = name ? "Not in reference list — will still save fine, just no auto stats." : "";
   }
@@ -462,8 +474,8 @@ function renderTargets() {
         '<div><span class="char-name">' + escapeHtml(t.name) + '</span>' + metaInline + ' &nbsp; <span class="stars">' + '★'.repeat(t.priority) + '</span></div>' +
         '<div class="card-actions"><button class="icon-btn" onclick="openTargetModal(\'' + t.id + '\')">Edit</button></div>' +
       '</div>' +
-      '<div class="meta-row"><b>Set:</b> ' + escapeHtml(t.sets || '—') + ' &nbsp; | &nbsp; <b>Sands:</b> ' + escapeHtml(t.sands || '—') +
-        ' &nbsp; <b>Goblet:</b> ' + escapeHtml(t.goblet || '—') + ' &nbsp; <b>Circlet:</b> ' + escapeHtml(t.circlet || '—') + '</div>' +
+      '<div class="meta-row"><b>Set:</b> ' + escapeHtml(t.sets || '—') + ' &nbsp; | &nbsp; <b>Sands:</b> ' + escapeHtml((t.sands && t.sands !== "None") ? t.sands : '—') +
+        ' &nbsp; <b>Goblet:</b> ' + escapeHtml((t.goblet && t.goblet !== "None") ? t.goblet : '—') + ' &nbsp; <b>Circlet:</b> ' + escapeHtml((t.circlet && t.circlet !== "None") ? t.circlet : '—') + '</div>' +
       '<div class="meta-row"><b>Substats:</b> ' + escapeHtml(t.substats || '—') + ' &nbsp; | &nbsp; <b>CV target:</b> ' + (t.cvThreshold || '—') +
         ' &nbsp; | &nbsp; <b>Complete:</b> ' + completionPct(t) + '%</div>' +
       '<div class="slot-badges">' + slotBadges + '</div>' +
@@ -491,9 +503,9 @@ function openTargetModal(id) {
     document.getElementById("t-name").value = t.name;
     document.getElementById("t-priority").value = t.priority;
     document.getElementById("t-sets").value = t.sets || "";
-    document.getElementById("t-sands").value = t.sands || "";
-    document.getElementById("t-goblet").value = t.goblet || "";
-    document.getElementById("t-circlet").value = t.circlet || "";
+    populateSelect(document.getElementById("t-sands"), SANDS_OPTS, t.sands || "None");
+    populateSelect(document.getElementById("t-goblet"), GOBLET_OPTS, t.goblet || "None");
+    populateSelect(document.getElementById("t-circlet"), CIRCLET_OPTS, t.circlet || "None");
     document.getElementById("t-substats").value = t.substats || "";
     document.getElementById("t-cv").value = t.cvThreshold || "";
     document.getElementById("t-notes").value = t.notes || "";
@@ -501,9 +513,12 @@ function openTargetModal(id) {
     document.getElementById("t-archive-btn").textContent = t.archived ? "Un-archive" : "Archive";
     onCharNameInput();
   } else {
-    ["t-name","t-sets","t-sands","t-goblet","t-circlet","t-substats","t-cv","t-notes"].forEach(function(id2) {
+    ["t-name","t-sets","t-substats","t-cv","t-notes"].forEach(function(id2) {
       document.getElementById(id2).value = "";
     });
+    populateSelect(document.getElementById("t-sands"), SANDS_OPTS, "None");
+    populateSelect(document.getElementById("t-goblet"), GOBLET_OPTS, "None");
+    populateSelect(document.getElementById("t-circlet"), CIRCLET_OPTS, "None");
     document.getElementById("t-priority").value = "3";
     document.getElementById("t-autofill").textContent = "";
     SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "missing"; });
@@ -607,10 +622,18 @@ function populateRollCharacterSelect() {
 
 function onSlotChange() {
   var slot = document.getElementById("r-slot").value;
-  var msInput = document.getElementById("r-mainstat");
-  if (slot === "flower") { msInput.value = "HP"; msInput.disabled = true; }
-  else if (slot === "plume") { msInput.value = "ATK"; msInput.disabled = true; }
-  else { if (msInput.disabled) msInput.value = ""; msInput.disabled = false; }
+  var msSelect = document.getElementById("r-mainstat");
+  if (slot === "flower") {
+    msSelect.innerHTML = '<option value="HP">HP</option>';
+    msSelect.disabled = true;
+  } else if (slot === "plume") {
+    msSelect.innerHTML = '<option value="ATK">ATK</option>';
+    msSelect.disabled = true;
+  } else {
+    msSelect.disabled = false;
+    var opts = slot === "sands" ? SANDS_OPTS : slot === "goblet" ? GOBLET_OPTS : CIRCLET_OPTS;
+    msSelect.innerHTML = opts.map(function(o) { return '<option value="' + escapeHtml(o) + '">' + escapeHtml(o) + '</option>'; }).join('');
+  }
 }
 
 function computeCV(cr, cd) {
@@ -641,7 +664,6 @@ function addRoll() {
   };
   db[currentAccount].rolls.unshift(roll);
   saveDB();
-  document.getElementById("r-mainstat").value = "";
   document.getElementById("r-set").value = "";
   document.getElementById("r-cr").value = "";
   document.getElementById("r-cd").value = "";
@@ -671,7 +693,7 @@ function renderRolls() {
     if (t) {
       if (["sands","goblet","circlet"].indexOf(r.slot) >= 0) {
         var targetMain = { sands: t.sands, goblet: t.goblet, circlet: t.circlet }[r.slot];
-        if (targetMain && r.mainStat && targetMain.toLowerCase().indexOf(r.mainStat.toLowerCase()) === -1 && r.mainStat.toLowerCase().indexOf(targetMain.toLowerCase()) === -1) {
+        if (targetMain && targetMain !== "None" && r.mainStat && r.mainStat !== targetMain) {
           flags.push("Main stat (" + escapeHtml(r.mainStat) + ") doesn't match target (" + escapeHtml(targetMain) + ")");
         }
       }
