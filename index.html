@@ -141,6 +141,9 @@
   .set-check-row { display: flex; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 6px; font-size: 12px; cursor: pointer; }
   .set-check-row:hover { background: var(--surface-hover); }
   .set-check-row input { cursor: pointer; }
+  .queue-section-header { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); margin: 18px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  .queue-section-header:first-child { margin-top: 0; }
+  .strongbox-toggle { display: flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-dim); margin-top: 8px; cursor: pointer; }
   .set-check-row .cn-meta { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--text-faint); }
   .archived-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--excellent); border: 1px solid var(--excellent); padding: 2px 6px; border-radius: 999px; margin-left: 8px; }
 
@@ -416,6 +419,38 @@ var TIER_RANK = { S: 5, A: 4, B: 3, C: 2, D: 1 };
 var ROLE_RANK = { "Support-Healer": 3, "Off-field DPS": 2, "On-field DPS": 1, "": 0 };
 var META_TEAMS = ["Stellar Radiance", "Lunar", "Hexerei", "Mavuika", "Freeze"];
 
+var STRONGBOX_SEED = [
+  "Archaic Petra", "Blizzard Strayer", "Bloodstained Chivalry", "Crimson Witch of Flames",
+  "Deepwood Memories", "Desert Pavilion Chronicle", "Echoes of an Offering", "Emblem of Severed Fate",
+  "Flower of Paradise Lost", "Fragment of Harmonic Whimsy", "Gilded Dreams", "Gladiator's Finale",
+  "Golden Troupe", "Heart of Depth", "Husk of Opulent Dreams", "Lavawalker", "Maiden Beloved",
+  "Marechaussee Hunter", "Nighttime Whispers in the Echoing Woods", "Noblesse Oblige", "Nymph's Dream",
+  "Obsidian Codex", "Ocean-Hued Clam", "Pale Flame", "Retracing Bolide",
+  "Scroll of the Hero of Cinder City", "Shimenawa's Reminiscence", "Song of Days Past",
+  "Tenacity of the Millelith", "Thundering Fury", "Thundersoother", "Unfinished Reverie",
+  "Vermillion Hereafter", "Viridescent Venerer", "Vourukasha's Glow", "Wanderer's Troupe"
+];
+var strongboxConfig = {};
+
+function loadStrongboxConfig() {
+  try {
+    var raw = localStorage.getItem("gt_strongbox_config");
+    strongboxConfig = raw ? JSON.parse(raw) : {};
+  } catch (e) { strongboxConfig = {}; }
+}
+function saveStrongboxConfig() {
+  localStorage.setItem("gt_strongbox_config", JSON.stringify(strongboxConfig));
+}
+function isStrongboxEligible(setName) {
+  if (strongboxConfig.hasOwnProperty(setName)) return strongboxConfig[setName];
+  return STRONGBOX_SEED.indexOf(setName) !== -1;
+}
+function toggleStrongboxEligible(setName, val) {
+  strongboxConfig[setName] = val;
+  saveStrongboxConfig();
+  renderAll();
+}
+
 function suggestTier(role, metaTeams) {
   var realTeams = (metaTeams || []).filter(function(m) { return META_TEAMS.indexOf(m) !== -1; });
   var inMeta = realTeams.length > 0;
@@ -646,12 +681,14 @@ function renderSets() {
         '<div class="set-check-grid">' + (rows || '<div class="empty" style="padding:8px 0;">No matches.</div>') + '</div>' +
       '</div>';
     }
+    var eligible = isStrongboxEligible(setName);
     return '<div class="card">' +
       '<div class="card-top">' +
         '<div><span class="char-name">' + escapeHtml(setName) + '</span></div>' +
         '<div class="stars" style="color:var(--excellent);">Target: ' + target + '</div>' +
       '</div>' +
       '<div class="meta-row"><b>Wanted by (' + wanters.length + '):</b> ' + names + '</div>' +
+      '<label class="strongbox-toggle"><input type="checkbox" ' + (eligible ? 'checked' : '') + ' onchange="toggleStrongboxEligible(\'' + setName.replace(/'/g, "\\'") + '\', this.checked)" /> Strongbox-eligible</label>' +
       '<button class="set-manage-btn" onclick="toggleSetManage(\'' + setName.replace(/'/g, "\\'") + '\')">' + (isExpanded ? 'Close' : 'Manage characters') + '</button>' +
       checklistHtml +
     '</div>';
@@ -871,6 +908,40 @@ function toggleArchiveView() {
   renderQueue();
 }
 
+function targetIsStrongboxable(t) {
+  if (!t.sets) return false;
+  var recognized = ARTIFACT_DB.filter(function(setName) {
+    return t.sets.toLowerCase().indexOf(setName.toLowerCase()) !== -1;
+  });
+  if (recognized.length === 0) return false;
+  return recognized.every(function(setName) { return isStrongboxEligible(setName); });
+}
+
+function sortByPriority(arr) {
+  return arr.slice().sort(function(a, b) {
+    if (TIER_RANK[b.tier] !== TIER_RANK[a.tier]) return TIER_RANK[b.tier] - TIER_RANK[a.tier];
+    if ((ROLE_RANK[b.role] || 0) !== (ROLE_RANK[a.role] || 0)) return (ROLE_RANK[b.role] || 0) - (ROLE_RANK[a.role] || 0);
+    return completionPct(a) - completionPct(b);
+  });
+}
+
+function renderQueueCard(t, rank) {
+  var pct = completionPct(t);
+  var barColor = pct >= 80 ? 'var(--good)' : pct >= 40 ? 'var(--filler)' : 'var(--fodder)';
+  var archTag = t.archived ? '<span class="archived-tag">Archived</span>' : '';
+  var metaChips = (t.metaTeams || []).map(function(m) { return '<span class="meta-chip">' + escapeHtml(m) + '</span>'; }).join('');
+  return '<div class="card queue-card" style="cursor:pointer;" onclick="openTargetModal(\'' + t.id + '\')">' +
+    '<div class="queue-rank">' + rank + '</div>' +
+    '<div class="queue-body">' +
+      '<div><span class="char-name">' + escapeHtml(t.name) + '</span> &nbsp; <span class="tier-badge tier-' + t.tier + '">' + t.tier + '</span>' +
+      (t.role ? ' &nbsp; <span class="role-tag">' + escapeHtml(t.role) + '</span>' : '') + archTag + '</div>' +
+      '<div>' + metaChips + '</div>' +
+      '<div class="queue-bar-track"><div class="queue-bar-fill" style="width:' + pct + '%;background:' + barColor + '"></div></div>' +
+      '<div class="queue-pct">' + pct + '% complete &middot; ' + escapeHtml(t.sets || 'no set set') + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
 function renderQueue() {
   var list = document.getElementById("queue-list");
   var targets = getTargets().filter(function(t) { return !!t.archived === showArchived; });
@@ -878,27 +949,14 @@ function renderQueue() {
     list.innerHTML = '<div class="empty">' + (showArchived ? "No archived characters yet." : "Add characters in the Targets tab to generate a farm queue.") + '</div>';
     return;
   }
-  var ranked = targets.slice().sort(function(a, b) {
-    if (TIER_RANK[b.tier] !== TIER_RANK[a.tier]) return TIER_RANK[b.tier] - TIER_RANK[a.tier];
-    if ((ROLE_RANK[b.role] || 0) !== (ROLE_RANK[a.role] || 0)) return (ROLE_RANK[b.role] || 0) - (ROLE_RANK[a.role] || 0);
-    return completionPct(a) - completionPct(b);
-  });
-  list.innerHTML = ranked.map(function(t, i) {
-    var pct = completionPct(t);
-    var barColor = pct >= 80 ? 'var(--good)' : pct >= 40 ? 'var(--filler)' : 'var(--fodder)';
-    var archTag = t.archived ? '<span class="archived-tag">Archived</span>' : '';
-    var metaChips = (t.metaTeams || []).map(function(m) { return '<span class="meta-chip">' + escapeHtml(m) + '</span>'; }).join('');
-    return '<div class="card queue-card" style="cursor:pointer;" onclick="openTargetModal(\'' + t.id + '\')">' +
-      '<div class="queue-rank">' + (i + 1) + '</div>' +
-      '<div class="queue-body">' +
-        '<div><span class="char-name">' + escapeHtml(t.name) + '</span> &nbsp; <span class="tier-badge tier-' + t.tier + '">' + t.tier + '</span>' +
-        (t.role ? ' &nbsp; <span class="role-tag">' + escapeHtml(t.role) + '</span>' : '') + archTag + '</div>' +
-        '<div>' + metaChips + '</div>' +
-        '<div class="queue-bar-track"><div class="queue-bar-fill" style="width:' + pct + '%;background:' + barColor + '"></div></div>' +
-        '<div class="queue-pct">' + pct + '% complete &middot; ' + escapeHtml(t.sets || 'no set set') + '</div>' +
-      '</div>' +
-    '</div>';
-  }).join('');
+  var mustFarm = sortByPriority(targets.filter(function(t) { return !targetIsStrongboxable(t); }));
+  var strongboxable = sortByPriority(targets.filter(function(t) { return targetIsStrongboxable(t); }));
+  var html = "";
+  html += '<div class="queue-section-header">Must farm directly (' + mustFarm.length + ')</div>';
+  html += mustFarm.length ? mustFarm.map(function(t, i) { return renderQueueCard(t, i + 1); }).join('') : '<div class="empty">Nothing here.</div>';
+  html += '<div class="queue-section-header">Strongbox-eligible (' + strongboxable.length + ')</div>';
+  html += strongboxable.length ? strongboxable.map(function(t, i) { return renderQueueCard(t, i + 1); }).join('') : '<div class="empty">Nothing here.</div>';
+  list.innerHTML = html;
 }
 
 /* ---------- ROLL LOG ---------- */
@@ -1041,6 +1099,7 @@ function escapeHtml(str) {
 
 (async function init() {
   loadDB();
+  loadStrongboxConfig();
   await Promise.all([loadCharacters(), loadArtifactSets()]);
   onSlotChange();
   renderAll();
