@@ -103,6 +103,16 @@
   .char-name { font-weight: 700; font-size: 15px; }
   .char-meta-inline { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-faint); margin-left: 6px; }
   .stars { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--filler); letter-spacing: 1px; }
+  .tier-badge { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 12px; padding: 2px 9px; border-radius: 6px; display: inline-block; }
+  .tier-S { background: #e0b84f; color: #1a1a1a; }
+  .tier-A { background: #4f8fe8; color: #1a1a1a; }
+  .tier-B { background: #6fa85a; color: #1a1a1a; }
+  .tier-C { background: #5f5d66; color: #ece9e2; }
+  .tier-D { background: #34333c; color: #8f8d97; }
+  .role-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-dim); }
+  .meta-chip { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--excellent); border: 1px solid var(--excellent); padding: 1px 7px; border-radius: 999px; margin-right: 4px; display: inline-block; margin-top: 3px; }
+  .checkbox-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .checkbox-row label { display: flex; align-items: center; gap: 5px; font-size: 12px; font-family: 'Space Grotesk', sans-serif; cursor: pointer; }
   .card-actions { display: flex; gap: 6px; }
   .icon-btn { background: none; border: 1px solid var(--line); color: var(--text-dim); border-radius: 6px; padding: 3px 8px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
   .icon-btn:hover { color: var(--text); }
@@ -286,15 +296,36 @@
       <datalist id="artifact-datalist"></datalist>
       <div class="char-autofill" id="t-autofill"></div>
     </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Tier</label>
+        <select id="t-tier">
+          <option value="S">S</option>
+          <option value="A">A</option>
+          <option value="B" selected>B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Role</label>
+        <select id="t-role">
+          <option value="">—</option>
+          <option value="On-field DPS">On-field DPS</option>
+          <option value="Off-field DPS">Off-field DPS</option>
+          <option value="Support-Healer">Support-Healer</option>
+        </select>
+      </div>
+    </div>
     <div class="field">
-      <label>Priority (1-5 stars)</label>
-      <select id="t-priority">
-        <option value="1">1 star</option>
-        <option value="2">2 stars</option>
-        <option value="3" selected>3 stars</option>
-        <option value="4">4 stars</option>
-        <option value="5">5 stars</option>
-      </select>
+      <label>Meta team(s)</label>
+      <div class="checkbox-row" id="t-meta-teams">
+        <label><input type="checkbox" value="Stellar Radiance" /> Stellar Radiance</label>
+        <label><input type="checkbox" value="Lunar" /> Lunar</label>
+        <label><input type="checkbox" value="Hexerei" /> Hexerei</label>
+        <label><input type="checkbox" value="Mavuika" /> Mavuika</label>
+        <label><input type="checkbox" value="Freeze" /> Freeze</label>
+      </div>
     </div>
     <div class="field">
       <label>Artifact set(s)</label>
@@ -306,8 +337,15 @@
       <div class="field"><label>Circlet main</label><select id="t-circlet"></select></div>
     </div>
     <div class="field">
-      <label>Substat priority order</label>
-      <input id="t-substats" placeholder="e.g. Crit Rate/DMG > ATK% > EM > ER%" />
+      <label>Substat priority (top 4, in order)</label>
+      <div class="field-row">
+        <select id="t-substat1"></select>
+        <select id="t-substat2"></select>
+      </div>
+      <div class="field-row" style="margin-top:8px;">
+        <select id="t-substat3"></select>
+        <select id="t-substat4"></select>
+      </div>
     </div>
     <div class="field">
       <label>CV threshold ("good enough")</label>
@@ -363,6 +401,10 @@ var ELEMENTS = ["Pyro", "Electro", "Hydro", "Cryo", "Anemo", "Geo", "Dendro"];
 var SANDS_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "Energy Recharge%"];
 var GOBLET_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "Physical DMG Bonus%"].concat(ELEMENTS.map(function(e) { return e + " DMG Bonus%"; }));
 var CIRCLET_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "CRIT Rate%", "CRIT DMG%", "CRIT Rate / DMG", "Healing Bonus%"];
+var SUBSTAT_OPTS = ["None", "HP", "ATK", "DEF", "HP%", "ATK%", "DEF%", "Elemental Mastery", "Energy Recharge%", "CRIT Rate%", "CRIT DMG%"];
+var TIER_RANK = { S: 5, A: 4, B: 3, C: 2, D: 1 };
+var ROLE_RANK = { "On-field DPS": 3, "Off-field DPS": 2, "Support-Healer": 1, "": 0 };
+var META_TEAMS = ["Stellar Radiance", "Lunar", "Hexerei", "Mavuika", "Freeze"];
 
 function populateSelect(sel, options, current) {
   var hasCurrent = current && options.indexOf(current) === -1;
@@ -427,9 +469,23 @@ function loadDB() {
     var raw = localStorage.getItem("gt_db");
     if (raw) db = JSON.parse(raw);
   } catch (e) { /* keep defaults */ }
+  var starToTier = { 5: "S", 4: "A", 3: "B", 2: "C", 1: "D" };
   ACCOUNTS.forEach(function(a) {
     if (!db[a]) db[a] = { targets: [], rolls: [] };
-    db[a].targets.forEach(function(t) { if (t.archived === undefined) t.archived = false; });
+    db[a].targets.forEach(function(t) {
+      if (t.archived === undefined) t.archived = false;
+      if (t.tier === undefined) {
+        t.tier = (typeof t.priority === "number" && starToTier[t.priority]) ? starToTier[t.priority] : "C";
+      }
+      if (t.role === undefined) t.role = "";
+      if (t.metaTeams === undefined) t.metaTeams = [];
+      if (t.substat1 === undefined) {
+        t.substat1 = ""; t.substat2 = ""; t.substat3 = ""; t.substat4 = "";
+        if (t.substats) {
+          t.notes = (t.notes ? t.notes + " | " : "") + "Legacy substat notes: " + t.substats;
+        }
+      }
+    });
   });
 }
 function saveDB() {
@@ -503,9 +559,9 @@ function toggleCharForSet(charName, setName, checked) {
       var status = {}; SLOTS.forEach(function(s) { status[s] = "missing"; });
       t = {
         id: "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
-        name: charName, priority: 3, sets: "", sands: "None",
+        name: charName, tier: "C", role: "", metaTeams: [], sets: "", sands: "None",
         goblet: (c && ELEMENTS.indexOf(c.element) >= 0) ? c.element + " DMG Bonus%" : "None",
-        circlet: "None", substats: "", cvThreshold: null, notes: "", status: status, archived: false
+        circlet: "None", substat1: "", substat2: "", substat3: "", substat4: "", cvThreshold: null, notes: "", status: status, archived: false
       };
       targets.push(t);
     }
@@ -593,10 +649,14 @@ function renderTargets() {
     list.innerHTML = '<div class="empty">No characters tracked for this account yet. Add one to start building the pipeline.</div>';
     return;
   }
-  var sorted = targets.slice().sort(function(a, b) { return b.priority - a.priority; });
+  var sorted = targets.slice().sort(function(a, b) {
+    if (TIER_RANK[b.tier] !== TIER_RANK[a.tier]) return TIER_RANK[b.tier] - TIER_RANK[a.tier];
+    return (ROLE_RANK[b.role] || 0) - (ROLE_RANK[a.role] || 0);
+  });
   list.innerHTML = sorted.map(function(t) {
     var c = findChar(t.name);
     var metaInline = c ? '<span class="char-meta-inline">' + c.rarity + '★ ' + c.element + ' ' + c.weapon + '</span>' : '';
+    var metaChips = (t.metaTeams || []).map(function(m) { return '<span class="meta-chip">' + escapeHtml(m) + '</span>'; }).join('');
     var slotBadges = SLOTS.map(function(s) {
       var st = t.status[s];
       var label = s.charAt(0).toUpperCase() + s.slice(1);
@@ -605,7 +665,8 @@ function renderTargets() {
     }).join('');
     return '<div class="card">' +
       '<div class="card-top">' +
-        '<div><span class="char-name">' + escapeHtml(t.name) + '</span>' + metaInline + ' &nbsp; <span class="stars">' + '★'.repeat(t.priority) + '</span></div>' +
+        '<div><span class="char-name">' + escapeHtml(t.name) + '</span>' + metaInline + ' &nbsp; <span class="tier-badge tier-' + t.tier + '">' + t.tier + '</span>' +
+        (t.role ? ' &nbsp; <span class="role-tag">' + escapeHtml(t.role) + '</span>' : '') + '<div>' + metaChips + '</div></div>' +
         '<div class="card-actions"><button class="icon-btn" onclick="openTargetModal(\'' + t.id + '\')">Edit</button></div>' +
       '</div>' +
       '<div class="meta-row"><b>Set:</b> ' + escapeHtml(t.sets || '—') + ' &nbsp; | &nbsp; <b>Sands:</b> ' + escapeHtml((t.sands && t.sands !== "None") ? t.sands : '—') +
@@ -635,25 +696,39 @@ function openTargetModal(id) {
   if (id) {
     var t = getTargets().find(function(x) { return x.id === id; });
     document.getElementById("t-name").value = t.name;
-    document.getElementById("t-priority").value = t.priority;
+    document.getElementById("t-tier").value = t.tier;
+    document.getElementById("t-role").value = t.role || "";
+    document.querySelectorAll('#t-meta-teams input').forEach(function(cb) {
+      cb.checked = (t.metaTeams || []).indexOf(cb.value) !== -1;
+    });
     document.getElementById("t-sets").value = t.sets || "";
     populateSelect(document.getElementById("t-sands"), SANDS_OPTS, t.sands || "None");
     populateSelect(document.getElementById("t-goblet"), GOBLET_OPTS, t.goblet || "None");
     populateSelect(document.getElementById("t-circlet"), CIRCLET_OPTS, t.circlet || "None");
-    document.getElementById("t-substats").value = t.substats || "";
+    populateSelect(document.getElementById("t-substat1"), SUBSTAT_OPTS, t.substat1 || "None");
+    populateSelect(document.getElementById("t-substat2"), SUBSTAT_OPTS, t.substat2 || "None");
+    populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, t.substat3 || "None");
+    populateSelect(document.getElementById("t-substat4"), SUBSTAT_OPTS, t.substat4 || "None");
     document.getElementById("t-cv").value = t.cvThreshold || "";
     document.getElementById("t-notes").value = t.notes || "";
     SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = t.status[s]; });
     document.getElementById("t-archive-btn").textContent = t.archived ? "Un-archive" : "Archive";
     onCharNameInput();
   } else {
-    ["t-name","t-sets","t-substats","t-cv","t-notes"].forEach(function(id2) {
+    ["t-name","t-sets","t-notes"].forEach(function(id2) {
       document.getElementById(id2).value = "";
     });
+    document.getElementById("t-cv").value = "";
     populateSelect(document.getElementById("t-sands"), SANDS_OPTS, "None");
     populateSelect(document.getElementById("t-goblet"), GOBLET_OPTS, "None");
     populateSelect(document.getElementById("t-circlet"), CIRCLET_OPTS, "None");
-    document.getElementById("t-priority").value = "3";
+    populateSelect(document.getElementById("t-substat1"), SUBSTAT_OPTS, "None");
+    populateSelect(document.getElementById("t-substat2"), SUBSTAT_OPTS, "None");
+    populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, "None");
+    populateSelect(document.getElementById("t-substat4"), SUBSTAT_OPTS, "None");
+    document.getElementById("t-tier").value = "B";
+    document.getElementById("t-role").value = "";
+    document.querySelectorAll('#t-meta-teams input').forEach(function(cb) { cb.checked = false; });
     document.getElementById("t-autofill").textContent = "";
     SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "missing"; });
   }
@@ -666,14 +741,20 @@ function saveTarget() {
   if (!name) { alert("Character name is required"); return; }
   var status = {};
   SLOTS.forEach(function(s) { status[s] = document.getElementById("t-status-" + s).value; });
+  var metaTeams = Array.from(document.querySelectorAll('#t-meta-teams input:checked')).map(function(cb) { return cb.value; });
   var data = {
     name: name,
-    priority: parseInt(document.getElementById("t-priority").value, 10),
+    tier: document.getElementById("t-tier").value,
+    role: document.getElementById("t-role").value,
+    metaTeams: metaTeams,
     sets: document.getElementById("t-sets").value.trim(),
-    sands: document.getElementById("t-sands").value.trim(),
-    goblet: document.getElementById("t-goblet").value.trim(),
-    circlet: document.getElementById("t-circlet").value.trim(),
-    substats: document.getElementById("t-substats").value.trim(),
+    sands: document.getElementById("t-sands").value,
+    goblet: document.getElementById("t-goblet").value,
+    circlet: document.getElementById("t-circlet").value,
+    substat1: document.getElementById("t-substat1").value,
+    substat2: document.getElementById("t-substat2").value,
+    substat3: document.getElementById("t-substat3").value,
+    substat4: document.getElementById("t-substat4").value,
     cvThreshold: parseFloat(document.getElementById("t-cv").value) || null,
     notes: document.getElementById("t-notes").value.trim(),
     status: status
@@ -726,17 +807,21 @@ function renderQueue() {
     return;
   }
   var ranked = targets.slice().sort(function(a, b) {
-    if (b.priority !== a.priority) return b.priority - a.priority;
+    if (TIER_RANK[b.tier] !== TIER_RANK[a.tier]) return TIER_RANK[b.tier] - TIER_RANK[a.tier];
+    if ((ROLE_RANK[b.role] || 0) !== (ROLE_RANK[a.role] || 0)) return (ROLE_RANK[b.role] || 0) - (ROLE_RANK[a.role] || 0);
     return completionPct(a) - completionPct(b);
   });
   list.innerHTML = ranked.map(function(t, i) {
     var pct = completionPct(t);
     var barColor = pct >= 80 ? 'var(--good)' : pct >= 40 ? 'var(--filler)' : 'var(--fodder)';
     var archTag = t.archived ? '<span class="archived-tag">Archived</span>' : '';
+    var metaChips = (t.metaTeams || []).map(function(m) { return '<span class="meta-chip">' + escapeHtml(m) + '</span>'; }).join('');
     return '<div class="card queue-card" style="cursor:pointer;" onclick="openTargetModal(\'' + t.id + '\')">' +
       '<div class="queue-rank">' + (i + 1) + '</div>' +
       '<div class="queue-body">' +
-        '<div><span class="char-name">' + escapeHtml(t.name) + '</span> &nbsp; <span class="stars">' + '★'.repeat(t.priority) + '</span>' + archTag + '</div>' +
+        '<div><span class="char-name">' + escapeHtml(t.name) + '</span> &nbsp; <span class="tier-badge tier-' + t.tier + '">' + t.tier + '</span>' +
+        (t.role ? ' &nbsp; <span class="role-tag">' + escapeHtml(t.role) + '</span>' : '') + archTag + '</div>' +
+        '<div>' + metaChips + '</div>' +
         '<div class="queue-bar-track"><div class="queue-bar-fill" style="width:' + pct + '%;background:' + barColor + '"></div></div>' +
         '<div class="queue-pct">' + pct + '% complete &middot; ' + escapeHtml(t.sets || 'no set set') + '</div>' +
       '</div>' +
