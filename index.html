@@ -196,6 +196,7 @@
     <button class="tab active" id="tab-targets" onclick="switchView('targets')">Targets</button>
     <button class="tab" id="tab-queue" onclick="switchView('queue')">Priority Queue</button>
     <button class="tab" id="tab-rolls" onclick="switchView('rolls')">Roll Log</button>
+    <button class="tab" id="tab-sets" onclick="switchView('sets')">Sets</button>
   </div>
 
   <div id="view-targets" class="view active">
@@ -252,6 +253,13 @@
       <div class="submit-row"><button onclick="addRoll()">Log roll</button></div>
     </div>
     <div id="rolls-list"></div>
+  </div>
+
+  <div id="view-sets" class="view">
+    <div class="add-row">
+      <span class="empty" style="padding:0;font-size:11px;flex:1;">Farm target = number of characters wanting it, +1 buffer if 2 or more share it</span>
+    </div>
+    <div id="sets-list"></div>
   </div>
 </div>
 
@@ -429,9 +437,11 @@ function switchView(view) {
   document.getElementById("tab-targets").classList.toggle("active", view === "targets");
   document.getElementById("tab-queue").classList.toggle("active", view === "queue");
   document.getElementById("tab-rolls").classList.toggle("active", view === "rolls");
+  document.getElementById("tab-sets").classList.toggle("active", view === "sets");
   document.getElementById("view-targets").classList.toggle("active", view === "targets");
   document.getElementById("view-queue").classList.toggle("active", view === "queue");
   document.getElementById("view-rolls").classList.toggle("active", view === "rolls");
+  document.getElementById("view-sets").classList.toggle("active", view === "sets");
   renderAll();
 }
 
@@ -440,6 +450,45 @@ function renderAll() {
   renderQueue();
   populateRollCharacterSelect();
   renderRolls();
+  renderSets();
+}
+
+/* ---------- SETS ---------- */
+
+function renderSets() {
+  var list = document.getElementById("sets-list");
+  var targets = getTargets().filter(function(t) { return !t.archived; });
+  if (targets.length === 0 || ARTIFACT_DB.length === 0) {
+    list.innerHTML = '<div class="empty">Add characters with artifact sets in the Targets tab to populate this view.</div>';
+    return;
+  }
+  var bySet = {};
+  ARTIFACT_DB.forEach(function(setName) {
+    var lower = setName.toLowerCase();
+    var wanters = targets.filter(function(t) {
+      return t.sets && t.sets.toLowerCase().indexOf(lower) !== -1;
+    });
+    if (wanters.length > 0) bySet[setName] = wanters;
+  });
+  var setNames = Object.keys(bySet).sort(function(a, b) {
+    return bySet[b].length - bySet[a].length || a.localeCompare(b);
+  });
+  if (setNames.length === 0) {
+    list.innerHTML = '<div class="empty">No recognized artifact sets found yet — check the Artifact set(s) field on your Targets match a known set name.</div>';
+    return;
+  }
+  list.innerHTML = setNames.map(function(setName) {
+    var wanters = bySet[setName];
+    var target = wanters.length + (wanters.length >= 2 ? 1 : 0);
+    var names = wanters.map(function(t) { return escapeHtml(t.name); }).join(', ');
+    return '<div class="card">' +
+      '<div class="card-top">' +
+        '<div><span class="char-name">' + escapeHtml(setName) + '</span></div>' +
+        '<div class="stars" style="color:var(--excellent);">Target: ' + target + '</div>' +
+      '</div>' +
+      '<div class="meta-row"><b>Wanted by (' + wanters.length + '):</b> ' + names + '</div>' +
+    '</div>';
+  }).join('');
 }
 
 /* ---------- TARGETS ---------- */
