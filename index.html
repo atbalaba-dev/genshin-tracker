@@ -25,7 +25,7 @@
     --good: #6fa85a;
     --excellent: #4f8fe8;
     --missing: #5f5d66;
-    --placeholder: #8f8d97;
+    --placeholder: #d97b4f;
   }
   * { box-sizing: border-box; }
   body {
@@ -403,6 +403,7 @@
 var ACCOUNTS = ["main", "alt1", "alt2"];
 var ACCOUNT_LABELS = { main: "Main (Khym)", alt1: "Alt 1 (Beelzebul)", alt2: "Alt 2 (Barbatos)" };
 var STATUS_ORDER = { missing: 0, placeholder: 1, good: 2, bis: 3 };
+var STATUS_LABEL = { missing: "Missing", placeholder: "Placeholder", good: "Good", bis: "BiS" };
 var STATUS_COLOR = { missing: "var(--missing)", placeholder: "var(--placeholder)", good: "var(--good)", bis: "var(--excellent)" };
 var SLOTS = ["flower", "plume", "sands", "goblet", "circlet"];
 
@@ -685,8 +686,8 @@ function renderTargets() {
     var slotBadges = SLOTS.map(function(s) {
       var st = t.status[s];
       var label = s.charAt(0).toUpperCase() + s.slice(1);
-      return '<span class="slot-badge" title="click to cycle status" onclick="cycleSlotStatus(\'' + t.id + '\',\'' + s + '\')">' +
-        '<span class="dot" style="background:' + STATUS_COLOR[st] + '"></span>' + label + '</span>';
+      return '<span class="slot-badge" title="Click to cycle status" onclick="cycleSlotStatus(\'' + t.id + '\',\'' + s + '\')">' +
+        '<span class="dot" style="background:' + STATUS_COLOR[st] + '"></span>' + label + ': ' + STATUS_LABEL[st] + '</span>';
     }).join('');
     var substatText = [t.substat1, t.substat2, t.substat3].filter(function(s){return s && s!=="None";}).join(' > ') || '—';
     return '<div class="card">' +
