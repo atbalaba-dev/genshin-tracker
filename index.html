@@ -369,9 +369,15 @@
       <label>Notes</label>
       <textarea id="t-notes" placeholder="optional"></textarea>
     </div>
+    <div class="field" id="t-copy-panel" style="display:none;">
+      <label>Copy this character's build info to:</label>
+      <div class="checkbox-row" id="t-copy-accounts"></div>
+      <button class="icon-btn" style="margin-top:8px;" onclick="performCopy()">Confirm copy</button>
+    </div>
     <div class="modal-actions">
       <button class="danger" id="t-delete-btn" onclick="deleteTargetFromModal()" style="display:none;">Delete</button>
       <button class="secondary" id="t-archive-btn" onclick="toggleArchiveFromModal()" style="display:none;">Archive</button>
+      <button id="t-copy-btn" onclick="toggleCopyPanel()" style="display:none;">Copy to...</button>
       <button onclick="closeTargetModal()">Cancel</button>
       <button class="primary" onclick="saveTarget()">Save</button>
     </div>
@@ -395,6 +401,7 @@
 
 <script>
 var ACCOUNTS = ["main", "alt1", "alt2"];
+var ACCOUNT_LABELS = { main: "Main (Khym)", alt1: "Alt 1 (Beelzebul)", alt2: "Alt 2 (Barbatos)" };
 var STATUS_ORDER = { missing: 0, placeholder: 1, good: 2, bis: 3 };
 var STATUS_COLOR = { missing: "var(--missing)", placeholder: "var(--placeholder)", good: "var(--good)", bis: "var(--excellent)" };
 var SLOTS = ["flower", "plume", "sands", "goblet", "circlet"];
@@ -712,6 +719,8 @@ function openTargetModal(id) {
   document.getElementById("target-modal-title").textContent = id ? "Edit character target" : "Add character target";
   document.getElementById("t-delete-btn").style.display = id ? "inline-block" : "none";
   document.getElementById("t-archive-btn").style.display = id ? "inline-block" : "none";
+  document.getElementById("t-copy-btn").style.display = id ? "inline-block" : "none";
+  document.getElementById("t-copy-panel").style.display = "none";
   if (id) {
     var t = getTargets().find(function(x) { return x.id === id; });
     document.getElementById("t-name").value = t.name;
@@ -789,6 +798,49 @@ function saveTarget() {
   saveDB();
   closeTargetModal();
   renderAll();
+}
+
+function toggleCopyPanel() {
+  var panel = document.getElementById("t-copy-panel");
+  var isOpen = panel.style.display !== "none";
+  if (isOpen) { panel.style.display = "none"; return; }
+  var otherAccounts = ACCOUNTS.filter(function(a) { return a !== currentAccount; });
+  document.getElementById("t-copy-accounts").innerHTML = otherAccounts.map(function(a) {
+    return '<label><input type="checkbox" value="' + a + '" /> ' + ACCOUNT_LABELS[a] + '</label>';
+  }).join('');
+  panel.style.display = "block";
+}
+
+function performCopy() {
+  if (!editingTargetId) return;
+  var t = getTargets().find(function(x) { return x.id === editingTargetId; });
+  var targetAccounts = Array.from(document.querySelectorAll('#t-copy-accounts input:checked')).map(function(cb) { return cb.value; });
+  if (targetAccounts.length === 0) { alert("Pick at least one account to copy to."); return; }
+  targetAccounts.forEach(function(acct) {
+    var existing = db[acct].targets.find(function(x) { return x.name.toLowerCase() === t.name.toLowerCase(); });
+    if (existing) {
+      if (!confirm(t.name + " already exists on " + ACCOUNT_LABELS[acct] + ". Overwrite their build info (status stays as-is)?")) return;
+      Object.assign(existing, {
+        tier: t.tier, role: t.role, metaTeams: (t.metaTeams || []).slice(), sets: t.sets,
+        sands: t.sands, goblet: t.goblet, circlet: t.circlet,
+        substat1: t.substat1, substat2: t.substat2, substat3: t.substat3,
+        erRequirement: t.erRequirement, cvThreshold: t.cvThreshold, notes: t.notes
+      });
+    } else {
+      var status = {}; SLOTS.forEach(function(s) { status[s] = "missing"; });
+      db[acct].targets.push({
+        id: "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+        name: t.name, tier: t.tier, role: t.role, metaTeams: (t.metaTeams || []).slice(),
+        sets: t.sets, sands: t.sands, goblet: t.goblet, circlet: t.circlet,
+        substat1: t.substat1, substat2: t.substat2, substat3: t.substat3,
+        erRequirement: t.erRequirement, cvThreshold: t.cvThreshold, notes: t.notes,
+        status: status, archived: false
+      });
+    }
+  });
+  saveDB();
+  document.getElementById("t-copy-panel").style.display = "none";
+  alert("Copied " + t.name + " to: " + targetAccounts.map(function(a) { return ACCOUNT_LABELS[a]; }).join(", "));
 }
 
 function toggleArchiveFromModal() {
