@@ -123,6 +123,15 @@
   .dot { width: 7px; height: 7px; border-radius: 50%; }
   .char-link { cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
   .char-link:hover { color: var(--excellent); }
+  .set-manage-btn { background: none; border: 1px solid var(--line); color: var(--text-dim); border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; margin-top: 8px; }
+  .set-manage-btn:hover { color: var(--text); }
+  .set-checklist { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 10px; }
+  .set-search { width: 100%; background: var(--bg); border: 1px solid var(--line); color: var(--text); border-radius: 6px; padding: 6px 9px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; margin-bottom: 8px; }
+  .set-check-grid { max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
+  .set-check-row { display: flex; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+  .set-check-row:hover { background: var(--surface-hover); }
+  .set-check-row input { cursor: pointer; }
+  .set-check-row .cn-meta { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--text-faint); }
   .archived-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--excellent); border: 1px solid var(--excellent); padding: 2px 6px; border-radius: 999px; margin-left: 8px; }
 
   .queue-card { display: flex; align-items: center; gap: 14px; }
@@ -261,6 +270,7 @@
     <div class="add-row">
       <span class="empty" style="padding:0;font-size:11px;flex:1;">Farm target = number of characters wanting it, +1 buffer if 2 or more share it</span>
     </div>
+    <input class="set-search" id="sets-view-search" placeholder="Search sets (e.g. Furnace, Marechaussee)..." onkeyup="onSetsViewSearch()" />
     <div id="sets-list"></div>
   </div>
 </div>
@@ -457,40 +467,111 @@ function renderAll() {
 
 /* ---------- SETS ---------- */
 
+var expandedSet = null;
+var setSearchText = "";
+var setsViewFilter = "";
+
+function onSetsViewSearch() {
+  setsViewFilter = document.getElementById("sets-view-search").value;
+  renderSets();
+}
+
+function toggleSetManage(setName) {
+  expandedSet = (expandedSet === setName) ? null : setName;
+  setSearchText = "";
+  renderSets();
+}
+
+function onSetSearchInput() {
+  setSearchText = document.getElementById("set-search-input").value;
+  renderSets();
+  var el = document.getElementById("set-search-input");
+  if (el) { el.focus(); el.selectionStart = el.selectionEnd = el.value.length; }
+}
+
+function charHasSet(t, setName) {
+  if (!t.sets) return false;
+  return t.sets.split(",").map(function(s) { return s.trim().toLowerCase(); }).indexOf(setName.toLowerCase()) !== -1;
+}
+
+function toggleCharForSet(charName, setName, checked) {
+  var targets = getTargets();
+  var t = targets.find(function(x) { return x.name.toLowerCase() === charName.toLowerCase(); });
+  if (checked) {
+    if (!t) {
+      var c = findChar(charName);
+      var status = {}; SLOTS.forEach(function(s) { status[s] = "missing"; });
+      t = {
+        id: "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+        name: charName, priority: 3, sets: "", sands: "None",
+        goblet: (c && ELEMENTS.indexOf(c.element) >= 0) ? c.element + " DMG Bonus%" : "None",
+        circlet: "None", substats: "", cvThreshold: null, notes: "", status: status, archived: false
+      };
+      targets.push(t);
+    }
+    var list = t.sets ? t.sets.split(",").map(function(s) { return s.trim(); }).filter(Boolean) : [];
+    if (list.map(function(s){return s.toLowerCase();}).indexOf(setName.toLowerCase()) === -1) list.push(setName);
+    t.sets = list.join(", ");
+  } else if (t) {
+    var list2 = t.sets ? t.sets.split(",").map(function(s) { return s.trim(); }).filter(Boolean) : [];
+    list2 = list2.filter(function(s) { return s.toLowerCase() !== setName.toLowerCase(); });
+    t.sets = list2.join(", ");
+  }
+  saveDB();
+  renderAll();
+}
+
 function renderSets() {
   var list = document.getElementById("sets-list");
-  var targets = getTargets().filter(function(t) { return !t.archived; });
-  if (targets.length === 0 || ARTIFACT_DB.length === 0) {
-    list.innerHTML = '<div class="empty">Add characters with artifact sets in the Targets tab to populate this view.</div>';
+  var allTargets = getTargets().filter(function(t) { return !t.archived; });
+  if (ARTIFACT_DB.length === 0) {
+    list.innerHTML = '<div class="empty">Artifact reference list not loaded yet.</div>';
     return;
   }
   var bySet = {};
   ARTIFACT_DB.forEach(function(setName) {
-    var lower = setName.toLowerCase();
-    var wanters = targets.filter(function(t) {
-      return t.sets && t.sets.toLowerCase().indexOf(lower) !== -1;
-    });
-    if (wanters.length > 0) bySet[setName] = wanters;
+    bySet[setName] = allTargets.filter(function(t) { return charHasSet(t, setName); });
   });
   var setNames = Object.keys(bySet).sort(function(a, b) {
     return bySet[b].length - bySet[a].length || a.localeCompare(b);
   });
-  if (setNames.length === 0) {
-    list.innerHTML = '<div class="empty">No recognized artifact sets found yet — check the Artifact set(s) field on your Targets match a known set name.</div>';
-    return;
+  if (setsViewFilter.trim()) {
+    var f = setsViewFilter.trim().toLowerCase();
+    setNames = setNames.filter(function(s) { return s.toLowerCase().indexOf(f) !== -1; });
   }
   list.innerHTML = setNames.map(function(setName) {
     var wanters = bySet[setName];
     var target = wanters.length + (wanters.length >= 2 ? 1 : 0);
     var names = wanters.map(function(t) {
       return '<span class="char-link" onclick="openTargetModal(\'' + t.id + '\')">' + escapeHtml(t.name) + '</span>';
-    }).join(', ');
+    }).join(', ') || '<span style="color:var(--text-faint);">none yet</span>';
+    var isExpanded = expandedSet === setName;
+    var checklistHtml = "";
+    if (isExpanded) {
+      var filtered = CHAR_DB.filter(function(c) { return c.name.toLowerCase().indexOf(setSearchText.toLowerCase()) !== -1; });
+      var rows = filtered.map(function(c) {
+        var checked = allTargets.concat(getTargets().filter(function(t){return t.archived;})).some(function(t) {
+          return t.name.toLowerCase() === c.name.toLowerCase() && charHasSet(t, setName);
+        });
+        return '<label class="set-check-row">' +
+          '<input type="checkbox" ' + (checked ? 'checked' : '') + ' onchange="toggleCharForSet(\'' + c.name.replace(/'/g, "\\'") + '\',\'' + setName.replace(/'/g, "\\'") + '\', this.checked)" />' +
+          '<span>' + escapeHtml(c.name) + '</span>' +
+          '<span class="cn-meta">' + c.rarity + '★ ' + c.element + '</span>' +
+        '</label>';
+      }).join('');
+      checklistHtml = '<div class="set-checklist">' +
+        '<input class="set-search" id="set-search-input" placeholder="Search characters..." value="' + escapeHtml(setSearchText) + '" onkeyup="onSetSearchInput()" />' +
+        '<div class="set-check-grid">' + (rows || '<div class="empty" style="padding:8px 0;">No matches.</div>') + '</div>' +
+      '</div>';
+    }
     return '<div class="card">' +
       '<div class="card-top">' +
         '<div><span class="char-name">' + escapeHtml(setName) + '</span></div>' +
         '<div class="stars" style="color:var(--excellent);">Target: ' + target + '</div>' +
       '</div>' +
       '<div class="meta-row"><b>Wanted by (' + wanters.length + '):</b> ' + names + '</div>' +
+      '<button class="set-manage-btn" onclick="toggleSetManage(\'' + setName.replace(/'/g, "\\'") + '\')">' + (isExpanded ? 'Close' : 'Manage characters') + '</button>' +
+      checklistHtml +
     '</div>';
   }).join('');
 }
