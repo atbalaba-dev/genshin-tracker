@@ -26,6 +26,7 @@
     --excellent: #4f8fe8;
     --missing: #5f5d66;
     --placeholder: #d97b4f;
+    --offset: #4f9bc9;
   }
   * { box-sizing: border-box; }
   body {
@@ -362,13 +363,13 @@
     <div class="field">
       <label>Per-slot status</label>
       <div class="field-row" style="flex-wrap:wrap;gap:6px;">
-        <select id="t-status-flower"><option value="missing">Flower: Missing</option><option value="placeholder">Flower: Placeholder</option><option value="good">Flower: Good</option><option value="bis">Flower: BiS</option></select>
-        <select id="t-status-plume"><option value="missing">Plume: Missing</option><option value="placeholder">Plume: Placeholder</option><option value="good">Plume: Good</option><option value="bis">Plume: BiS</option></select>
+        <select id="t-status-flower"><option value="missing">Flower: Missing</option><option value="placeholder">Flower: Placeholder</option><option value="offset">Flower: Offset</option><option value="good">Flower: Good</option><option value="bis">Flower: BiS</option></select>
+        <select id="t-status-plume"><option value="missing">Plume: Missing</option><option value="placeholder">Plume: Placeholder</option><option value="offset">Plume: Offset</option><option value="good">Plume: Good</option><option value="bis">Plume: BiS</option></select>
       </div>
       <div class="field-row" style="flex-wrap:wrap;gap:6px;margin-top:6px;">
-        <select id="t-status-sands"><option value="missing">Sands: Missing</option><option value="placeholder">Sands: Placeholder</option><option value="good">Sands: Good</option><option value="bis">Sands: BiS</option></select>
-        <select id="t-status-goblet"><option value="missing">Goblet: Missing</option><option value="placeholder">Goblet: Placeholder</option><option value="good">Goblet: Good</option><option value="bis">Goblet: BiS</option></select>
-        <select id="t-status-circlet"><option value="missing">Circlet: Missing</option><option value="placeholder">Circlet: Placeholder</option><option value="good">Circlet: Good</option><option value="bis">Circlet: BiS</option></select>
+        <select id="t-status-sands"><option value="missing">Sands: Missing</option><option value="placeholder">Sands: Placeholder</option><option value="offset">Sands: Offset</option><option value="good">Sands: Good</option><option value="bis">Sands: BiS</option></select>
+        <select id="t-status-goblet"><option value="missing">Goblet: Missing</option><option value="placeholder">Goblet: Placeholder</option><option value="offset">Goblet: Offset</option><option value="good">Goblet: Good</option><option value="bis">Goblet: BiS</option></select>
+        <select id="t-status-circlet"><option value="missing">Circlet: Missing</option><option value="placeholder">Circlet: Placeholder</option><option value="offset">Circlet: Offset</option><option value="good">Circlet: Good</option><option value="bis">Circlet: BiS</option></select>
       </div>
     </div>
     <div class="field">
@@ -408,9 +409,9 @@
 <script>
 var ACCOUNTS = ["main", "alt1", "alt2"];
 var ACCOUNT_LABELS = { main: "Main (Khym)", alt1: "Alt 1 (Beelzebul)", alt2: "Alt 2 (Barbatos)" };
-var STATUS_ORDER = { missing: 0, placeholder: 1, good: 2, bis: 3 };
-var STATUS_LABEL = { missing: "Missing", placeholder: "Placeholder", good: "Good", bis: "BiS" };
-var STATUS_COLOR = { missing: "var(--missing)", placeholder: "var(--placeholder)", good: "var(--good)", bis: "var(--excellent)" };
+var STATUS_ORDER = { missing: 0, placeholder: 1, offset: 2, good: 3, bis: 4 };
+var STATUS_LABEL = { missing: "Missing", placeholder: "Placeholder", offset: "Offset", good: "Good", bis: "BiS" };
+var STATUS_COLOR = { missing: "var(--missing)", placeholder: "var(--placeholder)", offset: "var(--offset)", good: "var(--good)", bis: "var(--excellent)" };
 var SLOTS = ["flower", "plume", "sands", "goblet", "circlet"];
 
 var ELEMENTS = ["Pyro", "Electro", "Hydro", "Cryo", "Anemo", "Geo", "Dendro"];
@@ -738,7 +739,7 @@ function renderSets() {
 function getTargets() { return db[currentAccount].targets; }
 
 function completionPct(t) {
-  var vals = SLOTS.map(function(s) { return STATUS_ORDER[t.status[s]] >= 2 ? 1 : 0; });
+  var vals = SLOTS.map(function(s) { return STATUS_ORDER[t.status[s]] >= 3 ? 1 : 0; });
   var sum = vals.reduce(function(a, b) { return a + b; }, 0);
   return Math.round((sum / 5) * 100);
 }
@@ -783,7 +784,7 @@ function renderTargets() {
 function cycleSlotStatus(id, slot) {
   var t = getTargets().find(function(x) { return x.id === id; });
   if (!t) return;
-  var order = ["missing", "placeholder", "good", "bis"];
+  var order = ["missing", "placeholder", "offset", "good", "bis"];
   var idx = order.indexOf(t.status[slot]);
   t.status[slot] = order[(idx + 1) % order.length];
   saveDB();
