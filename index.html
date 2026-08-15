@@ -965,12 +965,13 @@ function sortByPriority(arr) {
   });
 }
 
-function renderQueueCard(t, rank) {
+function renderQueueCard(t, rank, dimmed) {
   var pct = completionPct(t);
   var barColor = pct >= 80 ? 'var(--good)' : pct >= 40 ? 'var(--filler)' : 'var(--fodder)';
   var archTag = t.archived ? '<span class="archived-tag">Archived</span>' : '';
   var metaChips = (t.metaTeams || []).map(function(m) { return '<span class="meta-chip">' + escapeHtml(m) + '</span>'; }).join('');
-  return '<div class="card queue-card" style="cursor:pointer;" onclick="openTargetModal(\'' + t.id + '\')">' +
+  var style = dimmed ? ' style="cursor:pointer;opacity:0.5;"' : ' style="cursor:pointer;"';
+  return '<div class="card queue-card"' + style + ' onclick="openTargetModal(\'' + t.id + '\')">' +
     '<div class="queue-rank">' + rank + '</div>' +
     '<div class="queue-body">' +
       '<div><span class="char-name">' + escapeHtml(t.name) + '</span> &nbsp; <span class="tier-badge tier-' + t.tier + '">' + t.tier + '</span>' +
@@ -989,13 +990,24 @@ function renderQueue() {
     list.innerHTML = '<div class="empty">' + (showArchived ? "No archived characters yet." : "Add characters in the Targets tab to generate a farm queue.") + '</div>';
     return;
   }
-  var mustFarm = sortByPriority(targets.filter(function(t) { return !targetIsStrongboxable(t); }));
-  var strongboxable = sortByPriority(targets.filter(function(t) { return targetIsStrongboxable(t); }));
   var html = "";
+  if (showArchived) {
+    var archivedSorted = sortByPriority(targets);
+    html += archivedSorted.map(function(t, i) { return renderQueueCard(t, i + 1, false); }).join('');
+    list.innerHTML = html;
+    return;
+  }
+  var complete = targets.filter(function(t) { return completionPct(t) === 100; });
+  var active = targets.filter(function(t) { return completionPct(t) !== 100; });
+  var mustFarm = sortByPriority(active.filter(function(t) { return !targetIsStrongboxable(t); }));
+  var strongboxable = sortByPriority(active.filter(function(t) { return targetIsStrongboxable(t); }));
+  var completeSorted = sortByPriority(complete);
   html += '<div class="queue-section-header">Must farm directly (' + mustFarm.length + ')</div>';
-  html += mustFarm.length ? mustFarm.map(function(t, i) { return renderQueueCard(t, i + 1); }).join('') : '<div class="empty">Nothing here.</div>';
+  html += mustFarm.length ? mustFarm.map(function(t, i) { return renderQueueCard(t, i + 1, false); }).join('') : '<div class="empty">Nothing here.</div>';
   html += '<div class="queue-section-header">Strongbox-eligible (' + strongboxable.length + ')</div>';
-  html += strongboxable.length ? strongboxable.map(function(t, i) { return renderQueueCard(t, i + 1); }).join('') : '<div class="empty">Nothing here.</div>';
+  html += strongboxable.length ? strongboxable.map(function(t, i) { return renderQueueCard(t, i + 1, false); }).join('') : '<div class="empty">Nothing here.</div>';
+  html += '<div class="queue-section-header">Complete (' + completeSorted.length + ')</div>';
+  html += completeSorted.length ? completeSorted.map(function(t, i) { return renderQueueCard(t, i + 1, true); }).join('') : '<div class="empty">Nothing here.</div>';
   list.innerHTML = html;
 }
 
