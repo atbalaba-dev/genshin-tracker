@@ -133,6 +133,7 @@
   .dot { width: 7px; height: 7px; border-radius: 50%; }
   .char-link { cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
   .char-link:hover { color: var(--excellent); }
+  .char-link.actively-hunting { color: var(--good); font-weight: 700; }
   .account-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-left: 4px; }
   .set-manage-btn { background: none; border: 1px solid var(--line); color: var(--text-dim); border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; margin-top: 8px; }
   .set-manage-btn:hover { color: var(--text); }
@@ -293,6 +294,7 @@
 <div class="modal-backdrop" id="target-backdrop">
   <div class="modal">
     <h2 id="target-modal-title">Add character target</h2>
+    <div class="sub" id="target-modal-account" style="margin:-8px 0 14px;"></div>
     <div class="field">
       <label>Character</label>
       <input id="t-name" list="char-datalist" placeholder="Start typing a character name..." oninput="onCharNameInput()" />
@@ -646,7 +648,7 @@ function toggleRecommended(charName, setName, checked) {
 function openOrPromoteTarget(charName) {
   var t = getTargets().find(function(x) { return x.name.toLowerCase() === charName.toLowerCase(); });
   if (t) { openTargetModal(t.id); return; }
-  if (!confirm(charName + " isn't an active farming target yet. Add them as one now?")) return;
+  if (!confirm(charName + " isn't an active farming target on " + ACCOUNT_LABELS[currentAccount] + " yet. Add them as one now?")) return;
   var c = findChar(charName);
   var status = {}; SLOTS.forEach(function(s) { status[s] = "missing"; });
   var newT = {
@@ -690,10 +692,11 @@ function renderSets() {
     var target = recNames.length + (recNames.length >= 2 ? 1 : 0);
     var names = recNames.map(function(n) {
       var activeAccounts = accountsActivelyFarmingSet(n, setName);
+      var activeClass = activeAccounts.length > 0 ? ' actively-hunting' : '';
       var dots = activeAccounts.map(function(a) {
         return '<span class="dot account-dot" style="background:var(--' + a + ')" title="Farming on ' + ACCOUNT_LABELS[a] + '"></span>';
       }).join('');
-      return '<span class="char-link" onclick="openOrPromoteTarget(\'' + n.replace(/'/g, "\\'") + '\')">' + escapeHtml(n) + '</span>' + dots;
+      return '<span class="char-link' + activeClass + '" onclick="openOrPromoteTarget(\'' + n.replace(/'/g, "\\'") + '\')">' + escapeHtml(n) + '</span>' + dots;
     }).join(', ') || '<span style="color:var(--text-faint);">none yet</span>';
     var isExpanded = expandedSet === setName;
     var checklistHtml = "";
@@ -790,6 +793,7 @@ function cycleSlotStatus(id, slot) {
 function openTargetModal(id) {
   editingTargetId = id || null;
   document.getElementById("target-modal-title").textContent = id ? "Edit character target" : "Add character target";
+  document.getElementById("target-modal-account").textContent = "Account: " + ACCOUNT_LABELS[currentAccount];
   document.getElementById("t-delete-btn").style.display = id ? "inline-block" : "none";
   document.getElementById("t-archive-btn").style.display = id ? "inline-block" : "none";
   document.getElementById("t-copy-btn").style.display = id ? "inline-block" : "none";
