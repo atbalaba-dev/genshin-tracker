@@ -72,8 +72,8 @@
     "sandsAlt": "HP%",
     "goblet_hint": "HP",
     "goblet_alt_hint": null,
-    "circlet_hint": null,
-    "circlet_alt_hint": null,
+    "circlet_hint": "HP",
+    "circlet_alt_hint": "HB",
     "sets": [
       "Deepwood Memories"
     ],
@@ -245,8 +245,8 @@
     "notes": "GO reference \u2014 optimize for: HP | GO CRIT constraint (role-unverified, review before trusting): 45"
   },
   "Cyno": {
-    "sands": null,
-    "sandsAlt": null,
+    "sands": "Elemental Mastery",
+    "sandsAlt": "ATK%",
     "goblet_hint": "DMG",
     "goblet_alt_hint": "EM",
     "circlet_hint": "Crit",
@@ -262,8 +262,8 @@
     "sandsAlt": "HP%",
     "goblet_hint": "EM",
     "goblet_alt_hint": "HP",
-    "circlet_hint": null,
-    "circlet_alt_hint": null,
+    "circlet_hint": "Crit",
+    "circlet_alt_hint": "EM",
     "sets": [
       "Tenacity of the Millelith",
       "Scroll of the Hero of Cinder City",
@@ -277,8 +277,8 @@
     "sandsAlt": null,
     "goblet_hint": "HP",
     "goblet_alt_hint": null,
-    "circlet_hint": null,
-    "circlet_alt_hint": null,
+    "circlet_hint": "HP",
+    "circlet_alt_hint": "HB",
     "sets": [
       "Noblesse Oblige"
     ],
@@ -395,8 +395,8 @@
     "notes": "GO reference \u2014 optimize for: HP | GO CRIT constraint (role-unverified, review before trusting): 45"
   },
   "Gaming": {
-    "sands": null,
-    "sandsAlt": null,
+    "sands": "Elemental Mastery",
+    "sandsAlt": "Energy Recharge%",
     "goblet_hint": "DMG",
     "goblet_alt_hint": null,
     "circlet_hint": "Crit",
@@ -466,8 +466,8 @@
     "notes": "GO reference \u2014 optimize for: ATK"
   },
   "Ineffa": {
-    "sands": null,
-    "sandsAlt": null,
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
     "goblet_hint": "ATK",
     "goblet_alt_hint": "EM",
     "circlet_hint": "Crit",
@@ -649,8 +649,8 @@
     "sandsAlt": "HP%",
     "goblet_hint": "HP",
     "goblet_alt_hint": null,
-    "circlet_hint": null,
-    "circlet_alt_hint": null,
+    "circlet_hint": "HB",
+    "circlet_alt_hint": "HP",
     "sets": [
       "Noblesse Oblige",
       "Ocean-Hued Clam"
@@ -919,10 +919,10 @@
     "notes": "GO reference \u2014 optimize for: Fiery Passion Plunge DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
   },
   "Venti": {
-    "sands": null,
-    "sandsAlt": null,
-    "goblet_hint": null,
-    "goblet_alt_hint": null,
+    "sands": "Elemental Mastery",
+    "sandsAlt": "ATK%",
+    "goblet_hint": "EM",
+    "goblet_alt_hint": "DMG",
     "circlet_hint": "EM",
     "circlet_alt_hint": "Crit",
     "sets": [
@@ -974,8 +974,8 @@
     "notes": "GO reference \u2014 optimize for: Rebuke: Vaulting Fist DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
   },
   "Xiangling": {
-    "sands": null,
-    "sandsAlt": null,
+    "sands": "Energy Recharge%",
+    "sandsAlt": "Elemental Mastery",
     "goblet_hint": "DMG",
     "goblet_alt_hint": null,
     "circlet_hint": "Crit",
