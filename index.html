@@ -330,7 +330,7 @@
         <label><input type="checkbox" value="Stellar Radiance" onchange="updateSuggestedTier()" /> Stellar Radiance</label>
         <label><input type="checkbox" value="Lunar" onchange="updateSuggestedTier()" /> Lunar</label>
         <label><input type="checkbox" value="Hexerei" onchange="updateSuggestedTier()" /> Hexerei</label>
-        <label><input type="checkbox" value="Mavuika" onchange="updateSuggestedTier()" /> Mavuika</label>
+        <label><input type="checkbox" value="Nightsoul" onchange="updateSuggestedTier()" /> Nightsoul</label>
         <label><input type="checkbox" value="Freeze" onchange="updateSuggestedTier()" /> Freeze</label>
         <label><input type="checkbox" value="Off-meta" onchange="updateSuggestedTier()" /> Off-meta</label>
       </div>
@@ -421,7 +421,7 @@ var CIRCLET_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "CRIT Ra
 var SUBSTAT_OPTS = ["None", "HP", "ATK", "DEF", "HP%", "ATK%", "DEF%", "Elemental Mastery", "Energy Recharge%", "CRIT Rate%", "CRIT DMG%"];
 var TIER_RANK = { S: 5, A: 4, B: 3, C: 2, D: 1 };
 var ROLE_RANK = { "Support-Healer": 3, "Off-field DPS": 2, "On-field DPS": 1, "": 0 };
-var META_TEAMS = ["Stellar Radiance", "Lunar", "Hexerei", "Mavuika", "Freeze"];
+var META_TEAMS = ["Stellar Radiance", "Lunar", "Hexerei", "Nightsoul", "Freeze"];
 
 var STRONGBOX_SEED = [
   "Fragment of Harmonic Whimsy", "Unfinished Reverie", "Scroll of the Hero of Cinder City",
@@ -561,6 +561,7 @@ function loadDB() {
       }
       if (t.role === undefined) t.role = "";
       if (t.metaTeams === undefined) t.metaTeams = [];
+      t.metaTeams = t.metaTeams.map(function(m) { return m === "Mavuika" ? "Nightsoul" : m; });
       if (t.substat1 === undefined) {
         t.substat1 = ""; t.substat2 = ""; t.substat3 = "";
         if (t.substats) {
