@@ -133,6 +133,7 @@
   .dot { width: 7px; height: 7px; border-radius: 50%; }
   .char-link { cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
   .char-link:hover { color: var(--excellent); }
+  .char-link.actively-hunting { color: var(--good); font-weight: 700; }
   .set-manage-btn { background: none; border: 1px solid var(--line); color: var(--text-dim); border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; margin-top: 8px; }
   .set-manage-btn:hover { color: var(--text); }
   .set-checklist { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 10px; }
@@ -281,7 +282,7 @@
 
   <div id="view-sets" class="view">
     <div class="add-row">
-      <span class="empty" style="padding:0;font-size:11px;flex:1;">Notes-only list of who could use each set — doesn't affect Priority Queue. Target = recommended count, +1 buffer if 2 or more.</span>
+      <span class="empty" style="padding:0;font-size:11px;flex:1;">Notes-only list of who could use each set — doesn't affect Priority Queue. <span style="color:var(--good);font-weight:700;">Green name</span> = actively farming this exact set right now.</span>
     </div>
     <input class="set-search" id="sets-view-search" placeholder="Search sets (e.g. Furnace, Marechaussee)..." onkeyup="onSetsViewSearch()" />
     <div id="sets-list"></div>
@@ -645,6 +646,12 @@ function openOrPromoteTarget(charName) {
   openTargetModal(newT.id);
 }
 
+function isActivelyFarmingSet(charName, setName) {
+  var t = getTargets().find(function(x) { return x.name.toLowerCase() === charName.toLowerCase() && !x.archived; });
+  if (!t || !t.sets) return false;
+  return t.sets.split(",").map(function(s) { return s.trim().toLowerCase(); }).indexOf(setName.toLowerCase()) !== -1;
+}
+
 function renderSets() {
   var list = document.getElementById("sets-list");
   if (ARTIFACT_DB.length === 0) {
@@ -665,7 +672,8 @@ function renderSets() {
     var recNames = bySet[setName];
     var target = recNames.length + (recNames.length >= 2 ? 1 : 0);
     var names = recNames.map(function(n) {
-      return '<span class="char-link" onclick="openOrPromoteTarget(\'' + n.replace(/'/g, "\\'") + '\')">' + escapeHtml(n) + '</span>';
+      var activeClass = isActivelyFarmingSet(n, setName) ? ' actively-hunting' : '';
+      return '<span class="char-link' + activeClass + '" onclick="openOrPromoteTarget(\'' + n.replace(/'/g, "\\'") + '\')">' + escapeHtml(n) + '</span>';
     }).join(', ') || '<span style="color:var(--text-faint);">none yet</span>';
     var isExpanded = expandedSet === setName;
     var checklistHtml = "";
