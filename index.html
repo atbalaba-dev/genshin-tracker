@@ -357,6 +357,10 @@
       <input id="t-er" type="number" placeholder="e.g. 160" />
     </div>
     <div class="field">
+      <label>Required Crit Rate (%) — total build target, reference only</label>
+      <input id="t-critreq" type="number" placeholder="e.g. 70" />
+    </div>
+    <div class="field">
       <label>CV threshold ("good enough")</label>
       <input id="t-cv" type="number" placeholder="e.g. 20" />
     </div>
@@ -485,6 +489,15 @@ var editingTargetId = null;
 var showArchived = false;
 var CHAR_DB = [];
 var ARTIFACT_DB = [];
+var GO_REFERENCE = {};
+var pendingGoRefSets = null;
+
+async function loadGoReference() {
+  try {
+    var res = await fetch("go_reference.json?t=" + Date.now());
+    GO_REFERENCE = await res.json();
+  } catch (e) { GO_REFERENCE = {}; }
+}
 var db = { main: { targets: [], rolls: [] }, alt1: { targets: [], rolls: [] }, alt2: { targets: [], rolls: [] } };
 
 async function loadCharacters() {
@@ -515,6 +528,8 @@ function findChar(name) {
   return CHAR_DB.find(function(c) { return c.name.toLowerCase() === lower; }) || null;
 }
 
+var GOBLET_HINT_MAP = { "HP": "HP%", "ATK": "ATK%", "DEF": "DEF%", "EM": "Elemental Mastery", "ER": "Energy Recharge%", "HB": "Healing Bonus%" };
+
 function onCharNameInput() {
   var name = document.getElementById("t-name").value;
   var c = findChar(name);
@@ -527,6 +542,34 @@ function onCharNameInput() {
     }
   } else {
     el.textContent = name ? "Not in reference list — will still save fine, just no auto stats." : "";
+  }
+
+  // GO reference auto-fill, new entries only
+  pendingGoRefSets = null;
+  if (!editingTargetId && name) {
+    var refKey = Object.keys(GO_REFERENCE).find(function(k) { return k.toLowerCase() === name.trim().toLowerCase(); });
+    if (refKey) {
+      var ref = GO_REFERENCE[refKey];
+      if (ref.sands) document.getElementById("t-sands").value = ref.sands;
+      if (ref.goblet_hint) {
+        if (ref.goblet_hint === "DMG" && c && ELEMENTS.indexOf(c.element) >= 0) {
+          gobletSel.value = c.element + " DMG Bonus%";
+        } else if (GOBLET_HINT_MAP[ref.goblet_hint]) {
+          gobletSel.value = GOBLET_HINT_MAP[ref.goblet_hint];
+        }
+      }
+      // Circlet intentionally left manual -- "Crit" hint is ambiguous between CR/CD/combined
+      if (ref.er) document.getElementById("t-er").value = ref.er;
+      if (ref.sets && ref.sets.length) {
+        document.getElementById("t-sets").value = ref.sets[0];
+        pendingGoRefSets = { charName: refKey, sets: ref.sets };
+      }
+      if (ref.notes) {
+        var notesEl = document.getElementById("t-notes");
+        if (!notesEl.value) notesEl.value = ref.notes;
+      }
+      el.textContent += " — auto-filled from Genshin Optimizer reference (review before trusting, may be outdated)";
+    }
   }
 }
 
@@ -569,6 +612,7 @@ function loadDB() {
         }
       }
       if (t.erRequirement === undefined) t.erRequirement = null;
+      if (t.critRequirement === undefined) t.critRequirement = null;
     });
   });
 }
@@ -657,7 +701,7 @@ function openOrPromoteTarget(charName) {
     id: "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
     name: charName, tier: "C", role: "", metaTeams: [], sets: "", sands: "None",
     goblet: (c && ELEMENTS.indexOf(c.element) >= 0) ? c.element + " DMG Bonus%" : "None",
-    circlet: "None", substat1: "", substat2: "", substat3: "", erRequirement: null, cvThreshold: null, notes: "", status: status, archived: false
+    circlet: "None", substat1: "", substat2: "", substat3: "", erRequirement: null, critRequirement: null, cvThreshold: null, notes: "", status: status, archived: false
   };
   getTargets().push(newT);
   saveDB();
@@ -775,7 +819,7 @@ function renderTargets() {
       '</div>' +
       '<div class="meta-row"><b>Set:</b> ' + escapeHtml(t.sets || '—') + ' &nbsp; | &nbsp; <b>Sands:</b> ' + escapeHtml((t.sands && t.sands !== "None") ? t.sands : '—') +
         ' &nbsp; <b>Goblet:</b> ' + escapeHtml((t.goblet && t.goblet !== "None") ? t.goblet : '—') + ' &nbsp; <b>Circlet:</b> ' + escapeHtml((t.circlet && t.circlet !== "None") ? t.circlet : '—') + '</div>' +
-      '<div class="meta-row"><b>Substats:</b> ' + substatText + ' &nbsp; | &nbsp; <b>ER req:</b> ' + (t.erRequirement || '—') + ' &nbsp; | &nbsp; <b>CV target:</b> ' + (t.cvThreshold || '—') +
+      '<div class="meta-row"><b>Substats:</b> ' + substatText + ' &nbsp; | &nbsp; <b>ER req:</b> ' + (t.erRequirement || '—') + ' &nbsp; | &nbsp; <b>Crit req:</b> ' + (t.critRequirement || '—') + ' &nbsp; | &nbsp; <b>CV target:</b> ' + (t.cvThreshold || '—') +
         ' &nbsp; | &nbsp; <b>Complete:</b> ' + completionPct(t) + '%</div>' +
       '<div class="slot-badges">' + slotBadges + '</div>' +
     '</div>';
@@ -816,6 +860,7 @@ function openTargetModal(id) {
     populateSelect(document.getElementById("t-substat2"), SUBSTAT_OPTS, t.substat2 || "None");
     populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, t.substat3 || "None");
     document.getElementById("t-er").value = t.erRequirement || "";
+    document.getElementById("t-critreq").value = t.critRequirement || "";
     document.getElementById("t-cv").value = t.cvThreshold || "";
     document.getElementById("t-notes").value = t.notes || "";
     SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = t.status[s]; });
@@ -833,6 +878,7 @@ function openTargetModal(id) {
     populateSelect(document.getElementById("t-substat2"), SUBSTAT_OPTS, "None");
     populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, "None");
     document.getElementById("t-er").value = "";
+    document.getElementById("t-critreq").value = "";
     document.getElementById("t-tier").value = "B";
     document.getElementById("t-role").value = "";
     document.querySelectorAll('#t-meta-teams input').forEach(function(cb) { cb.checked = false; });
@@ -862,6 +908,7 @@ function saveTarget() {
     substat2: document.getElementById("t-substat2").value,
     substat3: document.getElementById("t-substat3").value,
     erRequirement: parseFloat(document.getElementById("t-er").value) || null,
+    critRequirement: parseFloat(document.getElementById("t-critreq").value) || null,
     cvThreshold: parseFloat(document.getElementById("t-cv").value) || null,
     notes: document.getElementById("t-notes").value.trim(),
     status: status
@@ -873,7 +920,15 @@ function saveTarget() {
     data.id = "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
     data.archived = false;
     getTargets().push(data);
+    if (pendingGoRefSets && pendingGoRefSets.charName.toLowerCase() === name.toLowerCase()) {
+      pendingGoRefSets.sets.forEach(function(setName) {
+        if (!db.recommended[setName]) db.recommended[setName] = [];
+        var already = db.recommended[setName].map(function(n){return n.toLowerCase();}).indexOf(name.toLowerCase()) !== -1;
+        if (!already) db.recommended[setName].push(name);
+      });
+    }
   }
+  pendingGoRefSets = null;
   saveDB();
   closeTargetModal();
   renderAll();
@@ -1153,7 +1208,7 @@ function escapeHtml(str) {
 (async function init() {
   loadDB();
   loadStrongboxConfig();
-  await Promise.all([loadCharacters(), loadArtifactSets()]);
+  await Promise.all([loadCharacters(), loadArtifactSets(), loadGoReference()]);
   onSlotChange();
   renderAll();
 })();
