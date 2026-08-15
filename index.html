@@ -344,6 +344,11 @@
       <div class="field"><label>Goblet main</label><select id="t-goblet"></select></div>
       <div class="field"><label>Circlet main</label><select id="t-circlet"></select></div>
     </div>
+    <div class="field-row">
+      <div class="field"><label>or</label><select id="t-sands-alt"></select></div>
+      <div class="field"><label>or</label><select id="t-goblet-alt"></select></div>
+      <div class="field"><label>or</label><select id="t-circlet-alt"></select></div>
+    </div>
     <div class="field">
       <label>Substat priority (top 3, in order)</label>
       <div class="field-row">
@@ -529,6 +534,7 @@ function findChar(name) {
 }
 
 var GOBLET_HINT_MAP = { "HP": "HP%", "ATK": "ATK%", "DEF": "DEF%", "EM": "Elemental Mastery", "ER": "Energy Recharge%", "HB": "Healing Bonus%" };
+var STAT_HINT_MAP = { "HP": "HP%", "ATK": "ATK%", "DEF": "DEF%", "EM": "Elemental Mastery", "ER": "Energy Recharge%", "HB": "Healing Bonus%", "Crit": "CRIT Rate / DMG" };
 
 function onCharNameInput() {
   var name = document.getElementById("t-name").value;
@@ -551,6 +557,7 @@ function onCharNameInput() {
     if (refKey) {
       var ref = GO_REFERENCE[refKey];
       if (ref.sands) document.getElementById("t-sands").value = ref.sands;
+      if (ref.sandsAlt) document.getElementById("t-sands-alt").value = ref.sandsAlt;
       if (ref.goblet_hint) {
         if (ref.goblet_hint === "DMG" && c && ELEMENTS.indexOf(c.element) >= 0) {
           gobletSel.value = c.element + " DMG Bonus%";
@@ -558,7 +565,15 @@ function onCharNameInput() {
           gobletSel.value = GOBLET_HINT_MAP[ref.goblet_hint];
         }
       }
-      // Circlet intentionally left manual -- "Crit" hint is ambiguous between CR/CD/combined
+      if (ref.goblet_alt_hint && STAT_HINT_MAP[ref.goblet_alt_hint]) {
+        document.getElementById("t-goblet-alt").value = STAT_HINT_MAP[ref.goblet_alt_hint];
+      }
+      if (ref.circlet_hint && STAT_HINT_MAP[ref.circlet_hint]) {
+        document.getElementById("t-circlet").value = STAT_HINT_MAP[ref.circlet_hint];
+      }
+      if (ref.circlet_alt_hint && STAT_HINT_MAP[ref.circlet_alt_hint]) {
+        document.getElementById("t-circlet-alt").value = STAT_HINT_MAP[ref.circlet_alt_hint];
+      }
       if (ref.er) document.getElementById("t-er").value = ref.er;
       if (ref.sets && ref.sets.length) {
         document.getElementById("t-sets").value = ref.sets[0];
@@ -613,6 +628,9 @@ function loadDB() {
       }
       if (t.erRequirement === undefined) t.erRequirement = null;
       if (t.critRequirement === undefined) t.critRequirement = null;
+      if (t.sandsAlt === undefined) t.sandsAlt = "None";
+      if (t.gobletAlt === undefined) t.gobletAlt = "None";
+      if (t.circletAlt === undefined) t.circletAlt = "None";
     });
   });
 }
@@ -789,6 +807,12 @@ function completionPct(t) {
   return Math.round((sum / 5) * 100);
 }
 
+function mainStatDisplay(primary, alt) {
+  if (!primary || primary === "None") return "—";
+  if (alt && alt !== "None") return primary + " / " + alt;
+  return primary;
+}
+
 function renderTargets() {
   var list = document.getElementById("targets-list");
   var targets = getTargets().filter(function(t) { return !t.archived; });
@@ -817,8 +841,8 @@ function renderTargets() {
         (t.role ? ' &nbsp; <span class="role-tag">' + escapeHtml(t.role) + '</span>' : '') + '<div>' + metaChips + '</div></div>' +
         '<div class="card-actions"><button class="icon-btn" onclick="openTargetModal(\'' + t.id + '\')">Edit</button></div>' +
       '</div>' +
-      '<div class="meta-row"><b>Set:</b> ' + escapeHtml(t.sets || '—') + ' &nbsp; | &nbsp; <b>Sands:</b> ' + escapeHtml((t.sands && t.sands !== "None") ? t.sands : '—') +
-        ' &nbsp; <b>Goblet:</b> ' + escapeHtml((t.goblet && t.goblet !== "None") ? t.goblet : '—') + ' &nbsp; <b>Circlet:</b> ' + escapeHtml((t.circlet && t.circlet !== "None") ? t.circlet : '—') + '</div>' +
+      '<div class="meta-row"><b>Set:</b> ' + escapeHtml(t.sets || '—') + ' &nbsp; | &nbsp; <b>Sands:</b> ' + escapeHtml(mainStatDisplay(t.sands, t.sandsAlt)) +
+        ' &nbsp; <b>Goblet:</b> ' + escapeHtml(mainStatDisplay(t.goblet, t.gobletAlt)) + ' &nbsp; <b>Circlet:</b> ' + escapeHtml(mainStatDisplay(t.circlet, t.circletAlt)) + '</div>' +
       '<div class="meta-row"><b>Substats:</b> ' + substatText + ' &nbsp; | &nbsp; <b>ER req:</b> ' + (t.erRequirement || '—') + ' &nbsp; | &nbsp; <b>Crit req:</b> ' + (t.critRequirement || '—') + ' &nbsp; | &nbsp; <b>CV target:</b> ' + (t.cvThreshold || '—') +
         ' &nbsp; | &nbsp; <b>Complete:</b> ' + completionPct(t) + '%</div>' +
       '<div class="slot-badges">' + slotBadges + '</div>' +
@@ -856,6 +880,9 @@ function openTargetModal(id) {
     populateSelect(document.getElementById("t-sands"), SANDS_OPTS, t.sands || "None");
     populateSelect(document.getElementById("t-goblet"), GOBLET_OPTS, t.goblet || "None");
     populateSelect(document.getElementById("t-circlet"), CIRCLET_OPTS, t.circlet || "None");
+    populateSelect(document.getElementById("t-sands-alt"), SANDS_OPTS, t.sandsAlt || "None");
+    populateSelect(document.getElementById("t-goblet-alt"), GOBLET_OPTS, t.gobletAlt || "None");
+    populateSelect(document.getElementById("t-circlet-alt"), CIRCLET_OPTS, t.circletAlt || "None");
     populateSelect(document.getElementById("t-substat1"), SUBSTAT_OPTS, t.substat1 || "None");
     populateSelect(document.getElementById("t-substat2"), SUBSTAT_OPTS, t.substat2 || "None");
     populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, t.substat3 || "None");
@@ -874,6 +901,9 @@ function openTargetModal(id) {
     populateSelect(document.getElementById("t-sands"), SANDS_OPTS, "None");
     populateSelect(document.getElementById("t-goblet"), GOBLET_OPTS, "None");
     populateSelect(document.getElementById("t-circlet"), CIRCLET_OPTS, "None");
+    populateSelect(document.getElementById("t-sands-alt"), SANDS_OPTS, "None");
+    populateSelect(document.getElementById("t-goblet-alt"), GOBLET_OPTS, "None");
+    populateSelect(document.getElementById("t-circlet-alt"), CIRCLET_OPTS, "None");
     populateSelect(document.getElementById("t-substat1"), SUBSTAT_OPTS, "None");
     populateSelect(document.getElementById("t-substat2"), SUBSTAT_OPTS, "None");
     populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, "None");
@@ -904,6 +934,9 @@ function saveTarget() {
     sands: document.getElementById("t-sands").value,
     goblet: document.getElementById("t-goblet").value,
     circlet: document.getElementById("t-circlet").value,
+    sandsAlt: document.getElementById("t-sands-alt").value,
+    gobletAlt: document.getElementById("t-goblet-alt").value,
+    circletAlt: document.getElementById("t-circlet-alt").value,
     substat1: document.getElementById("t-substat1").value,
     substat2: document.getElementById("t-substat2").value,
     substat3: document.getElementById("t-substat3").value,
@@ -1150,8 +1183,10 @@ function renderRolls() {
     if (t) {
       if (["sands","goblet","circlet"].indexOf(r.slot) >= 0) {
         var targetMain = { sands: t.sands, goblet: t.goblet, circlet: t.circlet }[r.slot];
-        if (targetMain && targetMain !== "None" && r.mainStat && r.mainStat !== targetMain) {
-          flags.push("Main stat (" + escapeHtml(r.mainStat) + ") doesn't match target (" + escapeHtml(targetMain) + ")");
+        var targetAlt = { sands: t.sandsAlt, goblet: t.gobletAlt, circlet: t.circletAlt }[r.slot];
+        var acceptable = [targetMain, targetAlt].filter(function(x) { return x && x !== "None"; });
+        if (acceptable.length && r.mainStat && acceptable.indexOf(r.mainStat) === -1) {
+          flags.push("Main stat (" + escapeHtml(r.mainStat) + ") doesn't match target (" + escapeHtml(acceptable.join(" / ")) + ")");
         }
       }
       if (t.sets && r.setName && t.sets.toLowerCase().indexOf(r.setName.toLowerCase()) === -1) {
