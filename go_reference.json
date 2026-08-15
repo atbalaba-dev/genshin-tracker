@@ -1,0 +1,919 @@
+{
+  "Aino": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Silken Moon's Serenade",
+      "Instructor"
+    ],
+    "er": 100.0,
+    "notes": "GO reference \u2014 optimize for: Lunar-Charged DMG"
+  },
+  "Albedo": {
+    "sands": "DEF%",
+    "goblet_hint": "DEF",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Husk of Opulent Dreams",
+      "Golden Troupe"
+    ],
+    "er": 110.0,
+    "notes": "GO reference \u2014 optimize for: Transient Blossom DMG"
+  },
+  "Alhaitham": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Gilded Dreams"
+    ],
+    "er": 120.0,
+    "notes": "GO reference \u2014 optimize for: Projection Atack DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Arataki Itto": {
+    "sands": "DEF%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Husk of Opulent Dreams"
+    ],
+    "er": 140.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Skill Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Arlecchino": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Fragment of Harmonic Whimsy",
+      "Gladiator's Finale"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Normal Atk. 6-Hit DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Baizhu": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HP",
+    "sets": [
+      "Deepwood Memories"
+    ],
+    "er": 180.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Skill Healing | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Barbara (Bloom)": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Flower of Paradise Lost"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Bloom DMG | Other set notation from reference: EM 2-2"
+  },
+  "Beidou": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Emblem of Severed Fate",
+      "Thundersoother"
+    ],
+    "er": 160.0,
+    "notes": "GO CRIT constraint (role-unverified, review before trusting): 45 | Other set notation from reference: ER/ATK 2-2"
+  },
+  "Bennett": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "er": 200.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Candace": {
+    "sands": "HP%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HP",
+    "sets": [
+      "Scroll of the Hero of Cinder City",
+      "Emblem of Severed Fate"
+    ],
+    "er": 280.0,
+    "notes": "GO reference \u2014 optimize for: Max Shield Absorption | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Charlotte": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "ATK",
+    "circlet_hint": "HB",
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "er": 230.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst Cast Healing | GO CRIT constraint (role-unverified, review before trusting): 45 | Other set notation from reference: ER 2-2"
+  },
+  "Chasca": {
+    "sands": "ATK%",
+    "goblet_hint": "ATK",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Obsidian Codex",
+      "Marechaussee Hunter"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: ATK | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Chevreuse": {
+    "sands": "HP%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HP",
+    "sets": [
+      "Noblesse Oblige",
+      "Song of Days Past",
+      "Scroll of the Hero of Cinder City"
+    ],
+    "er": 160.0,
+    "notes": "GO reference \u2014 optimize for: HP | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Chiori": {
+    "sands": "DEF%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Golden Troupe",
+      "Husk of Opulent Dreams"
+    ],
+    "er": 120.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Chongyun": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [],
+    "er": null,
+    "notes": "Other set notation from reference: MH (?)"
+  },
+  "Citlali": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Scroll of the Hero of Cinder City",
+      "Tenacity of the Millelith",
+      "Noblesse Oblige"
+    ],
+    "er": 160.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Clorinde": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Fragment of Harmonic Whimsy",
+      "Thundering Fury"
+    ],
+    "er": 130.0,
+    "notes": "GO reference \u2014 optimize for: Impale the Night DMG Lv3 | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Columbina": {
+    "sands": "HP%",
+    "goblet_hint": "HP",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Aubade of Morningstar and Moon",
+      "Silken Moon's Serenade"
+    ],
+    "er": 180.0,
+    "notes": "GO reference \u2014 optimize for: HP | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Cyno": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Thundering Fury"
+    ],
+    "er": 140.0,
+    "notes": "GO reference \u2014 optimize for: Mortuary Rite DMG"
+  },
+  "Dehya": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Tenacity of the Millelith",
+      "Scroll of the Hero of Cinder City",
+      "Silken Moon's Serenade"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Overloaded DMG / HP"
+  },
+  "Diona": {
+    "sands": "HP%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HP",
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "er": 170.0,
+    "notes": "GO reference \u2014 optimize for: HP Regeneration Over Time | GO CRIT constraint (role-unverified, review before trusting): 45 | Other set notation from reference: HP/ER 2-2"
+  },
+  "Durin": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Noblesse Oblige",
+      "A Day Carved From Rising Winds",
+      "Scroll of the Hero of Cinder City"
+    ],
+    "er": 150.0,
+    "notes": "GO reference \u2014 optimize for: ATK | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Emilie": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Unfinished Reverie",
+      "Deepwood Memories"
+    ],
+    "er": 140.0,
+    "notes": "GO reference \u2014 optimize for: Lumidouce Case Attack DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Escoffier": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Golden Troupe",
+      "Noblesse Oblige"
+    ],
+    "er": 180.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Eula": {
+    "sands": null,
+    "goblet_hint": null,
+    "circlet_hint": null,
+    "sets": [],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Ele. Skill Regeneration"
+  },
+  "Faruzan": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Viridescent Venerer",
+      "Noblesse Oblige",
+      "Tenacity of the Millelith"
+    ],
+    "er": 200.0,
+    "notes": "GO reference \u2014 optimize for: ATK | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Fischl": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Golden Troupe"
+    ],
+    "er": 125.0,
+    "notes": "GO reference \u2014 optimize for: 4th Asc. Pass. DMG | Other set notation from reference: ATK 2-2"
+  },
+  "Flins": {
+    "sands": "ATK%",
+    "goblet_hint": "ATK",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Night of the Sky's Unveiling"
+    ],
+    "er": 130.0,
+    "notes": "GO reference \u2014 optimize for: Thunderous Symphony DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Furina": {
+    "sands": "HP%",
+    "goblet_hint": "HP",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Golden Troupe",
+      "Tenacity of the Millelith"
+    ],
+    "er": 170.0,
+    "notes": "GO reference \u2014 optimize for: HP | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Gaming": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Crimson Witch of Flames",
+      "Marechaussee Hunter",
+      "Long Night's Oath"
+    ],
+    "er": 140.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Skill Plunged Atk. | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Ganyu": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Blizzard Strayer",
+      "Wanderer's Troupe",
+      "Noblesse Oblige",
+      "Scroll of the Hero of Cinder City"
+    ],
+    "er": 130.0,
+    "notes": "GO reference \u2014 optimize for: Frostflake Arrow Bloom DMG"
+  },
+  "Gorou": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "Any",
+    "circlet_hint": "Crit",
+    "sets": [],
+    "er": 220.0,
+    "notes": "GO reference \u2014 optimize for: DEF | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Hu Tao": {
+    "sands": "HP%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Crimson Witch of Flames",
+      "Shimenawa's Reminiscence",
+      "Marechaussee Hunter"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Charged Attack | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Iansan": {
+    "sands": "ATK%",
+    "goblet_hint": "ATK",
+    "circlet_hint": "ATK",
+    "sets": [
+      "Scroll of the Hero of Cinder City",
+      "Noblesse Oblige"
+    ],
+    "er": 180.0,
+    "notes": "GO reference \u2014 optimize for: ATK"
+  },
+  "Ineffa": {
+    "sands": "ATK%",
+    "goblet_hint": "ATK",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Aubade of Morningstar and Moon",
+      "Silken Moon's Serenade"
+    ],
+    "er": 125.0,
+    "notes": "GO reference \u2014 optimize for: 1st Asc. Pass. DMG"
+  },
+  "Jean": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Viridescent Venerer",
+      "Noblesse Oblige"
+    ],
+    "er": 180.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst Field Activation Healing | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Kaedehara Kazuha": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: EM"
+  },
+  "Kamisato Ayaka": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Blizzard Strayer",
+      "Marechaussee Hunter"
+    ],
+    "er": 140.0,
+    "notes": "GO reference \u2014 optimize for: Cutting DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Kamisato Ayato": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Heart of Depth",
+      "Gladiator's Finale",
+      "Nymph's Dream"
+    ],
+    "er": 140.0,
+    "notes": "GO reference \u2014 optimize for: Shunsuiken 3-Hit DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Kinich": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Obsidian Codex"
+    ],
+    "er": 110.0,
+    "notes": "GO reference \u2014 optimize for: Scalespiker Cannon DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Kirara": {
+    "sands": "HP%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HP",
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "er": 160.0,
+    "notes": "GO reference \u2014 optimize for: Max Shield Dendro DMG Absorption | Other set notation from reference: HP 2-2"
+  },
+  "Klee": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "A Day Carved From Rising Winds",
+      "Crimson Witch of Flames"
+    ],
+    "er": 130.0,
+    "notes": "GO reference \u2014 optimize for: Charged Atk | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Kujou Sara": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Emblem of Severed Fate",
+      "Noblesse Oblige"
+    ],
+    "er": 200.0,
+    "notes": "GO reference \u2014 optimize for: Tengu Juurai: Titanbreaker DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Kuki Shinobu": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Flower of Paradise Lost",
+      "Gilded Dreams"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Hyperbloom DMG"
+  },
+  "Lauma": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Silken Moon's Serenade",
+      "Deepwood Memories"
+    ],
+    "er": 180.0,
+    "notes": "GO reference \u2014 optimize for: EM"
+  },
+  "Layla": {
+    "sands": "HP%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HP",
+    "sets": [
+      "Tenacity of the Millelith",
+      "Emblem of Severed Fate"
+    ],
+    "er": 160.0,
+    "notes": "GO reference \u2014 optimize for: HP | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Mavuika": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Obsidian Codex"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Mika": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HB",
+    "sets": [
+      "Noblesse Oblige",
+      "Ocean-Hued Clam"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Cast Healing | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Mona": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Emblem of Severed Fate",
+      "Song of Days Past"
+    ],
+    "er": 200.0,
+    "notes": "GO reference \u2014 optimize for: Illusory Bubble Explosion DMG | GO CRIT constraint (role-unverified, review before trusting): 45 | Other set notation from reference: ER 2-2"
+  },
+  "Mualani": {
+    "sands": "HP%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Obsidian Codex"
+    ],
+    "er": 100.0,
+    "notes": "GO reference \u2014 optimize for: Sharky's Surging Bite DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Nahida": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Deepwood Memories"
+    ],
+    "er": 120.0,
+    "notes": "GO reference \u2014 optimize for: EM"
+  },
+  "Navia": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Nighttime Whispers in the Echoing Woods",
+      "Marechaussee Hunter"
+    ],
+    "er": 130.0,
+    "notes": "GO reference \u2014 optimize for: Rosula Shardshot Total DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Nefer": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "CRIT",
+    "sets": [
+      "Night of the Sky's Unveiling"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Phantasm Performance 3-Hit DMG"
+  },
+  "Neuvillette": {
+    "sands": "HP%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Marechaussee Hunter",
+      "Heart of Depth"
+    ],
+    "er": 110.0,
+    "notes": "GO reference \u2014 optimize for: Charged Attack: Equitable Judgment"
+  },
+  "Nilou": {
+    "sands": "HP%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HP",
+    "sets": [
+      "Flower of Paradise Lost"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: HP | Other set notation from reference: HP 2-2"
+  },
+  "Ororon": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Scroll of the Hero of Cinder City"
+    ],
+    "er": 160.0,
+    "notes": "GO reference \u2014 optimize for: 1st Asc. Pass. DMG"
+  },
+  "Raiden Shogun": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Emblem of Severed Fate",
+      "Marechaussee Hunter"
+    ],
+    "er": 130.0,
+    "notes": "GO reference \u2014 optimize for: Musou no Hitotachi DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Raiden Shogun (EM)": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Flower of Paradise Lost",
+      "Gilded Dreams"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: EM"
+  },
+  "Rosaria": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Noblesse Oblige",
+      "Scroll of the Hero of Cinder City",
+      "Emblem of Severed Fate"
+    ],
+    "er": 160.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Sangonomiya Kokomi": {
+    "sands": "HP%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "HB",
+    "sets": [
+      "Ocean-Hued Clam",
+      "Tenacity of the Millelith"
+    ],
+    "er": 200.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Skill Regeneration"
+  },
+  "Shenhe": {
+    "sands": "ATK%",
+    "goblet_hint": "ATK",
+    "circlet_hint": "ATK",
+    "sets": [
+      "Noblesse Oblige",
+      "Scroll of the Hero of Cinder City"
+    ],
+    "er": 160.0,
+    "notes": "GO reference \u2014 optimize for: ATK | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Skirk": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Marechaussee Hunter",
+      "Finale of the Deep Galleries",
+      "Blizzard Strayer"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Ele. Skill 5-Hit DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Sucrose": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "er": 170.0,
+    "notes": "GO reference \u2014 optimize for: EM"
+  },
+  "Tartaglia": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Nymph's Dream"
+    ],
+    "er": 125.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG: Ranged | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Thoma": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HP",
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "er": 180.0,
+    "notes": "GO reference \u2014 optimize for: Max Shield DMG Absorption | GO CRIT constraint (role-unverified, review before trusting): 45 | Other set notation from reference: HP 2-2"
+  },
+  "Tighnari": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Wanderer's Troupe",
+      "Gilded Dreams"
+    ],
+    "er": 150.0,
+    "notes": "GO reference \u2014 optimize for: Clusterbloom Arrow DMG"
+  },
+  "Varesa": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Long Night's Oath",
+      "Obsidian Codex"
+    ],
+    "er": 120.0,
+    "notes": "GO reference \u2014 optimize for: Fiery Passion Plunge DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Venti": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "er": 175.0,
+    "notes": "GO reference \u2014 optimize for: EM / Anemo DMG"
+  },
+  "Venti (DPS)": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "A Day Carved From Rising Winds",
+      "Echoes of an Offering"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Normal Atk. 5-Hit DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Wanderer": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Desert Pavilion Chronicle",
+      "Shimenawa's Reminiscence"
+    ],
+    "er": 120.0,
+    "notes": "GO reference \u2014 optimize for: Normal Atk. 3-Hit DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Wriothesley": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Marechaussee Hunter",
+      "Blizzard Strayer"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Rebuke: Vaulting Fist DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Xiangling": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Emblem of Severed Fate",
+      "Crimson Witch of Flames"
+    ],
+    "er": 180.0,
+    "notes": "GO reference \u2014 optimize for: Pyronado DMG | GO CRIT constraint (role-unverified, review before trusting): 50"
+  },
+  "Xianyun": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "ATK",
+    "circlet_hint": "ATK",
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "er": 200.0,
+    "notes": "GO reference \u2014 optimize for: Plunging Impact DMG Increase"
+  },
+  "Xiao": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Vermillion Hereafter"
+    ],
+    "er": 130.0,
+    "notes": "GO reference \u2014 optimize for: Plunge DMG | GO CRIT constraint (role-unverified, review before trusting): 70"
+  },
+  "Xilonen": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "DEF",
+    "circlet_hint": "DEF",
+    "sets": [
+      "Scroll of the Hero of Cinder City"
+    ],
+    "er": 130.0,
+    "notes": "GO reference \u2014 optimize for: DEF | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Xingqiu": {
+    "sands": "Energy Recharge%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Emblem of Severed Fate"
+    ],
+    "er": 160.0,
+    "notes": "GO reference \u2014 optimize for: Sword Rain DMG"
+  },
+  "Yae Miko": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Emblem of Severed Fate",
+      "Golden Troupe"
+    ],
+    "er": 130.0,
+    "notes": "GO reference \u2014 optimize for: Tenko Thunderbolt DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Yaoyao": {
+    "sands": "HP%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HB",
+    "sets": [
+      "Deepwood Memories",
+      "Instructor"
+    ],
+    "er": 180.0,
+    "notes": "GO reference \u2014 optimize for: Adeptal Legacy  White Jade Radish Healing"
+  },
+  "Yelan": {
+    "sands": "HP%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Emblem of Severed Fate"
+    ],
+    "er": 180.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Yoimiya": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Shimenawa's Reminiscence",
+      "Echoes of an Offering"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: 5-Hit Attack DMG"
+  },
+  "Yun Jin": {
+    "sands": "DEF%",
+    "goblet_hint": "DEF",
+    "circlet_hint": "DEF",
+    "sets": [
+      "Husk of Opulent Dreams"
+    ],
+    "er": 240.0,
+    "notes": "GO CRIT constraint (role-unverified, review before trusting): 45 | Other set notation from reference: DEF/ER 2-2"
+  },
+  "Zhongli": {
+    "sands": "HP%",
+    "goblet_hint": "HP",
+    "circlet_hint": "HP",
+    "sets": [
+      "Tenacity of the Millelith"
+    ],
+    "er": 120.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG / HP | GO CRIT constraint (role-unverified, review before trusting): 45 | Other set notation from reference: HP 2-2"
+  },
+  "Zibai": {
+    "sands": "DEF%",
+    "goblet_hint": "DEF",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Night of the Sky's Unveiling",
+      "Husk of Opulent Dreams"
+    ],
+    "er": 125.0,
+    "notes": "GO reference \u2014 optimize for: Ele. Skill | GO CRIT constraint (role-unverified, review before trusting): 50"
+  },
+  "Illuga": {
+    "sands": "Elemental Mastery",
+    "goblet_hint": "EM",
+    "circlet_hint": "EM",
+    "sets": [
+      "Silken Moon's Serenade"
+    ],
+    "er": 150.0,
+    "notes": "GO reference \u2014 optimize for: EM | GO CRIT constraint (role-unverified, review before trusting): 45 | Other set notation from reference: EM 2-2"
+  },
+  "Linnea": {
+    "sands": "DEF%",
+    "goblet_hint": "DEF",
+    "circlet_hint": "Crit",
+    "sets": [
+      "Aubade of Morningstar and Moon",
+      "Husk of Opulent Dreams"
+    ],
+    "er": 125.0,
+    "notes": "GO reference \u2014 optimize for: DEF | GO CRIT constraint (role-unverified, review before trusting): 45"
+  },
+  "Varka": {
+    "sands": "ATK%",
+    "goblet_hint": "DMG",
+    "circlet_hint": "Crit",
+    "sets": [
+      "A Day Carved From Rising Winds"
+    ],
+    "er": null,
+    "notes": "GO reference \u2014 optimize for: Ele. Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+  }
+}
