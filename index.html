@@ -558,31 +558,30 @@ function onCharNameInput() {
       var ref = GO_REFERENCE[refKey];
       if (ref.sands) document.getElementById("t-sands").value = ref.sands;
       if (ref.sandsAlt) document.getElementById("t-sands-alt").value = ref.sandsAlt;
-      if (ref.goblet_hint) {
-        if (ref.goblet_hint === "DMG" && c && ELEMENTS.indexOf(c.element) >= 0) {
-          gobletSel.value = c.element + " DMG Bonus%";
-        } else if (GOBLET_HINT_MAP[ref.goblet_hint]) {
-          gobletSel.value = GOBLET_HINT_MAP[ref.goblet_hint];
-        }
+      if (ref.goblet) {
+        gobletSel.value = ref.goblet;
       }
-      if (ref.goblet_alt_hint && STAT_HINT_MAP[ref.goblet_alt_hint]) {
-        document.getElementById("t-goblet-alt").value = STAT_HINT_MAP[ref.goblet_alt_hint];
-      }
-      if (ref.circlet_hint && STAT_HINT_MAP[ref.circlet_hint]) {
-        document.getElementById("t-circlet").value = STAT_HINT_MAP[ref.circlet_hint];
-      }
-      if (ref.circlet_alt_hint && STAT_HINT_MAP[ref.circlet_alt_hint]) {
-        document.getElementById("t-circlet-alt").value = STAT_HINT_MAP[ref.circlet_alt_hint];
-      }
+      if (ref.gobletAlt) document.getElementById("t-goblet-alt").value = ref.gobletAlt;
+      if (ref.circlet) document.getElementById("t-circlet").value = ref.circlet;
+      if (ref.circletAlt) document.getElementById("t-circlet-alt").value = ref.circletAlt;
+      if (ref.substat1) document.getElementById("t-substat1").value = ref.substat1;
+      if (ref.substat2) document.getElementById("t-substat2").value = ref.substat2;
+      if (ref.substat3) document.getElementById("t-substat3").value = ref.substat3;
       if (ref.er) document.getElementById("t-er").value = ref.er;
+      if (ref.critRequirement) document.getElementById("t-critreq").value = ref.critRequirement;
+      if (ref.role) document.getElementById("t-role").value = ref.role;
+      if (ref.metaTeams && ref.metaTeams.length) {
+        document.querySelectorAll('#t-meta-teams input').forEach(function(cb) {
+          cb.checked = ref.metaTeams.indexOf(cb.value) !== -1;
+        });
+      }
+      if (ref.role || (ref.metaTeams && ref.metaTeams.length)) updateSuggestedTier();
       if (ref.sets && ref.sets.length) {
         document.getElementById("t-sets").value = ref.sets[0];
         pendingGoRefSets = { charName: refKey, sets: ref.sets };
       }
-      if (ref.notes) {
-        var notesEl = document.getElementById("t-notes");
-        if (!notesEl.value) notesEl.value = ref.notes;
-      }
+      var notesEl = document.getElementById("t-notes");
+      if (!notesEl.value) notesEl.value = "From build reference — review before trusting, may need adjustment.";
       el.textContent += " — auto-filled from Genshin Optimizer reference (review before trusting, may be outdated)";
     }
   }
