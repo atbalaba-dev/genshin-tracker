@@ -1,1177 +1,2020 @@
 {
-  "Aino": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "EM",
-    "goblet_alt_hint": "DMG",
-    "circlet_hint": "EM",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Silken Moon's Serenade",
-      "Instructor"
+  "Nicole Reeyn": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Lunar"
     ],
-    "er": 100.0,
-    "notes": "GO reference \u2014 optimize for: Lunar-Charged DMG"
-  },
-  "Albedo": {
-    "sands": "DEF%",
-    "sandsAlt": null,
-    "goblet_hint": "DEF",
-    "goblet_alt_hint": "DMG",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
     "sets": [
-      "Husk of Opulent Dreams",
-      "Golden Troupe"
+      "Celestial Gift"
     ],
-    "er": 110.0,
-    "notes": "GO reference \u2014 optimize for: Transient Blossom DMG"
-  },
-  "Alhaitham": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": "ATK%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Gilded Dreams"
-    ],
-    "er": 120.0,
-    "notes": "GO reference \u2014 optimize for: Projection Atack DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Arataki Itto": {
-    "sands": "DEF%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "DEF",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Husk of Opulent Dreams"
-    ],
-    "er": 140.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Skill Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Arlecchino": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Fragment of Harmonic Whimsy",
-      "Gladiator's Finale"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Normal Atk. 6-Hit DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Baizhu": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "HP%",
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "HP",
-    "circlet_alt_hint": "HB",
-    "sets": [
-      "Deepwood Memories"
-    ],
-    "er": 180.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Skill Healing | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Barbara (Bloom)": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": null,
-    "goblet_hint": "EM",
-    "goblet_alt_hint": null,
-    "circlet_hint": "EM",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Flower of Paradise Lost"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Bloom DMG"
-  },
-  "Beidou": {
-    "sands": "ATK%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Emblem of Severed Fate",
-      "Thundersoother"
-    ],
-    "er": 160.0,
-    "notes": "GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Bennett": {
-    "sands": "ATK%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Noblesse Oblige"
-    ],
-    "er": 200.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Candace": {
-    "sands": "HP%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "HP",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Scroll of the Hero of Cinder City",
-      "Emblem of Severed Fate"
-    ],
-    "er": 280.0,
-    "notes": "GO reference \u2014 optimize for: Max Shield Absorption | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Charlotte": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "ATK%",
-    "goblet_hint": "ATK",
-    "goblet_alt_hint": "DMG",
-    "circlet_hint": "HB",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Noblesse Oblige"
-    ],
-    "er": 230.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst Cast Healing | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Chasca": {
     "sands": "ATK%",
     "sandsAlt": null,
-    "goblet_hint": "ATK",
-    "goblet_alt_hint": "DMG",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Obsidian Codex",
-      "Marechaussee Hunter"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: ATK | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Chevreuse": {
-    "sands": "HP%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "HP",
-    "circlet_alt_hint": "HB",
-    "sets": [
-      "Noblesse Oblige",
-      "Song of Days Past",
-      "Scroll of the Hero of Cinder City"
-    ],
-    "er": 160.0,
-    "notes": "GO reference \u2014 optimize for: HP | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Chiori": {
-    "sands": "DEF%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "DEF",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": "DEF",
-    "sets": [
-      "Golden Troupe",
-      "Husk of Opulent Dreams"
-    ],
-    "er": 120.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Chongyun": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [],
-    "er": null,
-    "notes": ""
-  },
-  "Citlali": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "EM",
-    "goblet_alt_hint": "DMG",
-    "circlet_hint": "EM",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Scroll of the Hero of Cinder City",
-      "Tenacity of the Millelith",
-      "Noblesse Oblige"
-    ],
-    "er": 160.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Clorinde": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Fragment of Harmonic Whimsy",
-      "Thundering Fury"
-    ],
-    "er": 130.0,
-    "notes": "GO reference \u2014 optimize for: Impale the Night DMG Lv3 | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Columbina": {
-    "sands": "HP%",
-    "sandsAlt": null,
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Aubade of Morningstar and Moon",
-      "Silken Moon's Serenade"
-    ],
-    "er": 180.0,
-    "notes": "GO reference \u2014 optimize for: HP | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Cyno": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": "ATK%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "EM",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Thundering Fury"
-    ],
-    "er": 140.0,
-    "notes": "GO reference \u2014 optimize for: Mortuary Rite DMG"
-  },
-  "Dehya": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": "HP%",
-    "goblet_hint": "EM",
-    "goblet_alt_hint": "HP",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": "EM",
-    "sets": [
-      "Tenacity of the Millelith",
-      "Scroll of the Hero of Cinder City",
-      "Silken Moon's Serenade"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Overloaded DMG / HP"
-  },
-  "Diona": {
-    "sands": "HP%",
-    "sandsAlt": null,
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "HP",
-    "circlet_alt_hint": "HB",
-    "sets": [
-      "Noblesse Oblige"
-    ],
-    "er": 170.0,
-    "notes": "GO reference \u2014 optimize for: HP Regeneration Over Time | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Durin": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "ATK",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Noblesse Oblige",
-      "A Day Carved From Rising Winds",
-      "Scroll of the Hero of Cinder City"
-    ],
-    "er": 150.0,
-    "notes": "GO reference \u2014 optimize for: ATK | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Emilie": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Unfinished Reverie",
-      "Deepwood Memories"
-    ],
-    "er": 140.0,
-    "notes": "GO reference \u2014 optimize for: Lumidouce Case Attack DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Escoffier": {
-    "sands": "ATK%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "ATK",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Golden Troupe",
-      "Noblesse Oblige"
-    ],
-    "er": 180.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Eula": {
-    "sands": null,
-    "sandsAlt": null,
-    "goblet_hint": null,
-    "goblet_alt_hint": null,
-    "circlet_hint": null,
-    "circlet_alt_hint": null,
-    "sets": [],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Ele. Skill Regeneration"
-  },
-  "Faruzan": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "ATK%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Viridescent Venerer",
-      "Noblesse Oblige",
-      "Tenacity of the Millelith"
-    ],
-    "er": 200.0,
-    "notes": "GO reference \u2014 optimize for: ATK | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Fischl": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Golden Troupe"
-    ],
-    "er": 125.0,
-    "notes": "GO reference \u2014 optimize for: 4th Asc. Pass. DMG"
-  },
-  "Flins": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "ATK",
-    "goblet_alt_hint": "EM",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Night of the Sky's Unveiling"
-    ],
-    "er": 130.0,
-    "notes": "GO reference \u2014 optimize for: Thunderous Symphony DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Furina": {
-    "sands": "HP%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "HP",
-    "goblet_alt_hint": "DMG",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Golden Troupe",
-      "Tenacity of the Millelith"
-    ],
-    "er": 170.0,
-    "notes": "GO reference \u2014 optimize for: HP | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Gaming": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Crimson Witch of Flames",
-      "Marechaussee Hunter",
-      "Long Night's Oath"
-    ],
-    "er": 140.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Skill Plunged Atk. | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Ganyu": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": "ATK%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Blizzard Strayer",
-      "Wanderer's Troupe",
-      "Noblesse Oblige",
-      "Scroll of the Hero of Cinder City"
-    ],
-    "er": 130.0,
-    "notes": "GO reference \u2014 optimize for: Frostflake Arrow Bloom DMG"
-  },
-  "Gorou": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": null,
-    "goblet_hint": "Any",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [],
-    "er": 220.0,
-    "notes": "GO reference \u2014 optimize for: DEF | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Hu Tao": {
-    "sands": "HP%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Crimson Witch of Flames",
-      "Shimenawa's Reminiscence",
-      "Marechaussee Hunter"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Charged Attack | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Iansan": {
-    "sands": "ATK%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "ATK",
-    "goblet_alt_hint": null,
-    "circlet_hint": "ATK",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Scroll of the Hero of Cinder City",
-      "Noblesse Oblige"
-    ],
-    "er": 180.0,
-    "notes": "GO reference \u2014 optimize for: ATK"
-  },
-  "Ineffa": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "ATK",
-    "goblet_alt_hint": "EM",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Aubade of Morningstar and Moon",
-      "Silken Moon's Serenade"
-    ],
-    "er": 125.0,
-    "notes": "GO reference \u2014 optimize for: 1st Asc. Pass. DMG"
-  },
-  "Jean": {
-    "sands": "ATK%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Viridescent Venerer",
-      "Noblesse Oblige"
-    ],
-    "er": 180.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst Field Activation Healing | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Kaedehara Kazuha": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "EM",
-    "goblet_alt_hint": null,
-    "circlet_hint": "EM",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Viridescent Venerer"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: EM"
-  },
-  "Kamisato Ayaka": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "ATK",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": "ATK",
-    "sets": [
-      "Blizzard Strayer",
-      "Marechaussee Hunter"
-    ],
-    "er": 140.0,
-    "notes": "GO reference \u2014 optimize for: Cutting DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Kamisato Ayato": {
-    "sands": "ATK%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Heart of Depth",
-      "Gladiator's Finale",
-      "Nymph's Dream"
-    ],
-    "er": 140.0,
-    "notes": "GO reference \u2014 optimize for: Shunsuiken 3-Hit DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Kinich": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Obsidian Codex"
-    ],
-    "er": 110.0,
-    "notes": "GO reference \u2014 optimize for: Scalespiker Cannon DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Kirara": {
-    "sands": "HP%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "HP",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Noblesse Oblige"
-    ],
-    "er": 160.0,
-    "notes": "GO reference \u2014 optimize for: Max Shield Dendro DMG Absorption"
-  },
-  "Klee": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "ATK",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "A Day Carved From Rising Winds",
-      "Crimson Witch of Flames"
-    ],
-    "er": 130.0,
-    "notes": "GO reference \u2014 optimize for: Charged Atk | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Kujou Sara": {
-    "sands": "ATK%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Emblem of Severed Fate",
-      "Noblesse Oblige"
-    ],
-    "er": 200.0,
-    "notes": "GO reference \u2014 optimize for: Tengu Juurai: Titanbreaker DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Kuki Shinobu": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": null,
-    "goblet_hint": "EM",
-    "goblet_alt_hint": null,
-    "circlet_hint": "EM",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Flower of Paradise Lost",
-      "Gilded Dreams"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Hyperbloom DMG"
-  },
-  "Lauma": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "EM",
-    "goblet_alt_hint": null,
-    "circlet_hint": "EM",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Silken Moon's Serenade",
-      "Deepwood Memories"
-    ],
-    "er": 180.0,
-    "notes": "GO reference \u2014 optimize for: EM"
-  },
-  "Layla": {
-    "sands": "HP%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "HP",
-    "goblet_alt_hint": "DMG",
-    "circlet_hint": "HP",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Tenacity of the Millelith",
-      "Emblem of Severed Fate"
-    ],
-    "er": 160.0,
-    "notes": "GO reference \u2014 optimize for: HP | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Mavuika": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Obsidian Codex"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Mika": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "HP%",
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "HB",
-    "circlet_alt_hint": "HP",
-    "sets": [
-      "Noblesse Oblige",
-      "Ocean-Hued Clam"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Cast Healing | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Mona": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "ATK%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Emblem of Severed Fate",
-      "Song of Days Past"
-    ],
-    "er": 200.0,
-    "notes": "GO reference \u2014 optimize for: Illusory Bubble Explosion DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Mualani": {
-    "sands": "HP%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "HP",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": "HP",
-    "sets": [
-      "Obsidian Codex"
-    ],
-    "er": 100.0,
-    "notes": "GO reference \u2014 optimize for: Sharky's Surging Bite DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Nahida": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": null,
-    "goblet_hint": "EM",
-    "goblet_alt_hint": "DMG",
-    "circlet_hint": "EM",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Deepwood Memories"
-    ],
-    "er": 120.0,
-    "notes": "GO reference \u2014 optimize for: EM"
-  },
-  "Navia": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "ATK",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": "ATK",
-    "sets": [
-      "Nighttime Whispers in the Echoing Woods",
-      "Marechaussee Hunter"
-    ],
-    "er": 130.0,
-    "notes": "GO reference \u2014 optimize for: Rosula Shardshot Total DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Nefer": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": null,
-    "goblet_hint": "EM",
-    "goblet_alt_hint": null,
-    "circlet_hint": "CRIT",
-    "circlet_alt_hint": "EM",
-    "sets": [
-      "Night of the Sky's Unveiling"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Phantasm Performance 3-Hit DMG"
-  },
-  "Neuvillette": {
-    "sands": "HP%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "HP",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": "HP",
-    "sets": [
-      "Marechaussee Hunter",
-      "Heart of Depth"
-    ],
-    "er": 110.0,
-    "notes": "GO reference \u2014 optimize for: Charged Attack: Equitable Judgment"
-  },
-  "Nilou": {
-    "sands": "HP%",
-    "sandsAlt": null,
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "HP",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Flower of Paradise Lost"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: HP"
-  },
-  "Ororon": {
-    "sands": "ATK%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Scroll of the Hero of Cinder City"
-    ],
-    "er": 160.0,
-    "notes": "GO reference \u2014 optimize for: 1st Asc. Pass. DMG"
-  },
-  "Raiden Shogun": {
-    "sands": "ATK%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "ATK",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Emblem of Severed Fate",
-      "Marechaussee Hunter"
-    ],
-    "er": 130.0,
-    "notes": "GO reference \u2014 optimize for: Musou no Hitotachi DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Raiden Shogun (EM)": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": null,
-    "goblet_hint": "EM",
-    "goblet_alt_hint": null,
-    "circlet_hint": "EM",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Flower of Paradise Lost",
-      "Gilded Dreams"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: EM"
-  },
-  "Rosaria": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "ATK%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Noblesse Oblige",
-      "Scroll of the Hero of Cinder City",
-      "Emblem of Severed Fate"
-    ],
-    "er": 160.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Sangonomiya Kokomi": {
-    "sands": "HP%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "HP",
-    "circlet_hint": "HB",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Ocean-Hued Clam",
-      "Tenacity of the Millelith"
-    ],
-    "er": 200.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Skill Regeneration"
-  },
-  "Shenhe": {
-    "sands": "ATK%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "ATK",
-    "goblet_alt_hint": null,
-    "circlet_hint": "ATK",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Noblesse Oblige",
-      "Scroll of the Hero of Cinder City"
-    ],
-    "er": 160.0,
-    "notes": "GO reference \u2014 optimize for: ATK | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Skirk": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "ATK",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": "ATK",
-    "sets": [
-      "Marechaussee Hunter",
-      "Finale of the Deep Galleries",
-      "Blizzard Strayer"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Ele. Skill 5-Hit DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Sucrose": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": null,
-    "goblet_hint": "EM",
-    "goblet_alt_hint": null,
-    "circlet_hint": "EM",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Viridescent Venerer"
-    ],
-    "er": 170.0,
-    "notes": "GO reference \u2014 optimize for: EM"
-  },
-  "Tartaglia": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Nymph's Dream"
-    ],
-    "er": 125.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG: Ranged | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Thoma": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "HP%",
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "HP",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Noblesse Oblige"
-    ],
-    "er": 180.0,
-    "notes": "GO reference \u2014 optimize for: Max Shield DMG Absorption | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Tighnari": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Wanderer's Troupe",
-      "Gilded Dreams"
-    ],
-    "er": 150.0,
-    "notes": "GO reference \u2014 optimize for: Clusterbloom Arrow DMG"
-  },
-  "Varesa": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "ATK",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Long Night's Oath",
-      "Obsidian Codex"
-    ],
-    "er": 120.0,
-    "notes": "GO reference \u2014 optimize for: Fiery Passion Plunge DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Venti": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": "ATK%",
-    "goblet_hint": "EM",
-    "goblet_alt_hint": "DMG",
-    "circlet_hint": "EM",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Viridescent Venerer"
-    ],
-    "er": 175.0,
-    "notes": "GO reference \u2014 optimize for: EM / Anemo DMG"
-  },
-  "Venti (DPS)": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "A Day Carved From Rising Winds",
-      "Echoes of an Offering"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Normal Atk. 5-Hit DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Wanderer": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Desert Pavilion Chronicle",
-      "Shimenawa's Reminiscence"
-    ],
-    "er": 120.0,
-    "notes": "GO reference \u2014 optimize for: Normal Atk. 3-Hit DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Wriothesley": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Marechaussee Hunter",
-      "Blizzard Strayer"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: Rebuke: Vaulting Fist DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Xiangling": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Emblem of Severed Fate",
-      "Crimson Witch of Flames"
-    ],
-    "er": 180.0,
-    "notes": "GO reference \u2014 optimize for: Pyronado DMG | GO CRIT constraint (role-unverified, review before trusting): 50"
-  },
-  "Xianyun": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "ATK%",
-    "goblet_hint": "ATK",
-    "goblet_alt_hint": null,
-    "circlet_hint": "ATK",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Viridescent Venerer"
-    ],
-    "er": 200.0,
-    "notes": "GO reference \u2014 optimize for: Plunging Impact DMG Increase"
-  },
-  "Xiao": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "ATK",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Vermillion Hereafter"
-    ],
-    "er": 130.0,
-    "notes": "GO reference \u2014 optimize for: Plunge DMG | GO CRIT constraint (role-unverified, review before trusting): 70"
-  },
-  "Xilonen": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "DEF%",
-    "goblet_hint": "DEF",
-    "goblet_alt_hint": null,
-    "circlet_hint": "DEF",
-    "circlet_alt_hint": "HB",
-    "sets": [
-      "Scroll of the Hero of Cinder City"
-    ],
-    "er": 130.0,
-    "notes": "GO reference \u2014 optimize for: DEF | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Xingqiu": {
-    "sands": "Energy Recharge%",
-    "sandsAlt": "ATK%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Emblem of Severed Fate"
-    ],
-    "er": 160.0,
-    "notes": "GO reference \u2014 optimize for: Sword Rain DMG"
-  },
-  "Yae Miko": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Emblem of Severed Fate",
-      "Golden Troupe"
-    ],
-    "er": 130.0,
-    "notes": "GO reference \u2014 optimize for: Tenko Thunderbolt DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Yaoyao": {
-    "sands": "HP%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "HB",
-    "circlet_alt_hint": "HP",
-    "sets": [
-      "Deepwood Memories",
-      "Instructor"
-    ],
-    "er": 180.0,
-    "notes": "GO reference \u2014 optimize for: Adeptal Legacy  White Jade Radish Healing"
-  },
-  "Yelan": {
-    "sands": "HP%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "HP",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": "HP",
-    "sets": [
-      "Emblem of Severed Fate"
-    ],
-    "er": 180.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Yoimiya": {
-    "sands": "ATK%",
-    "sandsAlt": "Elemental Mastery",
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Shimenawa's Reminiscence",
-      "Echoes of an Offering"
-    ],
-    "er": null,
-    "notes": "GO reference \u2014 optimize for: 5-Hit Attack DMG"
-  },
-  "Yun Jin": {
-    "sands": "DEF%",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "DEF",
-    "goblet_alt_hint": null,
-    "circlet_hint": "DEF",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Husk of Opulent Dreams"
-    ],
-    "er": 240.0,
-    "notes": "GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Zhongli": {
-    "sands": "HP%",
-    "sandsAlt": null,
-    "goblet_hint": "HP",
-    "goblet_alt_hint": null,
-    "circlet_hint": "HP",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Tenacity of the Millelith"
-    ],
-    "er": 120.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Burst Skill DMG / HP | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Zibai": {
-    "sands": "DEF%",
-    "sandsAlt": null,
-    "goblet_hint": "DEF",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
-    "sets": [
-      "Night of the Sky's Unveiling",
-      "Husk of Opulent Dreams"
-    ],
-    "er": 125.0,
-    "notes": "GO reference \u2014 optimize for: Ele. Skill | GO CRIT constraint (role-unverified, review before trusting): 50"
-  },
-  "Illuga": {
-    "sands": "Elemental Mastery",
-    "sandsAlt": "Energy Recharge%",
-    "goblet_hint": "EM",
-    "goblet_alt_hint": null,
-    "circlet_hint": "EM",
-    "circlet_alt_hint": "Crit",
-    "sets": [
-      "Silken Moon's Serenade"
-    ],
-    "er": 150.0,
-    "notes": "GO reference \u2014 optimize for: EM | GO CRIT constraint (role-unverified, review before trusting): 45"
-  },
-  "Linnea": {
-    "sands": "DEF%",
-    "sandsAlt": null,
-    "goblet_hint": "DEF",
-    "goblet_alt_hint": null,
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": "DEF",
-    "sets": [
-      "Aubade of Morningstar and Moon",
-      "Husk of Opulent Dreams"
-    ],
-    "er": 125.0,
-    "notes": "GO reference \u2014 optimize for: DEF | GO CRIT constraint (role-unverified, review before trusting): 45"
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "ATK%",
+    "circletAlt": null,
+    "substat1": "ATK%",
+    "substat2": "Energy Recharge%",
+    "substat3": "ATK",
+    "er": 180,
+    "critRequirement": null
   },
   "Varka": {
-    "sands": "ATK%",
-    "sandsAlt": null,
-    "goblet_hint": "DMG",
-    "goblet_alt_hint": "ATK",
-    "circlet_hint": "Crit",
-    "circlet_alt_hint": null,
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Hexerei"
+    ],
     "sets": [
       "A Day Carved From Rising Winds"
     ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "CRIT DMG%",
+    "substat3": "ATK%",
     "er": null,
-    "notes": "GO reference \u2014 optimize for: Ele. Skill DMG | GO CRIT constraint (role-unverified, review before trusting): 45"
+    "critRequirement": null
+  },
+  "Prune": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Hexerei"
+    ],
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "ATK%",
+    "circletAlt": "CRIT Rate%",
+    "substat1": "Energy Recharge%",
+    "substat2": "ATK%",
+    "substat3": "CRIT Rate%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Flins": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Lunar"
+    ],
+    "sets": [
+      "Night of the Sky's Unveiling"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "ATK%",
+    "gobletAlt": "Elemental Mastery",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Columbina": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Lunar"
+    ],
+    "sets": [
+      "Aubade of Morningstar and Moon"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "HP%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "HP%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "HP%",
+    "er": 220,
+    "critRequirement": null
+  },
+  "Ineffa": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Lunar"
+    ],
+    "sets": [
+      "Silken Moon's Serenade"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "ATK%",
+    "gobletAlt": "Elemental Mastery",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Sucrose": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Elemental Mastery",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "Elemental Mastery",
+    "substat3": null,
+    "er": 180,
+    "critRequirement": null
+  },
+  "Durin": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Hexerei"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": "ATK%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 130,
+    "critRequirement": null
+  },
+  "Furina": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Freeze"
+    ],
+    "sets": [
+      "Tenacity of the Millelith"
+    ],
+    "sands": "HP%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "HP%",
+    "er": 220,
+    "critRequirement": null
+  },
+  "Kamisato Ayaka": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Freeze"
+    ],
+    "sets": [
+      "Marechaussee Hunter"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Cryo DMG Bonus%",
+    "gobletAlt": "ATK%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "ATK%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Shenhe": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Freeze"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "ATK%",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "ATK%",
+    "substat3": "CRIT Rate%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Escoffier": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Freeze"
+    ],
+    "sets": [
+      "Golden Troupe"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Cryo DMG Bonus%",
+    "gobletAlt": "ATK%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "ATK%",
+    "substat2": "Energy Recharge%",
+    "substat3": "CRIT Rate%",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Mavuika": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Obsidian Codex"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "Elemental Mastery",
+    "substat3": "ATK%",
+    "er": null,
+    "critRequirement": null
+  },
+  "Xilonen": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Scroll of the Hero of Cinder City"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "DEF%",
+    "goblet": "DEF%",
+    "gobletAlt": null,
+    "circlet": "DEF%",
+    "circletAlt": "Healing Bonus%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "DEF%",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Citlali": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Freeze"
+    ],
+    "sets": [
+      "Tenacity of the Millelith"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Elemental Mastery",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "Elemental Mastery",
+    "substat3": "CRIT Rate%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Bennett": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "HP%",
+    "substat3": null,
+    "er": 200,
+    "critRequirement": null
+  },
+  "Iansan": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Scroll of the Hero of Cinder City"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "ATK%",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "ATK%",
+    "substat3": "CRIT Rate%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Wriothesley": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Marechaussee Hunter"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "ATK%",
+    "gobletAlt": "Elemental Mastery",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": "Elemental Mastery",
+    "er": null,
+    "critRequirement": null
+  },
+  "Yae Miko": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Disenchantment in Deep Shadow"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "ATK%",
+    "gobletAlt": "Elemental Mastery",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": "Elemental Mastery",
+    "er": null,
+    "critRequirement": null
+  },
+  "Qiqi": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Tenacity of the Millelith"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "ATK%",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "ATK%",
+    "substat3": "CRIT Rate%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Odette": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Heart of the Furnace"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": "Elemental Mastery",
+    "er": null,
+    "critRequirement": null
+  },
+  "Linnea": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Lunar"
+    ],
+    "sets": [
+      "Husk of Opulent Dreams"
+    ],
+    "sands": "DEF%",
+    "sandsAlt": null,
+    "goblet": "DEF%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "DEF%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "DEF%",
+    "er": null,
+    "critRequirement": null
+  },
+  "Albedo": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Hexerei"
+    ],
+    "sets": [
+      "Husk of Opulent Dreams"
+    ],
+    "sands": "DEF%",
+    "sandsAlt": null,
+    "goblet": "DEF%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "DEF%",
+    "er": null,
+    "critRequirement": null
+  },
+  "Chiori": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Golden Troupe"
+    ],
+    "sands": "DEF%",
+    "sandsAlt": null,
+    "goblet": "Geo DMG Bonus%",
+    "gobletAlt": "DEF%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "DEF%",
+    "substat1": "CRIT Rate%",
+    "substat2": "DEF%",
+    "substat3": "ATK%",
+    "er": null,
+    "critRequirement": null
+  },
+  "Navia": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Nighttime Whispers in the Echoing Woods"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Geo DMG Bonus%",
+    "gobletAlt": "ATK%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "ATK%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Arataki Itto": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Husk of Opulent Dreams"
+    ],
+    "sands": "DEF%",
+    "sandsAlt": null,
+    "goblet": "Geo DMG Bonus%",
+    "gobletAlt": "DEF%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "DEF%",
+    "er": 130,
+    "critRequirement": null
+  },
+  "Zhongli": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Geo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Mizuki (Yumemizuki)": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Scarlet Proof"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Elemental Mastery",
+    "substat2": "CRIT Rate%",
+    "substat3": null,
+    "er": null,
+    "critRequirement": null
+  },
+  "Xianyun": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "ATK%",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "ATK%",
+    "substat3": "CRIT Rate%",
+    "er": 220,
+    "critRequirement": null
+  },
+  "Wanderer": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Desert Pavilion Chronicle"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Anemo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": "Energy Recharge%",
+    "er": null,
+    "critRequirement": null
+  },
+  "Kaedehara Kazuha": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Elemental Mastery",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": null,
+    "er": 200,
+    "critRequirement": null
+  },
+  "Xiao": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Vermillion Hereafter"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Anemo DMG Bonus%",
+    "gobletAlt": "ATK%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 130,
+    "critRequirement": null
+  },
+  "Venti": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Hexerei"
+    ],
+    "sets": [
+      "A Day Carved From Rising Winds"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Anemo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Jean": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "ATK%",
+    "goblet": "ATK%",
+    "gobletAlt": "Anemo DMG Bonus%",
+    "circlet": "Healing Bonus%",
+    "circletAlt": "CRIT Rate%",
+    "substat1": "Energy Recharge%",
+    "substat2": "ATK%",
+    "substat3": "CRIT Rate%",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Eula": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Pale Flame"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Physical DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Ganyu": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Blizzard Strayer"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Cryo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "ATK%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT DMG%",
+    "substat3": "ATK%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Varesa": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Long Night's Oath"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Electro DMG Bonus%",
+    "gobletAlt": "ATK%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 140,
+    "critRequirement": null
+  },
+  "Clorinde": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Fragment of Harmonic Whimsy"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Electro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 130,
+    "critRequirement": null
+  },
+  "Raiden Shogun": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Emblem of Severed Fate"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Electro DMG Bonus%",
+    "gobletAlt": "ATK%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Lauma": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Lunar"
+    ],
+    "sets": [
+      "Silken Moon's Serenade"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Elemental Mastery",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "Elemental Mastery",
+    "substat3": "CRIT Rate%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Kinich": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Obsidian Codex"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Dendro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": "Energy Recharge%",
+    "er": null,
+    "critRequirement": null
+  },
+  "Emilie": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Unfinished Reverie"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Dendro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": "Energy Recharge%",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Baizhu": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Deepwood Memories"
+    ],
+    "sands": "HP%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "HP%",
+    "circletAlt": "Healing Bonus%",
+    "substat1": "Energy Recharge%",
+    "substat2": "HP%",
+    "substat3": "CRIT Rate%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Alhaitham": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Gilded Dreams"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "ATK%",
+    "goblet": "Dendro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "Elemental Mastery",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Nahida": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Deepwood Memories"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": "Dendro DMG Bonus%",
+    "circlet": "Elemental Mastery",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "Elemental Mastery",
+    "substat3": "CRIT Rate%",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Neuvillette": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Marechaussee Hunter"
+    ],
+    "sands": "HP%",
+    "sandsAlt": null,
+    "goblet": "Hydro DMG Bonus%",
+    "gobletAlt": "HP%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "HP%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "HP%",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Kamisato Ayato": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Heart of Depth"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Hydro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Yelan": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Emblem of Severed Fate"
+    ],
+    "sands": "HP%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Hydro DMG Bonus%",
+    "gobletAlt": "HP%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "HP%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "HP%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Sangonomiya Kokomi": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Ocean-Hued Clam"
+    ],
+    "sands": "HP%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Hydro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "Healing Bonus%",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "HP%",
+    "substat3": null,
+    "er": 220,
+    "critRequirement": null
+  },
+  "Mona": {
+    "role": "Support-Healer",
+    "metaTeams": [],
+    "sets": [
+      "Song of Days Past"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Hydro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "CRIT DMG%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": null,
+    "er": 200,
+    "critRequirement": null
+  },
+  "Klee": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Hexerei"
+    ],
+    "sets": [
+      "A Day Carved From Rising Winds"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": "ATK%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 130,
+    "critRequirement": null
+  },
+  "Dehya": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Tenacity of the Millelith"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "HP%",
+    "goblet": "Elemental Mastery",
+    "gobletAlt": "HP%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "Elemental Mastery",
+    "substat1": "CRIT Rate%",
+    "substat2": "HP%",
+    "substat3": "Elemental Mastery",
+    "er": null,
+    "critRequirement": null
+  },
+  "Illuga": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Lunar"
+    ],
+    "sets": [
+      "Silken Moon's Serenade"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Elemental Mastery",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "Elemental Mastery",
+    "substat3": "CRIT Rate%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Gorou": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Lunar"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "DEF%",
+    "goblet": "Geo DMG Bonus%",
+    "gobletAlt": "DEF%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "DEF%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "DEF%",
+    "er": 220,
+    "critRequirement": null
+  },
+  "Faruzan": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Tenacity of the Millelith"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "ATK%",
+    "goblet": "Anemo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": null,
+    "er": 200,
+    "critRequirement": null
+  },
+  "Chevreuse": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "HP%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "HP%",
+    "circletAlt": "Healing Bonus%",
+    "substat1": "Energy Recharge%",
+    "substat2": "HP%",
+    "substat3": "CRIT Rate%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Gaming": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Crimson Witch of Flames"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "ATK%",
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "Elemental Mastery",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Thoma": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "HP%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "HP%",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": null,
+    "substat2": null,
+    "substat3": null,
+    "er": null,
+    "critRequirement": null
+  },
+  "Xiangling": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Scroll of the Hero of Cinder City"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": null,
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": "Elemental Mastery",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "Elemental Mastery",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 200,
+    "critRequirement": null
+  },
+  "Yanfei": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Marechaussee Hunter"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "ATK%",
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "CRIT DMG%",
+    "substat3": "Elemental Mastery",
+    "er": null,
+    "critRequirement": null
+  },
+  "Aino": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Lunar"
+    ],
+    "sets": [
+      "Silken Moon's Serenade"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Elemental Mastery",
+    "gobletAlt": "Hydro DMG Bonus%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "Elemental Mastery",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "Elemental Mastery",
+    "er": 200,
+    "critRequirement": null
+  },
+  "Barbara": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Flower of Paradise Lost"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Healing Bonus%",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "Elemental Mastery",
+    "substat3": null,
+    "er": null,
+    "critRequirement": null
+  },
+  "Candace": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Scroll of the Hero of Cinder City"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "HP%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "HP%",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "CRIT DMG%",
+    "er": 220,
+    "critRequirement": null
+  },
+  "Dahlia": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Freeze"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "HP%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "HP%",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "HP%",
+    "er": 220,
+    "critRequirement": null
+  },
+  "Xingqiu": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Emblem of Severed Fate"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "ATK%",
+    "goblet": "Hydro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Alyosha": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Heart of the Furnace"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "ATK%",
+    "goblet": "ATK%",
+    "gobletAlt": "Electro DMG Bonus%",
+    "circlet": "ATK%",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 200,
+    "critRequirement": null
+  },
+  "Beidou": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Disenchantment in Deep Shadow"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "ATK%",
+    "goblet": "Electro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 200,
+    "critRequirement": null
+  },
+  "Fischl": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Hexerei"
+    ],
+    "sets": [
+      "Golden Troupe"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Electro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 130,
+    "critRequirement": null
+  },
+  "Kujou Sara": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "ATK%",
+    "goblet": "Electro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 220,
+    "critRequirement": null
+  },
+  "Kuki Shinobu": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Flower of Paradise Lost"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Elemental Mastery",
+    "circletAlt": null,
+    "substat1": "Elemental Mastery",
+    "substat2": "Energy Recharge%",
+    "substat3": "HP%",
+    "er": null,
+    "critRequirement": null
+  },
+  "Ororon": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Scroll of the Hero of Cinder City"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "ATK%",
+    "goblet": "Electro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Charlotte": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Freeze"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "ATK%",
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "Healing Bonus%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 220,
+    "critRequirement": null
+  },
+  "Chongyun": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Cryo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Diona": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Heart of the Furnace"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "HP%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "HP%",
+    "circletAlt": "Healing Bonus%",
+    "substat1": "Energy Recharge%",
+    "substat2": "HP%",
+    "substat3": "CRIT Rate%",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Layla": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Tenacity of the Millelith"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "HP%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "HP%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "HP%",
+    "er": 200,
+    "critRequirement": null
+  },
+  "Mika": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Freeze"
+    ],
+    "sets": [
+      "Noblesse Oblige"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "HP%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "Healing Bonus%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "HP%",
+    "er": 200,
+    "critRequirement": null
+  },
+  "Rosaria": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Emblem of Severed Fate"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Cryo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Ifa": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Scarlet Proof"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Elemental Mastery",
+    "circletAlt": "Healing Bonus%",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "Elemental Mastery",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Lan Yan": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "ATK%",
+    "goblet": "ATK%",
+    "gobletAlt": "Anemo DMG Bonus%",
+    "circlet": "ATK%",
+    "circletAlt": "CRIT Rate / DMG",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 220,
+    "critRequirement": null
+  },
+  "Sayu": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Viridescent Venerer"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "ATK%",
+    "gobletAlt": "Elemental Mastery",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "Elemental Mastery",
+    "substat1": "Energy Recharge%",
+    "substat2": "ATK%",
+    "substat3": "Elemental Mastery",
+    "er": 200,
+    "critRequirement": null
+  },
+  "Shikanoin Heizou": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Scarlet Proof"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Elemental Mastery",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "Elemental Mastery",
+    "substat3": null,
+    "er": 180,
+    "critRequirement": null
+  },
+  "Ningguang": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Nighttime Whispers in the Echoing Woods"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Geo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Yun Jin": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Husk of Opulent Dreams"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "DEF%",
+    "goblet": "DEF%",
+    "gobletAlt": null,
+    "circlet": "DEF%",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "DEF%",
+    "er": 280,
+    "critRequirement": null
+  },
+  "Collei": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Deepwood Memories"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Dendro DMG Bonus%",
+    "gobletAlt": "Elemental Mastery",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "Elemental Mastery",
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "Elemental Mastery",
+    "er": 200,
+    "critRequirement": null
+  },
+  "Kirara": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Scroll of the Hero of Cinder City"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "HP%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "HP%",
+    "substat1": "Energy Recharge%",
+    "substat2": "HP%",
+    "substat3": "CRIT Rate%",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Yaoyao": {
+    "role": "Support-Healer",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Deepwood Memories"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "HP%",
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "Healing Bonus%",
+    "circletAlt": "HP%",
+    "substat1": "Energy Recharge%",
+    "substat2": "HP%",
+    "substat3": "Elemental Mastery",
+    "er": 160,
+    "critRequirement": null
+  },
+  "Arlecchino": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Fragment of Harmonic Whimsy"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": "Elemental Mastery",
+    "er": null,
+    "critRequirement": null
+  },
+  "Hu Tao": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Shimenawa's Reminiscence"
+    ],
+    "sands": "HP%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Elemental Mastery",
+    "substat2": "CRIT Rate%",
+    "substat3": "HP%",
+    "er": null,
+    "critRequirement": null
+  },
+  "Yoimiya": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Shimenawa's Reminiscence"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": "Pyro DMG Bonus%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "Elemental Mastery",
+    "substat3": "ATK%",
+    "er": null,
+    "critRequirement": null
+  },
+  "Childe": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Nymph's Dream"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Hydro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 140,
+    "critRequirement": null
+  },
+  "Mualani": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Obsidian Codex"
+    ],
+    "sands": "HP%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Hydro DMG Bonus%",
+    "gobletAlt": "HP%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "HP%",
+    "substat1": "CRIT Rate%",
+    "substat2": "HP%",
+    "substat3": "Elemental Mastery",
+    "er": null,
+    "critRequirement": null
+  },
+  "Nilou": {
+    "role": "Off-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Vourukasha's Glow"
+    ],
+    "sands": "HP%",
+    "sandsAlt": null,
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "HP%",
+    "circletAlt": null,
+    "substat1": "HP%",
+    "substat2": "Elemental Mastery",
+    "substat3": null,
+    "er": 130,
+    "critRequirement": null
+  },
+  "Cyno": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Disenchantment in Deep Shadow"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "ATK%",
+    "gobletAlt": "Elemental Mastery",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 180,
+    "critRequirement": null
+  },
+  "Keqing": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Thundering Fury"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Electro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": "Elemental Mastery",
+    "er": null,
+    "critRequirement": null
+  },
+  "Lohen": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Hexerei"
+    ],
+    "sets": [
+      "A Day Carved From Rising Winds"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Cryo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": "Elemental Mastery",
+    "er": null,
+    "critRequirement": null
+  },
+  "Sandrone": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Disenchantment in Deep Shadow"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Skirk": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Freeze"
+    ],
+    "sets": [
+      "Finale of the Deep Galleries"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Cryo DMG Bonus%",
+    "gobletAlt": "ATK%",
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": null,
+    "er": null,
+    "critRequirement": null
+  },
+  "Chasca": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Nightsoul"
+    ],
+    "sets": [
+      "Obsidian Codex"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "ATK%",
+    "substat3": "Elemental Mastery",
+    "er": null,
+    "critRequirement": null
+  },
+  "Zibai": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Lunar"
+    ],
+    "sets": [
+      "Night of the Sky's Unveiling"
+    ],
+    "sands": "DEF%",
+    "sandsAlt": null,
+    "goblet": "DEF%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "DEF%",
+    "substat3": "Elemental Mastery",
+    "er": 120,
+    "critRequirement": null
+  },
+  "Nefer": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Stellar Radiance"
+    ],
+    "sets": [
+      "Night of the Sky's Unveiling"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": "Elemental Mastery",
+    "substat1": "CRIT Rate%",
+    "substat2": "Elemental Mastery",
+    "substat3": null,
+    "er": null,
+    "critRequirement": null
+  },
+  "Tighnari": {
+    "role": "On-field DPS",
+    "metaTeams": [
+      "Off-meta"
+    ],
+    "sets": [
+      "Wanderer's Troupe"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Dendro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 160,
+    "critRequirement": null
   }
 }
