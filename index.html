@@ -122,6 +122,9 @@
   .board-card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 7px; font-size: 11px; cursor: grab; text-align: center; position: relative; }
   .board-card:hover { background: var(--surface-hover); }
   .board-card-progress { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-left: 4px; vertical-align: middle; }
+  .board-bis-badge { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-align: center; border-radius: 4px; padding: 2px 0; margin-top: 4px; }
+  .board-toggle-btn { background: var(--surface); border: 1px solid var(--line); color: var(--text-dim); border-radius: 999px; padding: 4px 12px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
+  .board-toggle-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
   .board-cap { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-align: right; color: var(--text-faint); margin-top: 4px; }
   .board-cap.over { color: var(--fodder); font-weight: 700; }
   .board-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
@@ -312,6 +315,7 @@
 
   <div id="view-board" class="view">
     <div class="board-filters" id="board-filters"></div>
+    <button class="board-toggle-btn" id="board-bis-toggle" onclick="toggleBoardBisCount()" style="margin-bottom:10px;">Show BiS count</button>
     <input class="set-search" id="board-add-search" placeholder="Search full roster to add a character..." onkeyup="onBoardAddSearch()" />
     <div class="board-search-results" id="board-search-results" style="display:none;"></div>
     <div class="board-wrap">
@@ -699,6 +703,13 @@ var ZONE_ROWSPAN = { Apex: "2 / 4", Meta: "4 / 7", "Off-meta": "7 / 9", Bench: "
 var ZONE_STYLE = { Apex: "background:#3d1616;color:#e8615a;", Meta: "background:#3d2510;color:#e8954a;", "Off-meta": "background:#3a3510;color:#d9c94a;", Bench: "background:#1a3018;color:#6bc46a;" };
 
 var boardFilters = { element: new Set(), weapon: new Set(), rarity: new Set() };
+var showBoardBisCount = false;
+
+function toggleBoardBisCount() {
+  showBoardBisCount = !showBoardBisCount;
+  document.getElementById("board-bis-toggle").classList.toggle("active", showBoardBisCount);
+  renderBoard();
+}
 
 function passesBoardFilters(charName) {
   var c = findChar(charName);
@@ -810,9 +821,16 @@ function renderBoard() {
       var mode = BOARD_CAP_MODE[tier];
       var cardsHtml = cardsHere.map(function(t) {
         var pct = completionPct(t);
-        var dotColor = pct >= 100 ? "#e0b84f" : pct >= 80 ? "var(--excellent)" : pct >= 50 ? "var(--filler)" : "var(--fodder)";
-        var dotLabel = pct >= 100 ? "Perfect" : pct >= 80 ? "Excellent" : pct >= 50 ? "In progress" : "Needs work";
-        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + pct + '% complete — ' + dotLabel + '">' + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span></div>';
+        var dotColor = pct >= 100 ? "#e0b84f" : "#5a5a5a";
+        var dotLabel = pct >= 100 ? "Done farming (at least Good everywhere)" : "Still needs work";
+        var bisBadge = "";
+        if (showBoardBisCount) {
+          var bc = bisCount(t);
+          var bisColors = ["#e8615a", "#e8954a", "#d9c94a", "#c9d94a", "#9bc94a", "#6bc46a"];
+          var bisBgColors = ["#3a1414", "#3a2814", "#3a3414", "#2e3414", "#243414", "#1a3018"];
+          bisBadge = '<div class="board-bis-badge" style="background:' + bisBgColors[bc] + ';color:' + bisColors[bc] + ';">' + bc + '/5 BiS</div>';
+        }
+        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + pct + '% complete — ' + dotLabel + '">' + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span>' + bisBadge + '</div>';
       }).join('');
       var capText = mode === "none" ? (cardsHere.length + " placed") : (cardsHere.length + "/" + cap);
       var capClass = (mode === "soft" && cardsHere.length > cap) ? "board-cap over" : "board-cap";
@@ -961,9 +979,13 @@ function renderSets() {
 function getTargets() { return db[currentAccount].targets; }
 
 function completionPct(t) {
-  var CREDIT = { missing: 0, placeholder: 0, offset: 1, good: 0.8, bis: 1 };
-  var sum = SLOTS.reduce(function(acc, s) { return acc + (CREDIT[t.status[s]] || 0); }, 0);
+  var vals = SLOTS.map(function(s) { return STATUS_ORDER[t.status[s]] >= 2 ? 1 : 0; });
+  var sum = vals.reduce(function(a, b) { return a + b; }, 0);
   return Math.round((sum / 5) * 100);
+}
+
+function bisCount(t) {
+  return SLOTS.filter(function(s) { return t.status[s] === "bis"; }).length;
 }
 
 function mainStatDisplay(primary, alt) {
