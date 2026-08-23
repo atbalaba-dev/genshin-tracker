@@ -106,9 +106,9 @@
   .stars { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--filler); letter-spacing: 1px; }
   .tier-badge { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 12px; padding: 2px 9px; border-radius: 6px; display: inline-block; }
   .tier-T0 { background: #e8615a; color: #2a0808; }
-  .tier-T1 { background: #b84c46; color: #2a0808; }
-  .tier-T2 { background: #e8954a; color: #2a1608; }
-  .tier-T3 { background: #b8753a; color: #2a1608; }
+  .tier-T1 { background: #e8954a; color: #2a1608; }
+  .tier-T2 { background: #d9853a; color: #2a1608; }
+  .tier-T3 { background: #c2793a; color: #26160a; }
   .tier-T4 { background: #d9c94a; color: #26220a; }
   .tier-T5 { background: #ada03d; color: #26220a; }
   .tier-T6 { background: #6bc46a; color: #0e2010; }
@@ -679,10 +679,10 @@ var BOARD_TIERS = ["T0", "T1", "T2", "T3", "T4", "T5", "T6"];
 var BOARD_ROLES = ["On Field", "Damage Support", "Support-Sustain"];
 var BOARD_CAPS = { T0: 10, T1: 10, T2: 10, T3: 10, T4: 20, T5: 20, T6: Infinity };
 var BOARD_CAP_MODE = { T0: "hard", T1: "hard", T2: "hard", T3: "hard", T4: "soft", T5: "soft", T6: "none" };
-var BOARD_ZONE = { T0: "Apex", T1: "Apex", T2: "Meta", T3: "Meta", T4: "Off-meta", T5: "Off-meta", T6: "Bench" };
+var BOARD_ZONE = { T0: "Apex", T1: "Meta", T2: "Meta", T3: "Meta", T4: "Off-meta", T5: "Off-meta", T6: "Bench" };
 var TIER_ROW = { T0: 2, T1: 3, T2: 4, T3: 5, T4: 6, T5: 7, T6: 8 };
-var TIER_CELL_BG = { T0: "#2a1717", T1: "#241a1a", T2: "#2a1e14", T3: "#241d16", T4: "#28251a", T5: "#22201a", T6: "#182219" };
-var ZONE_ROWSPAN = { Apex: "2 / 4", Meta: "4 / 6", "Off-meta": "6 / 8", Bench: "8 / 9" };
+var TIER_CELL_BG = { T0: "#2a1717", T1: "#2a1e14", T2: "#261c14", T3: "#221a14", T4: "#28251a", T5: "#22201a", T6: "#182219" };
+var ZONE_ROWSPAN = { Apex: "2 / 3", Meta: "3 / 6", "Off-meta": "6 / 8", Bench: "8 / 9" };
 var ZONE_STYLE = { Apex: "background:#3d1616;color:#e8615a;", Meta: "background:#3d2510;color:#e8954a;", "Off-meta": "background:#3a3510;color:#d9c94a;", Bench: "background:#1a3018;color:#6bc46a;" };
 
 var boardFilters = { element: new Set(), weapon: new Set(), rarity: new Set() };
