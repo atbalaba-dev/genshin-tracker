@@ -105,11 +105,28 @@
   .char-meta-inline { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-faint); margin-left: 6px; }
   .stars { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--filler); letter-spacing: 1px; }
   .tier-badge { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 12px; padding: 2px 9px; border-radius: 6px; display: inline-block; }
-  .tier-S { background: #e0b84f; color: #1a1a1a; }
-  .tier-A { background: #4f8fe8; color: #1a1a1a; }
-  .tier-B { background: #6fa85a; color: #1a1a1a; }
-  .tier-C { background: #5f5d66; color: #ece9e2; }
-  .tier-D { background: #34333c; color: #8f8d97; }
+  .tier-T0 { background: #e8615a; color: #2a0808; }
+  .tier-T1 { background: #b84c46; color: #2a0808; }
+  .tier-T2 { background: #e8954a; color: #2a1608; }
+  .tier-T3 { background: #b8753a; color: #2a1608; }
+  .tier-T4 { background: #d9c94a; color: #26220a; }
+  .tier-T5 { background: #ada03d; color: #26220a; }
+  .tier-T6 { background: #6bc46a; color: #0e2010; }
+  .board-wrap { overflow-x: auto; }
+  .board-grid { display: grid; grid-template-columns: 90px repeat(3, minmax(160px, 1fr)); gap: 4px; min-width: 640px; }
+  .board-colhead { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); text-align: center; padding: 4px 0; }
+  .board-zone { font-family: 'IBM Plex Mono', monospace; font-size: 11px; display: flex; align-items: center; justify-content: center; border-radius: 8px; text-align: center; }
+  .board-cell { border-radius: 8px; min-height: 56px; padding: 6px; }
+  .board-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
+  .board-card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 7px; font-size: 11px; cursor: grab; text-align: center; }
+  .board-card:hover { background: var(--surface-hover); }
+  .board-cap { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-align: right; color: var(--text-faint); margin-top: 4px; }
+  .board-cap.over { color: var(--fodder); font-weight: 700; }
+  .board-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .board-filter-btn { background: var(--surface); border: 1px solid var(--line); color: var(--text-dim); border-radius: 999px; padding: 4px 12px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
+  .board-filter-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .board-search-results { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; padding: 8px; background: var(--surface); border-radius: 8px; }
+  .board-search-chip { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 5px 9px; font-size: 11px; cursor: grab; }
   .role-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-dim); }
   .meta-chip { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--excellent); border: 1px solid var(--excellent); padding: 1px 7px; border-radius: 999px; margin-right: 4px; display: inline-block; margin-top: 3px; }
   .checkbox-row { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -224,6 +241,7 @@
     <button class="tab" id="tab-queue" onclick="switchView('queue')">Priority Queue</button>
     <button class="tab" id="tab-rolls" onclick="switchView('rolls')">Roll Log</button>
     <button class="tab" id="tab-sets" onclick="switchView('sets')">Sets</button>
+    <button class="tab" id="tab-board" onclick="switchView('board')">Board</button>
   </div>
 
   <div id="view-targets" class="view active">
@@ -289,6 +307,15 @@
     <input class="set-search" id="sets-view-search" placeholder="Search sets (e.g. Furnace, Marechaussee)..." onkeyup="onSetsViewSearch()" />
     <div id="sets-list"></div>
   </div>
+
+  <div id="view-board" class="view">
+    <div class="board-filters" id="board-filters"></div>
+    <input class="set-search" id="board-add-search" placeholder="Search full roster to add a character..." onkeyup="onBoardAddSearch()" />
+    <div class="board-search-results" id="board-search-results" style="display:none;"></div>
+    <div class="board-wrap">
+      <div class="board-grid" id="board-grid"></div>
+    </div>
+  </div>
 </div>
 
 <!-- Target modal -->
@@ -307,32 +334,23 @@
       <div class="field">
         <label>Tier</label>
         <select id="t-tier">
-          <option value="S">S</option>
-          <option value="A">A</option>
-          <option value="B" selected>B</option>
-          <option value="C">C</option>
-          <option value="D">D</option>
+          <option value="T0">T0 — Apex (top)</option>
+          <option value="T1">T1 — Apex</option>
+          <option value="T2">T2 — Meta (top)</option>
+          <option value="T3" selected>T3 — Meta</option>
+          <option value="T4">T4 — Off-meta (top)</option>
+          <option value="T5">T5 — Off-meta</option>
+          <option value="T6">T6 — Bench</option>
         </select>
       </div>
       <div class="field">
         <label>Role</label>
-        <select id="t-role" onchange="updateSuggestedTier()">
+        <select id="t-role">
           <option value="">—</option>
-          <option value="On-field DPS">On-field DPS</option>
-          <option value="Off-field DPS">Off-field DPS</option>
-          <option value="Support-Healer">Support-Healer</option>
+          <option value="On Field">On Field</option>
+          <option value="Damage Support">Damage Support</option>
+          <option value="Support-Sustain">Support-Sustain</option>
         </select>
-      </div>
-    </div>
-    <div class="field">
-      <label>Meta team(s)</label>
-      <div class="checkbox-row" id="t-meta-teams">
-        <label><input type="checkbox" value="Stellar Radiance" onchange="updateSuggestedTier()" /> Stellar Radiance</label>
-        <label><input type="checkbox" value="Lunar" onchange="updateSuggestedTier()" /> Lunar</label>
-        <label><input type="checkbox" value="Hexerei" onchange="updateSuggestedTier()" /> Hexerei</label>
-        <label><input type="checkbox" value="Nightsoul" onchange="updateSuggestedTier()" /> Nightsoul</label>
-        <label><input type="checkbox" value="Freeze" onchange="updateSuggestedTier()" /> Freeze</label>
-        <label><input type="checkbox" value="Off-meta" onchange="updateSuggestedTier()" /> Off-meta</label>
       </div>
     </div>
     <div class="field">
@@ -428,8 +446,8 @@ var SANDS_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "Energy Re
 var GOBLET_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "Physical DMG Bonus%"].concat(ELEMENTS.map(function(e) { return e + " DMG Bonus%"; }));
 var CIRCLET_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "CRIT Rate%", "CRIT DMG%", "CRIT Rate / DMG", "Healing Bonus%"];
 var SUBSTAT_OPTS = ["None", "HP", "ATK", "DEF", "HP%", "ATK%", "DEF%", "Elemental Mastery", "Energy Recharge%", "CRIT Rate%", "CRIT DMG%"];
-var TIER_RANK = { S: 5, A: 4, B: 3, C: 2, D: 1 };
-var ROLE_RANK = { "Support-Healer": 3, "Off-field DPS": 2, "On-field DPS": 1, "": 0 };
+var TIER_RANK = { T0: 7, T1: 6, T2: 5, T3: 4, T4: 3, T5: 2, T6: 1 };
+var ROLE_RANK = { "Support-Sustain": 3, "Damage Support": 2, "On Field": 1, "": 0 };
 var META_TEAMS = ["Stellar Radiance", "Lunar", "Hexerei", "Nightsoul", "Freeze"];
 
 var STRONGBOX_SEED = [
@@ -464,21 +482,6 @@ function toggleStrongboxEligible(setName, val) {
   strongboxConfig[setName] = val;
   saveStrongboxConfig();
   renderAll();
-}
-
-function suggestTier(role, metaTeams) {
-  var realTeams = (metaTeams || []).filter(function(m) { return META_TEAMS.indexOf(m) !== -1; });
-  var inMeta = realTeams.length > 0;
-  var mapIn = { "Support-Healer": "S", "Off-field DPS": "A", "On-field DPS": "A", "": "B" };
-  var mapOff = { "Support-Healer": "B", "Off-field DPS": "C", "On-field DPS": "D", "": "D" };
-  var map = inMeta ? mapIn : mapOff;
-  return map[role] || map[""];
-}
-
-function updateSuggestedTier() {
-  var role = document.getElementById("t-role").value;
-  var metaTeams = Array.from(document.querySelectorAll('#t-meta-teams input:checked')).map(function(cb) { return cb.value; });
-  document.getElementById("t-tier").value = suggestTier(role, metaTeams);
 }
 
 function populateSelect(sel, options, current) {
@@ -569,13 +572,10 @@ function onCharNameInput() {
       if (ref.substat3) document.getElementById("t-substat3").value = ref.substat3;
       if (ref.er) document.getElementById("t-er").value = ref.er;
       if (ref.critRequirement) document.getElementById("t-critreq").value = ref.critRequirement;
-      if (ref.role) document.getElementById("t-role").value = ref.role;
-      if (ref.metaTeams && ref.metaTeams.length) {
-        document.querySelectorAll('#t-meta-teams input').forEach(function(cb) {
-          cb.checked = ref.metaTeams.indexOf(cb.value) !== -1;
-        });
+      if (ref.role) {
+        var oldRoleMap = { "On-field DPS": "On Field", "Off-field DPS": "Damage Support", "Support-Healer": "Support-Sustain" };
+        document.getElementById("t-role").value = oldRoleMap[ref.role] || ref.role;
       }
-      if (ref.role || (ref.metaTeams && ref.metaTeams.length)) updateSuggestedTier();
       if (ref.sets && ref.sets.length) {
         document.getElementById("t-sets").value = ref.sets[0];
         pendingGoRefSets = { charName: refKey, sets: ref.sets };
@@ -609,6 +609,8 @@ function loadDB() {
     });
   }
   var starToTier = { 5: "S", 4: "A", 3: "B", 2: "C", 1: "D" };
+  var oldTierToNew = { S: "T0", A: "T2", B: "T3", C: "T4", D: "T6" };
+  var oldRoleToNew = { "On-field DPS": "On Field", "Off-field DPS": "Damage Support", "Support-Healer": "Support-Sustain" };
   ACCOUNTS.forEach(function(a) {
     if (!db[a]) db[a] = { targets: [], rolls: [] };
     db[a].targets.forEach(function(t) {
@@ -616,7 +618,9 @@ function loadDB() {
       if (t.tier === undefined) {
         t.tier = (typeof t.priority === "number" && starToTier[t.priority]) ? starToTier[t.priority] : "C";
       }
+      if (oldTierToNew[t.tier]) t.tier = oldTierToNew[t.tier];
       if (t.role === undefined) t.role = "";
+      if (oldRoleToNew[t.role]) t.role = oldRoleToNew[t.role];
       if (t.metaTeams === undefined) t.metaTeams = [];
       t.metaTeams = t.metaTeams.map(function(m) { return m === "Mavuika" ? "Nightsoul" : m; });
       if (t.substat1 === undefined) {
@@ -651,10 +655,12 @@ function switchView(view) {
   document.getElementById("tab-queue").classList.toggle("active", view === "queue");
   document.getElementById("tab-rolls").classList.toggle("active", view === "rolls");
   document.getElementById("tab-sets").classList.toggle("active", view === "sets");
+  document.getElementById("tab-board").classList.toggle("active", view === "board");
   document.getElementById("view-targets").classList.toggle("active", view === "targets");
   document.getElementById("view-queue").classList.toggle("active", view === "queue");
   document.getElementById("view-rolls").classList.toggle("active", view === "rolls");
   document.getElementById("view-sets").classList.toggle("active", view === "sets");
+  document.getElementById("view-board").classList.toggle("active", view === "board");
   renderAll();
 }
 
@@ -664,6 +670,144 @@ function renderAll() {
   populateRollCharacterSelect();
   renderRolls();
   renderSets();
+  renderBoard();
+}
+
+/* ---------- BOARD ---------- */
+
+var BOARD_TIERS = ["T0", "T1", "T2", "T3", "T4", "T5", "T6"];
+var BOARD_ROLES = ["On Field", "Damage Support", "Support-Sustain"];
+var BOARD_CAPS = { T0: 10, T1: 10, T2: 10, T3: 10, T4: 20, T5: 20, T6: Infinity };
+var BOARD_CAP_MODE = { T0: "hard", T1: "hard", T2: "hard", T3: "hard", T4: "soft", T5: "soft", T6: "none" };
+var BOARD_ZONE = { T0: "Apex", T1: "Apex", T2: "Meta", T3: "Meta", T4: "Off-meta", T5: "Off-meta", T6: "Bench" };
+var TIER_ROW = { T0: 2, T1: 3, T2: 4, T3: 5, T4: 6, T5: 7, T6: 8 };
+var TIER_CELL_BG = { T0: "#2a1717", T1: "#241a1a", T2: "#2a1e14", T3: "#241d16", T4: "#28251a", T5: "#22201a", T6: "#182219" };
+var ZONE_ROWSPAN = { Apex: "2 / 4", Meta: "4 / 6", "Off-meta": "6 / 8", Bench: "8 / 9" };
+var ZONE_STYLE = { Apex: "background:#3d1616;color:#e8615a;", Meta: "background:#3d2510;color:#e8954a;", "Off-meta": "background:#3a3510;color:#d9c94a;", Bench: "background:#1a3018;color:#6bc46a;" };
+
+var boardFilters = { element: new Set(), weapon: new Set(), rarity: new Set() };
+
+function passesBoardFilters(charName) {
+  var c = findChar(charName);
+  if (!c) return true;
+  if (boardFilters.element.size && !boardFilters.element.has(c.element)) return false;
+  if (boardFilters.weapon.size && !boardFilters.weapon.has(c.weapon)) return false;
+  if (boardFilters.rarity.size && !boardFilters.rarity.has(c.rarity)) return false;
+  return true;
+}
+
+function toggleBoardFilter(category, value) {
+  if (boardFilters[category].has(value)) boardFilters[category].delete(value);
+  else boardFilters[category].add(value);
+  renderBoard();
+}
+
+function renderBoardFilters() {
+  var el = document.getElementById("board-filters");
+  var elements = ["Pyro", "Hydro", "Electro", "Cryo", "Anemo", "Geo", "Dendro"];
+  var weapons = ["Sword", "Claymore", "Polearm", "Bow", "Catalyst"];
+  var rarities = [5, 4];
+  var html = "";
+  elements.forEach(function(e) {
+    var active = boardFilters.element.has(e);
+    html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'element\',\'' + e + '\')">' + e + '</button>';
+  });
+  weapons.forEach(function(w) {
+    var active = boardFilters.weapon.has(w);
+    html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'weapon\',\'' + w + '\')">' + w + '</button>';
+  });
+  rarities.forEach(function(r) {
+    var active = boardFilters.rarity.has(r);
+    html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'rarity\',' + r + ')">' + r + '★</button>';
+  });
+  el.innerHTML = html;
+}
+
+function handleBoardDrop(ev, tier, role) {
+  ev.preventDefault();
+  var raw = ev.dataTransfer.getData("text");
+  var isNew = raw.indexOf("__NEW__") === 0;
+  var charName = isNew ? raw.slice(7) : raw;
+  var targets = getTargets();
+  var cap = BOARD_CAPS[tier];
+  var mode = BOARD_CAP_MODE[tier];
+  var currentCount = targets.filter(function(t) { return !t.archived && t.tier === tier && t.role === role && t.name.toLowerCase() !== charName.toLowerCase(); }).length;
+  var cellEl = ev.currentTarget;
+  if (mode === "hard" && currentCount >= cap) {
+    cellEl.style.background = "#4a1e1e";
+    setTimeout(function() { renderBoard(); }, 400);
+    return;
+  }
+  var existing = targets.find(function(t) { return t.name.toLowerCase() === charName.toLowerCase(); });
+  if (existing) {
+    existing.tier = tier; existing.role = role; existing.archived = false;
+  } else {
+    var c = findChar(charName);
+    var status = {}; SLOTS.forEach(function(s) { status[s] = "missing"; });
+    targets.push({
+      id: "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+      name: charName, tier: tier, role: role, metaTeams: [], sets: "", sands: "None",
+      goblet: (c && ELEMENTS.indexOf(c.element) >= 0) ? c.element + " DMG Bonus%" : "None",
+      circlet: "None", sandsAlt: "None", gobletAlt: "None", circletAlt: "None",
+      substat1: "", substat2: "", substat3: "", erRequirement: null, critRequirement: null,
+      cvThreshold: null, notes: "", status: status, archived: false
+    });
+  }
+  saveDB();
+  if (isNew) {
+    document.getElementById("board-add-search").value = "";
+    document.getElementById("board-search-results").style.display = "none";
+  }
+  renderAll();
+}
+
+function onBoardAddSearch() {
+  var q = document.getElementById("board-add-search").value.trim().toLowerCase();
+  var results = document.getElementById("board-search-results");
+  if (!q) { results.style.display = "none"; return; }
+  var matches = CHAR_DB.filter(function(c) { return c.name.toLowerCase().indexOf(q) !== -1 && passesBoardFilters(c.name); }).slice(0, 12);
+  if (matches.length === 0) {
+    results.style.display = "block";
+    results.innerHTML = '<span class="empty" style="padding:0;">No matches.</span>';
+    return;
+  }
+  results.style.display = "flex";
+  results.innerHTML = matches.map(function(c) {
+    return '<div class="board-search-chip" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'__NEW__' + c.name.replace(/'/g, "\\'") + '\')">' + escapeHtml(c.name) + '</div>';
+  }).join('');
+}
+
+function renderBoard() {
+  renderBoardFilters();
+  var targets = getTargets().filter(function(t) { return !t.archived && BOARD_TIERS.indexOf(t.tier) !== -1 && passesBoardFilters(t.name); });
+  var html = '<div style="grid-column:1;grid-row:1;"></div>';
+  BOARD_ROLES.forEach(function(r, i) {
+    html += '<div class="board-colhead" style="grid-column:' + (i + 2) + ';grid-row:1;">' + r + '</div>';
+  });
+  var seenZones = {};
+  BOARD_TIERS.forEach(function(tier) {
+    var zone = BOARD_ZONE[tier];
+    if (!seenZones[zone]) {
+      seenZones[zone] = true;
+      html += '<div class="board-zone" style="grid-column:1;grid-row:' + ZONE_ROWSPAN[zone] + ';' + ZONE_STYLE[zone] + '">' + zone + '</div>';
+    }
+    BOARD_ROLES.forEach(function(role, colIdx) {
+      var cardsHere = targets.filter(function(t) { return t.tier === tier && t.role === role; });
+      var cap = BOARD_CAPS[tier];
+      var mode = BOARD_CAP_MODE[tier];
+      var cardsHtml = cardsHere.map(function(t) {
+        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')">' + escapeHtml(t.name) + '</div>';
+      }).join('');
+      var capText = mode === "none" ? (cardsHere.length + " placed") : (cardsHere.length + "/" + cap);
+      var capClass = (mode === "soft" && cardsHere.length > cap) ? "board-cap over" : "board-cap";
+      html += '<div class="board-cell" data-tier="' + tier + '" data-role="' + role + '" ondragover="event.preventDefault()" ondrop="handleBoardDrop(event,\'' + tier + '\',\'' + role + '\')" ' +
+        'style="grid-column:' + (colIdx + 2) + ';grid-row:' + TIER_ROW[tier] + ';background:' + TIER_CELL_BG[tier] + ';">' +
+        '<div class="board-cards">' + cardsHtml + '</div>' +
+        '<div class="' + capClass + '">' + capText + '</div>' +
+      '</div>';
+    });
+  });
+  document.getElementById("board-grid").innerHTML = html;
 }
 
 /* ---------- SETS ---------- */
@@ -826,7 +970,6 @@ function renderTargets() {
   list.innerHTML = sorted.map(function(t) {
     var c = findChar(t.name);
     var metaInline = c ? '<span class="char-meta-inline">' + c.rarity + '★ ' + c.element + ' ' + c.weapon + '</span>' : '';
-    var metaChips = (t.metaTeams || []).map(function(m) { return '<span class="meta-chip">' + escapeHtml(m) + '</span>'; }).join('');
     var slotBadges = SLOTS.map(function(s) {
       var st = t.status[s];
       var label = s.charAt(0).toUpperCase() + s.slice(1);
@@ -837,7 +980,7 @@ function renderTargets() {
     return '<div class="card">' +
       '<div class="card-top">' +
         '<div><span class="char-name">' + escapeHtml(t.name) + '</span>' + metaInline + ' &nbsp; <span class="tier-badge tier-' + t.tier + '">' + t.tier + '</span>' +
-        (t.role ? ' &nbsp; <span class="role-tag">' + escapeHtml(t.role) + '</span>' : '') + '<div>' + metaChips + '</div></div>' +
+        (t.role ? ' &nbsp; <span class="role-tag">' + escapeHtml(t.role) + '</span>' : '') + '</div>' +
         '<div class="card-actions"><button class="icon-btn" onclick="openTargetModal(\'' + t.id + '\')">Edit</button></div>' +
       '</div>' +
       '<div class="meta-row"><b>Set:</b> ' + escapeHtml(t.sets || '—') + ' &nbsp; | &nbsp; <b>Sands:</b> ' + escapeHtml(mainStatDisplay(t.sands, t.sandsAlt)) +
@@ -872,9 +1015,6 @@ function openTargetModal(id) {
     document.getElementById("t-name").value = t.name;
     document.getElementById("t-tier").value = t.tier;
     document.getElementById("t-role").value = t.role || "";
-    document.querySelectorAll('#t-meta-teams input').forEach(function(cb) {
-      cb.checked = (t.metaTeams || []).indexOf(cb.value) !== -1;
-    });
     document.getElementById("t-sets").value = t.sets || "";
     populateSelect(document.getElementById("t-sands"), SANDS_OPTS, t.sands || "None");
     populateSelect(document.getElementById("t-goblet"), GOBLET_OPTS, t.goblet || "None");
@@ -908,9 +1048,8 @@ function openTargetModal(id) {
     populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, "None");
     document.getElementById("t-er").value = "";
     document.getElementById("t-critreq").value = "";
-    document.getElementById("t-tier").value = "B";
+    document.getElementById("t-tier").value = "T3";
     document.getElementById("t-role").value = "";
-    document.querySelectorAll('#t-meta-teams input').forEach(function(cb) { cb.checked = false; });
     document.getElementById("t-autofill").textContent = "";
     SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "missing"; });
   }
@@ -923,7 +1062,7 @@ function saveTarget() {
   if (!name) { alert("Character name is required"); return; }
   var status = {};
   SLOTS.forEach(function(s) { status[s] = document.getElementById("t-status-" + s).value; });
-  var metaTeams = Array.from(document.querySelectorAll('#t-meta-teams input:checked')).map(function(cb) { return cb.value; });
+  var metaTeams = [];
   var data = {
     name: name,
     tier: document.getElementById("t-tier").value,
@@ -1057,14 +1196,12 @@ function renderQueueCard(t, rank, dimmed) {
   var pct = completionPct(t);
   var barColor = pct >= 80 ? 'var(--good)' : pct >= 40 ? 'var(--filler)' : 'var(--fodder)';
   var archTag = t.archived ? '<span class="archived-tag">Archived</span>' : '';
-  var metaChips = (t.metaTeams || []).map(function(m) { return '<span class="meta-chip">' + escapeHtml(m) + '</span>'; }).join('');
   var style = dimmed ? ' style="cursor:pointer;opacity:0.5;"' : ' style="cursor:pointer;"';
   return '<div class="card queue-card"' + style + ' onclick="openTargetModal(\'' + t.id + '\')">' +
     '<div class="queue-rank">' + rank + '</div>' +
     '<div class="queue-body">' +
       '<div><span class="char-name">' + escapeHtml(t.name) + '</span> &nbsp; <span class="tier-badge tier-' + t.tier + '">' + t.tier + '</span>' +
       (t.role ? ' &nbsp; <span class="role-tag">' + escapeHtml(t.role) + '</span>' : '') + archTag + '</div>' +
-      '<div>' + metaChips + '</div>' +
       '<div class="queue-bar-track"><div class="queue-bar-fill" style="width:' + pct + '%;background:' + barColor + '"></div></div>' +
       '<div class="queue-pct">' + pct + '% complete &middot; ' + escapeHtml(t.sets || 'no set set') + '</div>' +
     '</div>' +
