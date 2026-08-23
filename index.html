@@ -106,12 +106,13 @@
   .stars { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--filler); letter-spacing: 1px; }
   .tier-badge { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 12px; padding: 2px 9px; border-radius: 6px; display: inline-block; }
   .tier-T0 { background: #e8615a; color: #2a0808; }
-  .tier-T1 { background: #e8954a; color: #2a1608; }
-  .tier-T2 { background: #d9853a; color: #2a1608; }
-  .tier-T3 { background: #c2793a; color: #26160a; }
-  .tier-T4 { background: #d9c94a; color: #26220a; }
-  .tier-T5 { background: #ada03d; color: #26220a; }
-  .tier-T6 { background: #6bc46a; color: #0e2010; }
+  .tier-T1 { background: #c24d47; color: #2a0808; }
+  .tier-T2 { background: #e8954a; color: #2a1608; }
+  .tier-T3 { background: #d9853a; color: #2a1608; }
+  .tier-T4 { background: #c2793a; color: #26160a; }
+  .tier-T5 { background: #d9c94a; color: #26220a; }
+  .tier-T6 { background: #ada03d; color: #26220a; }
+  .tier-T7 { background: #6bc46a; color: #0e2010; }
   .board-wrap { overflow-x: auto; }
   .board-grid { display: grid; grid-template-columns: 90px repeat(3, minmax(160px, 1fr)); gap: 4px; min-width: 640px; }
   .board-colhead { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); text-align: center; padding: 4px 0; }
@@ -446,7 +447,7 @@ var SANDS_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "Energy Re
 var GOBLET_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "Physical DMG Bonus%"].concat(ELEMENTS.map(function(e) { return e + " DMG Bonus%"; }));
 var CIRCLET_OPTS = ["None", "HP%", "DEF%", "ATK%", "Elemental Mastery", "CRIT Rate%", "CRIT DMG%", "CRIT Rate / DMG", "Healing Bonus%"];
 var SUBSTAT_OPTS = ["None", "HP", "ATK", "DEF", "HP%", "ATK%", "DEF%", "Elemental Mastery", "Energy Recharge%", "CRIT Rate%", "CRIT DMG%"];
-var TIER_RANK = { T0: 7, T1: 6, T2: 5, T3: 4, T4: 3, T5: 2, T6: 1 };
+var TIER_RANK = { T0: 8, T1: 7, T2: 6, T3: 5, T4: 4, T5: 3, T6: 2, T7: 1 };
 var ROLE_RANK = { "Support-Sustain": 3, "Damage Support": 2, "On Field": 1, "": 0 };
 var META_TEAMS = ["Stellar Radiance", "Lunar", "Hexerei", "Nightsoul", "Freeze"];
 
@@ -609,8 +610,19 @@ function loadDB() {
     });
   }
   var starToTier = { 5: "S", 4: "A", 3: "B", 2: "C", 1: "D" };
-  var oldTierToNew = { S: "T0", A: "T2", B: "T3", C: "T4", D: "T6" };
+  var oldTierToNew = { S: "T0", A: "T3", B: "T4", C: "T6", D: "T7" };
   var oldRoleToNew = { "On-field DPS": "On Field", "Off-field DPS": "Damage Support", "Support-Healer": "Support-Sustain" };
+  var sevenToEight = { T0: "T0", T1: "T2", T2: "T3", T3: "T4", T4: "T5", T5: "T6", T6: "T7" };
+  if (db.boardTierVersion !== 2) {
+    ACCOUNTS.forEach(function(a) {
+      if (db[a] && db[a].targets) {
+        db[a].targets.forEach(function(t) {
+          if (sevenToEight[t.tier]) t.tier = sevenToEight[t.tier];
+        });
+      }
+    });
+    db.boardTierVersion = 2;
+  }
   ACCOUNTS.forEach(function(a) {
     if (!db[a]) db[a] = { targets: [], rolls: [] };
     db[a].targets.forEach(function(t) {
@@ -675,14 +687,14 @@ function renderAll() {
 
 /* ---------- BOARD ---------- */
 
-var BOARD_TIERS = ["T0", "T1", "T2", "T3", "T4", "T5", "T6"];
+var BOARD_TIERS = ["T0", "T1", "T2", "T3", "T4", "T5", "T6", "T7"];
 var BOARD_ROLES = ["On Field", "Damage Support", "Support-Sustain"];
-var BOARD_CAPS = { T0: 10, T1: 10, T2: 10, T3: 10, T4: 20, T5: 20, T6: Infinity };
-var BOARD_CAP_MODE = { T0: "hard", T1: "hard", T2: "hard", T3: "hard", T4: "soft", T5: "soft", T6: "none" };
-var BOARD_ZONE = { T0: "Apex", T1: "Meta", T2: "Meta", T3: "Meta", T4: "Off-meta", T5: "Off-meta", T6: "Bench" };
-var TIER_ROW = { T0: 2, T1: 3, T2: 4, T3: 5, T4: 6, T5: 7, T6: 8 };
-var TIER_CELL_BG = { T0: "#2a1717", T1: "#2a1e14", T2: "#261c14", T3: "#221a14", T4: "#28251a", T5: "#22201a", T6: "#182219" };
-var ZONE_ROWSPAN = { Apex: "2 / 3", Meta: "3 / 6", "Off-meta": "6 / 8", Bench: "8 / 9" };
+var BOARD_CAPS = { T0: 10, T1: 10, T2: 10, T3: 10, T4: 10, T5: 20, T6: 20, T7: Infinity };
+var BOARD_CAP_MODE = { T0: "hard", T1: "hard", T2: "hard", T3: "hard", T4: "hard", T5: "soft", T6: "soft", T7: "none" };
+var BOARD_ZONE = { T0: "Apex", T1: "Apex", T2: "Meta", T3: "Meta", T4: "Meta", T5: "Off-meta", T6: "Off-meta", T7: "Bench" };
+var TIER_ROW = { T0: 2, T1: 3, T2: 4, T3: 5, T4: 6, T5: 7, T6: 8, T7: 9 };
+var TIER_CELL_BG = { T0: "#2a1717", T1: "#251616", T2: "#2a1e14", T3: "#261c14", T4: "#221a14", T5: "#28251a", T6: "#22201a", T7: "#182219" };
+var ZONE_ROWSPAN = { Apex: "2 / 4", Meta: "4 / 7", "Off-meta": "7 / 9", Bench: "9 / 10" };
 var ZONE_STYLE = { Apex: "background:#3d1616;color:#e8615a;", Meta: "background:#3d2510;color:#e8954a;", "Off-meta": "background:#3a3510;color:#d9c94a;", Bench: "background:#1a3018;color:#6bc46a;" };
 
 var boardFilters = { element: new Set(), weapon: new Set(), rarity: new Set() };
