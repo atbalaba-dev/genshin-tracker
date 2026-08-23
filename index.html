@@ -127,7 +127,8 @@
   .board-toggle-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
   .board-cap { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-align: right; color: var(--text-faint); margin-top: 4px; }
   .board-cap.over { color: var(--fodder); font-weight: 700; }
-  .board-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .board-filters-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .board-filters-group { display: flex; gap: 6px; flex-wrap: wrap; }
   .board-filter-btn { background: var(--surface); border: 1px solid var(--line); color: var(--text-dim); border-radius: 999px; padding: 4px 12px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
   .board-filter-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
   .board-search-results { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; padding: 8px; background: var(--surface); border-radius: 8px; }
@@ -314,8 +315,11 @@
   </div>
 
   <div id="view-board" class="view">
-    <div class="board-filters" id="board-filters"></div>
-    <button class="board-toggle-btn" id="board-bis-toggle" onclick="toggleBoardBisCount()" style="margin-bottom:10px;">Show BiS count</button>
+    <div class="board-filters-row" id="board-filters-row1">
+      <div class="board-filters-group" id="board-filters-elements"></div>
+      <button class="board-toggle-btn" id="board-bis-toggle" onclick="toggleBoardBisCount()">Show BiS count</button>
+    </div>
+    <div class="board-filters-row" id="board-filters-row2"></div>
     <input class="set-search" id="board-add-search" placeholder="Search full roster to add a character..." onkeyup="onBoardAddSearch()" />
     <div class="board-search-results" id="board-search-results" style="display:none;"></div>
     <div class="board-wrap">
@@ -727,24 +731,25 @@ function toggleBoardFilter(category, value) {
 }
 
 function renderBoardFilters() {
-  var el = document.getElementById("board-filters");
   var elements = ["Pyro", "Hydro", "Electro", "Cryo", "Anemo", "Geo", "Dendro"];
   var weapons = ["Sword", "Claymore", "Polearm", "Bow", "Catalyst"];
   var rarities = [5, 4];
-  var html = "";
+  var elHtml = "";
   elements.forEach(function(e) {
     var active = boardFilters.element.has(e);
-    html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'element\',\'' + e + '\')">' + e + '</button>';
+    elHtml += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'element\',\'' + e + '\')">' + e + '</button>';
   });
+  var row2Html = "";
   weapons.forEach(function(w) {
     var active = boardFilters.weapon.has(w);
-    html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'weapon\',\'' + w + '\')">' + w + '</button>';
+    row2Html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'weapon\',\'' + w + '\')">' + w + '</button>';
   });
   rarities.forEach(function(r) {
     var active = boardFilters.rarity.has(r);
-    html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'rarity\',' + r + ')">' + r + '★</button>';
+    row2Html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'rarity\',' + r + ')">' + r + '★</button>';
   });
-  el.innerHTML = html;
+  document.getElementById("board-filters-elements").innerHTML = elHtml;
+  document.getElementById("board-filters-row2").innerHTML = row2Html;
 }
 
 function handleBoardDrop(ev, tier, role) {
