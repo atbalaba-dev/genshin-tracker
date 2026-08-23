@@ -119,8 +119,9 @@
   .board-zone { font-family: 'IBM Plex Mono', monospace; font-size: 11px; display: flex; align-items: center; justify-content: center; border-radius: 8px; text-align: center; }
   .board-cell { border-radius: 8px; min-height: 56px; padding: 6px; }
   .board-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
-  .board-card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 7px; font-size: 11px; cursor: grab; text-align: center; }
+  .board-card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 7px; font-size: 11px; cursor: grab; text-align: center; position: relative; }
   .board-card:hover { background: var(--surface-hover); }
+  .board-card-progress { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-left: 4px; vertical-align: middle; }
   .board-cap { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-align: right; color: var(--text-faint); margin-top: 4px; }
   .board-cap.over { color: var(--fodder); font-weight: 700; }
   .board-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
@@ -808,7 +809,10 @@ function renderBoard() {
       var cap = BOARD_CAPS[tier];
       var mode = BOARD_CAP_MODE[tier];
       var cardsHtml = cardsHere.map(function(t) {
-        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')">' + escapeHtml(t.name) + '</div>';
+        var pct = completionPct(t);
+        var dotColor = pct >= 100 ? "#e0b84f" : pct >= 80 ? "var(--good)" : pct >= 40 ? "var(--filler)" : "var(--fodder)";
+        var dotLabel = pct >= 100 ? "Perfect" : pct >= 80 ? "Good" : pct >= 40 ? "In progress" : "Needs work";
+        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + pct + '% complete — ' + dotLabel + '">' + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span></div>';
       }).join('');
       var capText = mode === "none" ? (cardsHere.length + " placed") : (cardsHere.length + "/" + cap);
       var capClass = (mode === "soft" && cardsHere.length > cap) ? "board-cap over" : "board-cap";
