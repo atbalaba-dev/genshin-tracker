@@ -752,6 +752,43 @@ function renderBoardFilters() {
   document.getElementById("board-filters-row2").innerHTML = row2Html;
 }
 
+function buildNewTargetFromReference(charName, tier, role) {
+  var c = findChar(charName);
+  var refKey = Object.keys(GO_REFERENCE).find(function(k) { return k.toLowerCase() === charName.toLowerCase(); });
+  var ref = refKey ? GO_REFERENCE[refKey] : null;
+  var status = {}; SLOTS.forEach(function(s) { status[s] = "missing"; });
+
+  var sands = "None", sandsAlt = "None", goblet = "None", gobletAlt = "None", circlet = "None", circletAlt = "None";
+  var substat1 = "", substat2 = "", substat3 = "";
+  var er = null, critReq = null, sets = "", notes = "";
+
+  if (c && ELEMENTS.indexOf(c.element) >= 0) goblet = c.element + " DMG Bonus%";
+
+  if (ref) {
+    if (ref.sands) sands = ref.sands;
+    if (ref.sandsAlt) sandsAlt = ref.sandsAlt;
+    if (ref.goblet) goblet = ref.goblet;
+    if (ref.gobletAlt) gobletAlt = ref.gobletAlt;
+    if (ref.circlet) circlet = ref.circlet;
+    if (ref.circletAlt) circletAlt = ref.circletAlt;
+    if (ref.substat1) substat1 = ref.substat1;
+    if (ref.substat2) substat2 = ref.substat2;
+    if (ref.substat3) substat3 = ref.substat3;
+    if (ref.er) er = ref.er;
+    if (ref.critRequirement) critReq = ref.critRequirement;
+    if (ref.sets && ref.sets.length) sets = ref.sets[0];
+    notes = "From build reference — review before trusting, may need adjustment.";
+  }
+
+  return {
+    id: "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+    name: charName, tier: tier, role: role, metaTeams: [], sets: sets,
+    sands: sands, sandsAlt: sandsAlt, goblet: goblet, gobletAlt: gobletAlt, circlet: circlet, circletAlt: circletAlt,
+    substat1: substat1, substat2: substat2, substat3: substat3,
+    erRequirement: er, critRequirement: critReq, cvThreshold: null, notes: notes, status: status, archived: false
+  };
+}
+
 function handleBoardDrop(ev, tier, role) {
   ev.preventDefault();
   var raw = ev.dataTransfer.getData("text");
@@ -771,16 +808,7 @@ function handleBoardDrop(ev, tier, role) {
   if (existing) {
     existing.tier = tier; existing.role = role; existing.archived = false;
   } else {
-    var c = findChar(charName);
-    var status = {}; SLOTS.forEach(function(s) { status[s] = "missing"; });
-    targets.push({
-      id: "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
-      name: charName, tier: tier, role: role, metaTeams: [], sets: "", sands: "None",
-      goblet: (c && ELEMENTS.indexOf(c.element) >= 0) ? c.element + " DMG Bonus%" : "None",
-      circlet: "None", sandsAlt: "None", gobletAlt: "None", circletAlt: "None",
-      substat1: "", substat2: "", substat3: "", erRequirement: null, critRequirement: null,
-      cvThreshold: null, notes: "", status: status, archived: false
-    });
+    targets.push(buildNewTargetFromReference(charName, tier, role));
   }
   saveDB();
   if (isNew) {
