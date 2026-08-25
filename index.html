@@ -243,19 +243,10 @@
   </div>
 
   <div class="tabs">
-    <button class="tab active" id="tab-targets" onclick="switchView('targets')">Targets</button>
     <button class="tab" id="tab-queue" onclick="switchView('queue')">Priority Queue</button>
     <button class="tab" id="tab-rolls" onclick="switchView('rolls')">Roll Log</button>
     <button class="tab" id="tab-sets" onclick="switchView('sets')">Sets</button>
-    <button class="tab" id="tab-board" onclick="switchView('board')">Board</button>
-  </div>
-
-  <div id="view-targets" class="view active">
-    <div class="add-row">
-      <button onclick="openTargetModal()">+ Add character</button>
-      <button class="ghost" onclick="openIOModal()">Export / Import backup</button>
-    </div>
-    <div id="targets-list"></div>
+    <button class="tab active" id="tab-board" onclick="switchView('board')">Board</button>
   </div>
 
   <div id="view-queue" class="view">
@@ -314,10 +305,13 @@
     <div id="sets-list"></div>
   </div>
 
-  <div id="view-board" class="view">
+  <div id="view-board" class="view active">
     <div class="board-filters-row" id="board-filters-row1">
       <div class="board-filters-group" id="board-filters-elements"></div>
-      <button class="board-toggle-btn" id="board-bis-toggle" onclick="toggleBoardBisCount()">Show BiS count</button>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
+        <button class="board-toggle-btn" id="board-bis-toggle" onclick="toggleBoardBisCount()">Show BiS count</button>
+        <button class="board-toggle-btn" onclick="openIOModal()">Export / Import backup</button>
+      </div>
     </div>
     <div class="board-filters-group" id="board-filters-row2" style="margin-bottom:8px;"></div>
     <input class="set-search" id="board-add-search" placeholder="Search full roster to add a character..." onkeyup="onBoardAddSearch()" />
@@ -502,7 +496,7 @@ function populateSelect(sel, options, current) {
 }
 
 var currentAccount = "main";
-var currentView = "targets";
+var currentView = "board";
 var editingTargetId = null;
 var showArchived = false;
 var CHAR_DB = [];
@@ -672,12 +666,10 @@ function switchAccount(acct) {
 
 function switchView(view) {
   currentView = view;
-  document.getElementById("tab-targets").classList.toggle("active", view === "targets");
   document.getElementById("tab-queue").classList.toggle("active", view === "queue");
   document.getElementById("tab-rolls").classList.toggle("active", view === "rolls");
   document.getElementById("tab-sets").classList.toggle("active", view === "sets");
   document.getElementById("tab-board").classList.toggle("active", view === "board");
-  document.getElementById("view-targets").classList.toggle("active", view === "targets");
   document.getElementById("view-queue").classList.toggle("active", view === "queue");
   document.getElementById("view-rolls").classList.toggle("active", view === "rolls");
   document.getElementById("view-sets").classList.toggle("active", view === "sets");
@@ -686,7 +678,6 @@ function switchView(view) {
 }
 
 function renderAll() {
-  renderTargets();
   renderQueue();
   populateRollCharacterSelect();
   renderRolls();
