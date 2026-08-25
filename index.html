@@ -953,7 +953,14 @@ function renderSets() {
     setNames = setNames.filter(function(s) { return s.toLowerCase().indexOf(f) !== -1; });
   }
   list.innerHTML = setNames.map(function(setName) {
-    var recNames = bySet[setName];
+    var recNames = bySet[setName].slice().sort(function(a, b) {
+      var ta = getTargets().find(function(x) { return x.name.toLowerCase() === a.toLowerCase() && !x.archived; });
+      var tb = getTargets().find(function(x) { return x.name.toLowerCase() === b.toLowerCase() && !x.archived; });
+      var rankA = ta ? (TIER_RANK[ta.tier] || 0) : -1;
+      var rankB = tb ? (TIER_RANK[tb.tier] || 0) : -1;
+      if (rankA !== rankB) return rankB - rankA;
+      return a.localeCompare(b);
+    });
     var target = recNames.length + (recNames.length >= 2 ? 1 : 0);
     var names = recNames.map(function(n) {
       var activeAccounts = accountsActivelyFarmingSet(n, setName);
