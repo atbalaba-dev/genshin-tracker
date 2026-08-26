@@ -845,7 +845,7 @@ function renderBoard() {
       var mode = BOARD_CAP_MODE[tier];
       var cardsHtml = cardsHere.map(function(t) {
         var pct = completionPct(t);
-        var dotColor = pct >= 100 ? "#e0b84f" : "#5a5a5a";
+        var dotColor = pct >= 100 ? "var(--good)" : "#5a5a5a";
         var dotLabel = pct >= 100 ? "Done farming (at least Good everywhere)" : "Still needs work";
         var bisBadge = "";
         if (showBoardBisCount) {
