@@ -845,8 +845,18 @@ function renderBoard() {
       var mode = BOARD_CAP_MODE[tier];
       var cardsHtml = cardsHere.map(function(t) {
         var pct = completionPct(t);
-        var dotColor = pct >= 100 ? "var(--good)" : "#5a5a5a";
-        var dotLabel = pct >= 100 ? "Done farming (at least Good everywhere)" : "Still needs work";
+        var placeholderCount = SLOTS.filter(function(s) { return t.status[s] === "placeholder"; }).length;
+        var dotColor, dotLabel;
+        if (placeholderCount >= 2) {
+          dotColor = "#d9c94a";
+          dotLabel = "Temporary/placeholder set (" + placeholderCount + " slots)";
+        } else if (pct >= 100) {
+          dotColor = "var(--good)";
+          dotLabel = "Done farming (at least Good everywhere)";
+        } else {
+          dotColor = "#5a5a5a";
+          dotLabel = "Still needs work";
+        }
         var bisBadge = "";
         if (showBoardBisCount) {
           var bc = bisCount(t);
