@@ -316,6 +316,7 @@
     <div class="board-filters-group" id="board-filters-row2" style="margin-bottom:8px;"></div>
     <input class="set-search" id="board-add-search" placeholder="Search full roster to add a character..." onkeyup="onBoardAddSearch()" />
     <div class="board-search-results" id="board-search-results" style="display:none;"></div>
+    <div id="board-summary" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);margin:6px 0 10px;"></div>
     <div class="board-wrap">
       <div class="board-grid" id="board-grid"></div>
     </div>
@@ -825,9 +826,21 @@ function onBoardAddSearch() {
   }).join('');
 }
 
+function boardDotStatus(t) {
+  var pct = completionPct(t);
+  var placeholderCount = SLOTS.filter(function(s) { return t.status[s] === "placeholder"; }).length;
+  if (placeholderCount >= 2) return { key: "yellow", color: "#d9c94a", label: "Temporary/placeholder set (" + placeholderCount + " slots)" };
+  if (pct >= 100) return { key: "green", color: "var(--good)", label: "Done farming (at least Good everywhere)" };
+  return { key: "gray", color: "#5a5a5a", label: "Still needs work" };
+}
+
 function renderBoard() {
   renderBoardFilters();
   var targets = getTargets().filter(function(t) { return !t.archived && BOARD_TIERS.indexOf(t.tier) !== -1 && passesBoardFilters(t.name); });
+  var greenCount = 0, yellowCount = 0;
+  targets.forEach(function(t) { var s = boardDotStatus(t).key; if (s === "green") greenCount++; else if (s === "yellow") yellowCount++; });
+  document.getElementById("board-summary").innerHTML =
+    '<span style="color:var(--good);">●</span> ' + greenCount + ' complete &nbsp; &nbsp; <span style="color:#d9c94a;">●</span> ' + yellowCount + ' on temporary set &nbsp; &nbsp; <span style="color:#5a5a5a;">●</span> ' + (targets.length - greenCount - yellowCount) + ' still needs work';
   var html = '<div style="grid-column:1;grid-row:1;"></div>';
   BOARD_ROLES.forEach(function(r, i) {
     html += '<div class="board-colhead" style="grid-column:' + (i + 2) + ';grid-row:1;">' + r + '</div>';
@@ -845,18 +858,9 @@ function renderBoard() {
       var mode = BOARD_CAP_MODE[tier];
       var cardsHtml = cardsHere.map(function(t) {
         var pct = completionPct(t);
-        var placeholderCount = SLOTS.filter(function(s) { return t.status[s] === "placeholder"; }).length;
-        var dotColor, dotLabel;
-        if (placeholderCount >= 2) {
-          dotColor = "#d9c94a";
-          dotLabel = "Temporary/placeholder set (" + placeholderCount + " slots)";
-        } else if (pct >= 100) {
-          dotColor = "var(--good)";
-          dotLabel = "Done farming (at least Good everywhere)";
-        } else {
-          dotColor = "#5a5a5a";
-          dotLabel = "Still needs work";
-        }
+        var dotStatus = boardDotStatus(t);
+        var dotColor = dotStatus.color;
+        var dotLabel = dotStatus.label;
         var bisBadge = "";
         if (showBoardBisCount) {
           var bc = bisCount(t);
