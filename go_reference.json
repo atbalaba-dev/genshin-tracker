@@ -17,7 +17,8 @@
     "substat2": "Energy Recharge%",
     "substat3": "ATK",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Varka": {
     "role": "On-field DPS",
@@ -37,7 +38,8 @@
     "substat2": "CRIT DMG%",
     "substat3": "ATK%",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Prune": {
     "role": "Support-Healer",
@@ -57,7 +59,8 @@
     "substat2": "ATK%",
     "substat3": "CRIT Rate%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Flins": {
     "role": "On-field DPS",
@@ -77,7 +80,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 120,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Columbina": {
     "role": "Support-Healer",
@@ -97,7 +101,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "HP%",
     "er": 220,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: HP"
   },
   "Ineffa": {
     "role": "Off-field DPS",
@@ -117,7 +122,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: 1st Asc. Pass"
   },
   "Sucrose": {
     "role": "Support-Healer",
@@ -137,7 +143,8 @@
     "substat2": "Elemental Mastery",
     "substat3": null,
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Durin": {
     "role": "Off-field DPS",
@@ -157,7 +164,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 130,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Furina": {
     "role": "Off-field DPS",
@@ -177,7 +185,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "HP%",
     "er": 220,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: HP"
   },
   "Kamisato Ayaka": {
     "role": "On-field DPS",
@@ -197,7 +206,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 160,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Shenhe": {
     "role": "Support-Healer",
@@ -217,7 +227,8 @@
     "substat2": "ATK%",
     "substat3": "CRIT Rate%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Escoffier": {
     "role": "Support-Healer",
@@ -237,7 +248,8 @@
     "substat2": "Energy Recharge%",
     "substat3": "CRIT Rate%",
     "er": 160,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Mavuika": {
     "role": "On-field DPS",
@@ -257,7 +269,8 @@
     "substat2": "Elemental Mastery",
     "substat3": "ATK%",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Xilonen": {
     "role": "Support-Healer",
@@ -277,7 +290,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "DEF%",
     "er": 120,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: DEF"
   },
   "Citlali": {
     "role": "Support-Healer",
@@ -297,7 +311,8 @@
     "substat2": "Elemental Mastery",
     "substat3": "CRIT Rate%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Bennett": {
     "role": "Support-Healer",
@@ -317,7 +332,8 @@
     "substat2": "HP%",
     "substat3": null,
     "er": 200,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Iansan": {
     "role": "Support-Healer",
@@ -337,7 +353,8 @@
     "substat2": "ATK%",
     "substat3": "CRIT Rate%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Wriothesley": {
     "role": "On-field DPS",
@@ -357,7 +374,8 @@
     "substat2": "ATK%",
     "substat3": "Elemental Mastery",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: 1st Asc. Pass"
   },
   "Yae Miko": {
     "role": "Off-field DPS",
@@ -377,7 +395,8 @@
     "substat2": "ATK%",
     "substat3": "Elemental Mastery",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: 1st Ascension Passive"
   },
   "Qiqi": {
     "role": "Support-Healer",
@@ -397,7 +416,8 @@
     "substat2": "ATK%",
     "substat3": "CRIT Rate%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Odette": {
     "role": "Off-field DPS",
@@ -417,7 +437,8 @@
     "substat2": "ATK%",
     "substat3": "Elemental Mastery",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Linnea": {
     "role": "Support-Healer",
@@ -437,7 +458,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "DEF%",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Albedo": {
     "role": "Off-field DPS",
@@ -457,7 +479,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "DEF%",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Chiori": {
     "role": "Off-field DPS",
@@ -477,7 +500,8 @@
     "substat2": "DEF%",
     "substat3": "ATK%",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Navia": {
     "role": "On-field DPS",
@@ -497,7 +521,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 120,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Arataki Itto": {
     "role": "On-field DPS",
@@ -517,7 +542,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "DEF%",
     "er": 130,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Charged Atk"
   },
   "Zhongli": {
     "role": "Support-Healer",
@@ -537,7 +563,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 120,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Yumemizuki Mizuki": {
     "role": "On-field DPS",
@@ -557,7 +584,8 @@
     "substat2": "CRIT Rate%",
     "substat3": null,
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Xianyun": {
     "role": "Support-Healer",
@@ -577,7 +605,8 @@
     "substat2": "ATK%",
     "substat3": "CRIT Rate%",
     "er": 220,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Wanderer": {
     "role": "On-field DPS",
@@ -597,7 +626,8 @@
     "substat2": "ATK%",
     "substat3": "Energy Recharge%",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Charged Atk"
   },
   "Kaedehara Kazuha": {
     "role": "Support-Healer",
@@ -617,7 +647,8 @@
     "substat2": "CRIT Rate%",
     "substat3": null,
     "er": 200,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Xiao": {
     "role": "On-field DPS",
@@ -637,7 +668,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 130,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Plunging Atk"
   },
   "Venti": {
     "role": "On-field DPS",
@@ -657,7 +689,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 160,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Normal Atk"
   },
   "Jean": {
     "role": "Support-Healer",
@@ -677,7 +710,8 @@
     "substat2": "ATK%",
     "substat3": "CRIT Rate%",
     "er": 160,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Eula": {
     "role": "On-field DPS",
@@ -697,7 +731,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Ganyu": {
     "role": "On-field DPS",
@@ -717,7 +752,8 @@
     "substat2": "CRIT DMG%",
     "substat3": "ATK%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Charged Atk"
   },
   "Varesa": {
     "role": "On-field DPS",
@@ -737,7 +773,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 140,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Plunging Atk"
   },
   "Clorinde": {
     "role": "On-field DPS",
@@ -757,7 +794,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 130,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Raiden Shogun": {
     "role": "On-field DPS",
@@ -777,7 +815,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 160,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Lauma": {
     "role": "Support-Healer",
@@ -797,7 +836,8 @@
     "substat2": "Elemental Mastery",
     "substat3": "CRIT Rate%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Kinich": {
     "role": "On-field DPS",
@@ -817,7 +857,8 @@
     "substat2": "ATK%",
     "substat3": "Energy Recharge%",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Emilie": {
     "role": "Off-field DPS",
@@ -837,7 +878,8 @@
     "substat2": "ATK%",
     "substat3": "Energy Recharge%",
     "er": 120,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Baizhu": {
     "role": "Support-Healer",
@@ -857,7 +899,8 @@
     "substat2": "HP%",
     "substat3": "CRIT Rate%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Alhaitham": {
     "role": "On-field DPS",
@@ -877,7 +920,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "Elemental Mastery",
     "er": 120,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Nahida": {
     "role": "Support-Healer",
@@ -897,7 +941,8 @@
     "substat2": "Elemental Mastery",
     "substat3": "CRIT Rate%",
     "er": 120,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Neuvillette": {
     "role": "On-field DPS",
@@ -917,7 +962,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "HP%",
     "er": 120,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Charged Atk"
   },
   "Kamisato Ayato": {
     "role": "On-field DPS",
@@ -937,7 +983,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 160,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Yelan": {
     "role": "Off-field DPS",
@@ -957,7 +1004,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "HP%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Sangonomiya Kokomi": {
     "role": "Support-Healer",
@@ -977,7 +1025,8 @@
     "substat2": "HP%",
     "substat3": null,
     "er": 220,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: HP"
   },
   "Mona": {
     "role": "Support-Healer",
@@ -995,7 +1044,8 @@
     "substat2": "CRIT Rate%",
     "substat3": null,
     "er": 200,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ER"
   },
   "Klee": {
     "role": "On-field DPS",
@@ -1015,7 +1065,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 130,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Dehya": {
     "role": "Off-field DPS",
@@ -1035,7 +1086,8 @@
     "substat2": "HP%",
     "substat3": "Elemental Mastery",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Illuga": {
     "role": "Support-Healer",
@@ -1055,7 +1107,8 @@
     "substat2": "Elemental Mastery",
     "substat3": "CRIT Rate%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Gorou": {
     "role": "Support-Healer",
@@ -1075,7 +1128,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "DEF%",
     "er": 220,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: DEF"
   },
   "Faruzan": {
     "role": "Support-Healer",
@@ -1095,7 +1149,8 @@
     "substat2": "CRIT Rate%",
     "substat3": null,
     "er": 200,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Chevreuse": {
     "role": "Off-field DPS",
@@ -1115,7 +1170,8 @@
     "substat2": "HP%",
     "substat3": "CRIT Rate%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: HP"
   },
   "Gaming": {
     "role": "On-field DPS",
@@ -1175,7 +1231,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 200,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Yanfei": {
     "role": "On-field DPS",
@@ -1215,7 +1272,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "Elemental Mastery",
     "er": 200,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Barbara": {
     "role": "On-field DPS",
@@ -1235,7 +1293,8 @@
     "substat2": "Elemental Mastery",
     "substat3": null,
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Candace": {
     "role": "Off-field DPS",
@@ -1255,7 +1314,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "CRIT DMG%",
     "er": 220,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: HP"
   },
   "Dahlia": {
     "role": "Off-field DPS",
@@ -1275,7 +1335,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "HP%",
     "er": 220,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: HP"
   },
   "Xingqiu": {
     "role": "Off-field DPS",
@@ -1295,7 +1356,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Alyosha": {
     "role": "Off-field DPS",
@@ -1315,7 +1377,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 200,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Beidou": {
     "role": "Off-field DPS",
@@ -1335,7 +1398,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 200,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Fischl": {
     "role": "Off-field DPS",
@@ -1355,7 +1419,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 130,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: 4th Asc. Passive"
   },
   "Kujou Sara": {
     "role": "Support-Healer",
@@ -1375,7 +1440,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 220,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ER"
   },
   "Kuki Shinobu": {
     "role": "Off-field DPS",
@@ -1395,7 +1461,8 @@
     "substat2": "Energy Recharge%",
     "substat3": "HP%",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Ororon": {
     "role": "Off-field DPS",
@@ -1415,7 +1482,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: 1st Asc. Passive"
   },
   "Charlotte": {
     "role": "Support-Healer",
@@ -1435,7 +1503,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 220,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Chongyun": {
     "role": "Off-field DPS",
@@ -1455,7 +1524,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 160,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Diona": {
     "role": "Support-Healer",
@@ -1475,7 +1545,8 @@
     "substat2": "HP%",
     "substat3": "CRIT Rate%",
     "er": 160,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Layla": {
     "role": "Off-field DPS",
@@ -1495,7 +1566,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "HP%",
     "er": 200,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: HP"
   },
   "Mika": {
     "role": "Off-field DPS",
@@ -1535,7 +1607,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Ifa": {
     "role": "On-field DPS",
@@ -1575,7 +1648,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 220,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: ATK"
   },
   "Sayu": {
     "role": "Off-field DPS",
@@ -1695,7 +1769,8 @@
     "substat2": "HP%",
     "substat3": "CRIT Rate%",
     "er": 160,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: EM"
   },
   "Yaoyao": {
     "role": "Support-Healer",
@@ -1735,7 +1810,8 @@
     "substat2": "ATK%",
     "substat3": "Elemental Mastery",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Normal Atk"
   },
   "Hu Tao": {
     "role": "On-field DPS",
@@ -1755,7 +1831,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "HP%",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Charged Atk"
   },
   "Yoimiya": {
     "role": "On-field DPS",
@@ -1775,7 +1852,8 @@
     "substat2": "Elemental Mastery",
     "substat3": "ATK%",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Normal Atk"
   },
   "Childe": {
     "role": "On-field DPS",
@@ -1795,7 +1873,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 140,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Burst"
   },
   "Mualani": {
     "role": "On-field DPS",
@@ -1815,7 +1894,8 @@
     "substat2": "HP%",
     "substat3": "Elemental Mastery",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Nilou": {
     "role": "Off-field DPS",
@@ -1835,7 +1915,8 @@
     "substat2": "Elemental Mastery",
     "substat3": null,
     "er": 130,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: HP"
   },
   "Cyno": {
     "role": "On-field DPS",
@@ -1855,7 +1936,8 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 180,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: 1st Asc. Passive"
   },
   "Keqing": {
     "role": "On-field DPS",
@@ -1935,7 +2017,8 @@
     "substat2": "ATK%",
     "substat3": null,
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Normal Atk"
   },
   "Chasca": {
     "role": "On-field DPS",
@@ -1955,7 +2038,8 @@
     "substat2": "ATK%",
     "substat3": "Elemental Mastery",
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Zibai": {
     "role": "On-field DPS",
@@ -1975,7 +2059,8 @@
     "substat2": "DEF%",
     "substat3": "Elemental Mastery",
     "er": 120,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Nefer": {
     "role": "On-field DPS",
@@ -1995,7 +2080,8 @@
     "substat2": "Elemental Mastery",
     "substat3": null,
     "er": null,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Ele. Skill"
   },
   "Tighnari": {
     "role": "On-field DPS",
@@ -2015,6 +2101,7 @@
     "substat2": "CRIT Rate%",
     "substat3": "ATK%",
     "er": 160,
-    "critRequirement": null
+    "critRequirement": null,
+    "notes": "Optimize For: Charged Atk"
   }
 }
