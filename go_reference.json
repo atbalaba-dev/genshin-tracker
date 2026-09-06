@@ -1855,7 +1855,7 @@
     "critRequirement": null,
     "notes": "Optimize For: Normal Atk"
   },
-  "Childe": {
+  "Tartaglia": {
     "role": "On-field DPS",
     "metaTeams": [
       "Off-meta"
