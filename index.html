@@ -244,7 +244,6 @@
 
   <div class="tabs">
     <button class="tab" id="tab-queue" onclick="switchView('queue')">Priority Queue</button>
-    <button class="tab" id="tab-rolls" onclick="switchView('rolls')">Roll Log</button>
     <button class="tab" id="tab-sets" onclick="switchView('sets')">Sets</button>
     <button class="tab active" id="tab-board" onclick="switchView('board')">Board</button>
   </div>
@@ -253,48 +252,9 @@
     <div class="add-row">
       <span class="empty" style="padding:0;font-size:11px;flex:1;">Ranked by star priority, then lowest completion % first</span>
       <button class="ghost" id="archive-toggle-btn" onclick="toggleArchiveView()">Show archived</button>
+      <button class="ghost" onclick="openIOModal()">Export / Import backup</button>
     </div>
     <div id="queue-list"></div>
-  </div>
-
-  <div id="view-rolls" class="view">
-    <div class="roll-form">
-      <div class="full">
-        <label>Character</label>
-        <select id="r-char"></select>
-      </div>
-      <div>
-        <label>Slot</label>
-        <select id="r-slot" onchange="onSlotChange()">
-          <option value="flower">Flower</option>
-          <option value="plume">Plume</option>
-          <option value="sands">Sands</option>
-          <option value="goblet">Goblet</option>
-          <option value="circlet">Circlet</option>
-        </select>
-      </div>
-      <div>
-        <label>Main stat</label>
-        <select id="r-mainstat"></select>
-      </div>
-      <div>
-        <label>Artifact set</label>
-        <input id="r-set" list="artifact-datalist" placeholder="e.g. Marechaussee Hunter" />
-      </div>
-      <div>
-        <label>Crit Rate % / Crit DMG %</label>
-        <div style="display:flex;gap:6px;">
-          <input id="r-cr" type="number" step="0.1" placeholder="CR%" />
-          <input id="r-cd" type="number" step="0.1" placeholder="CD%" />
-        </div>
-      </div>
-      <div class="full">
-        <label>Other substats (notes)</label>
-        <textarea id="r-notes" placeholder="e.g. ATK% 5.8, EM 19, HP% 4.7"></textarea>
-      </div>
-      <div class="submit-row"><button onclick="addRoll()">Log roll</button></div>
-    </div>
-    <div id="rolls-list"></div>
   </div>
 
   <div id="view-sets" class="view">
@@ -308,12 +268,10 @@
   <div id="view-board" class="view active">
     <div class="board-filters-row" id="board-filters-row1">
       <div class="board-filters-group" id="board-filters-elements"></div>
-      <div style="display:flex;gap:6px;">
-        <button class="board-toggle-btn" id="board-bis-toggle" onclick="toggleBoardBisCount()">Show BiS count</button>
-        <button class="board-toggle-btn" onclick="openIOModal()">Export / Import backup</button>
-      </div>
+      <button class="board-toggle-btn" id="board-bis-toggle" onclick="toggleBoardBisCount()">Show BiS count</button>
     </div>
     <div class="board-filters-group" id="board-filters-row2" style="margin-bottom:8px;"></div>
+    <div class="board-filters-group" id="board-filters-row3" style="margin-bottom:8px;"></div>
     <input class="set-search" id="board-add-search" placeholder="Search full roster to add a character..." onkeyup="onBoardAddSearch()" />
     <div class="board-search-results" id="board-search-results" style="display:none;"></div>
     <div id="board-summary" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);margin:6px 0 10px;"></div>
@@ -668,11 +626,9 @@ function switchAccount(acct) {
 function switchView(view) {
   currentView = view;
   document.getElementById("tab-queue").classList.toggle("active", view === "queue");
-  document.getElementById("tab-rolls").classList.toggle("active", view === "rolls");
   document.getElementById("tab-sets").classList.toggle("active", view === "sets");
   document.getElementById("tab-board").classList.toggle("active", view === "board");
   document.getElementById("view-queue").classList.toggle("active", view === "queue");
-  document.getElementById("view-rolls").classList.toggle("active", view === "rolls");
   document.getElementById("view-sets").classList.toggle("active", view === "sets");
   document.getElementById("view-board").classList.toggle("active", view === "board");
   renderAll();
@@ -680,8 +636,6 @@ function switchView(view) {
 
 function renderAll() {
   renderQueue();
-  populateRollCharacterSelect();
-  renderRolls();
   renderSets();
   renderBoard();
 }
@@ -736,12 +690,14 @@ function renderBoardFilters() {
     var active = boardFilters.weapon.has(w);
     row2Html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'weapon\',\'' + w + '\')">' + w + '</button>';
   });
+  var row3Html = "";
   rarities.forEach(function(r) {
     var active = boardFilters.rarity.has(r);
-    row2Html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'rarity\',' + r + ')">' + r + '★</button>';
+    row3Html += '<button class="board-filter-btn' + (active ? ' active' : '') + '" onclick="toggleBoardFilter(\'rarity\',' + r + ')">' + r + '★</button>';
   });
   document.getElementById("board-filters-elements").innerHTML = elHtml;
   document.getElementById("board-filters-row2").innerHTML = row2Html;
+  document.getElementById("board-filters-row3").innerHTML = row3Html;
 }
 
 function buildNewTargetFromReference(charName, tier, role) {
