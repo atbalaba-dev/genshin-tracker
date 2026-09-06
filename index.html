@@ -769,7 +769,7 @@ function buildNewTargetFromReference(charName, tier, role) {
     if (ref.er) er = ref.er;
     if (ref.critRequirement) critReq = ref.critRequirement;
     if (ref.sets && ref.sets.length) sets = ref.sets[0];
-    notes = "From build reference — review before trusting, may need adjustment.";
+    notes = ref.notes || "";
   }
 
   return {
@@ -928,14 +928,7 @@ function openOrPromoteTarget(charName) {
   var t = getTargets().find(function(x) { return x.name.toLowerCase() === charName.toLowerCase(); });
   if (t) { openTargetModal(t.id); return; }
   if (!confirm(charName + " isn't an active farming target on " + ACCOUNT_LABELS[currentAccount] + " yet. Add them as one now?")) return;
-  var c = findChar(charName);
-  var status = {}; SLOTS.forEach(function(s) { status[s] = "missing"; });
-  var newT = {
-    id: "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
-    name: charName, tier: "C", role: "", metaTeams: [], sets: "", sands: "None",
-    goblet: (c && ELEMENTS.indexOf(c.element) >= 0) ? c.element + " DMG Bonus%" : "None",
-    circlet: "None", substat1: "", substat2: "", substat3: "", erRequirement: null, critRequirement: null, cvThreshold: null, notes: "", status: status, archived: false
-  };
+  var newT = buildNewTargetFromReference(charName, "T6", "");
   getTargets().push(newT);
   saveDB();
   renderAll();
