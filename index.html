@@ -226,6 +226,7 @@
 
   .io-textarea { width: 100%; min-height: 160px; background: var(--bg); border: 1px solid var(--line); color: var(--text); border-radius: 8px; padding: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
 </style>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 <div class="wrap">
@@ -253,6 +254,11 @@
       <span class="empty" style="padding:0;font-size:11px;flex:1;">Ranked by star priority, then lowest completion % first</span>
       <button class="ghost" id="archive-toggle-btn" onclick="toggleArchiveView()">Show archived</button>
       <button class="ghost" onclick="openIOModal()">Export / Import backup</button>
+    </div>
+    <div class="add-row">
+      <span class="empty" id="drive-status" style="padding:0;font-size:11px;flex:1;">Google Drive: not connected</span>
+      <button class="ghost" onclick="saveToDrive()">Save to Drive</button>
+      <button class="ghost" onclick="loadFromDrive()">Load from Drive</button>
     </div>
     <div id="queue-list"></div>
   </div>
@@ -1382,6 +1388,117 @@ function renderRolls() {
 }
 
 /* ---------- IMPORT / EXPORT ---------- */
+
+/* ---------- GOOGLE DRIVE ---------- */
+
+var GOOGLE_CLIENT_ID = "942256819705-3p2jbilc5vf9thb95vsv6h52j7df0dc4.apps.googleusercontent.com";
+var DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.file";
+var DRIVE_FILE_NAME = "genshin_tracker_backup.json";
+var driveTokenClient = null;
+var driveAccessToken = null;
+
+function updateDriveStatus(text) {
+  var el = document.getElementById("drive-status");
+  if (el) el.textContent = "Google Drive: " + text;
+}
+
+function ensureDriveAuth(callback) {
+  if (driveAccessToken) { callback(); return; }
+  if (typeof google === "undefined" || !google.accounts) {
+    alert("Google sign-in library didn't load. Check your connection and try again.");
+    return;
+  }
+  if (!driveTokenClient) {
+    driveTokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: GOOGLE_CLIENT_ID,
+      scope: DRIVE_SCOPE,
+      callback: function(tokenResponse) {
+        if (tokenResponse && tokenResponse.access_token) {
+          driveAccessToken = tokenResponse.access_token;
+          updateDriveStatus("connected");
+          callback();
+        } else {
+          updateDriveStatus("connection failed");
+        }
+      }
+    });
+  }
+  driveTokenClient.requestAccessToken();
+}
+
+async function findDriveFileId() {
+  var cached = localStorage.getItem("gt_drive_file_id");
+  if (cached) return cached;
+  var res = await fetch(
+    "https://www.googleapis.com/drive/v3/files?q=" + encodeURIComponent("name='" + DRIVE_FILE_NAME + "' and trashed=false") + "&spaces=drive&fields=files(id,name)",
+    { headers: { "Authorization": "Bearer " + driveAccessToken } }
+  );
+  var data = await res.json();
+  if (data.files && data.files.length > 0) {
+    localStorage.setItem("gt_drive_file_id", data.files[0].id);
+    return data.files[0].id;
+  }
+  return null;
+}
+
+async function doSaveToDrive() {
+  updateDriveStatus("saving...");
+  var content = JSON.stringify(db);
+  try {
+    var fileId = await findDriveFileId();
+    if (fileId) {
+      await fetch("https://www.googleapis.com/upload/drive/v3/files/" + fileId + "?uploadType=media", {
+        method: "PATCH",
+        headers: { "Authorization": "Bearer " + driveAccessToken, "Content-Type": "application/json" },
+        body: content
+      });
+    } else {
+      var boundary = "gt_boundary_314159265";
+      var delimiter = "\r\n--" + boundary + "\r\n";
+      var closeDelim = "\r\n--" + boundary + "--";
+      var metadata = { name: DRIVE_FILE_NAME, mimeType: "application/json" };
+      var body = delimiter + "Content-Type: application/json\r\n\r\n" + JSON.stringify(metadata) +
+        delimiter + "Content-Type: application/json\r\n\r\n" + content + closeDelim;
+      var res = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart", {
+        method: "POST",
+        headers: { "Authorization": "Bearer " + driveAccessToken, "Content-Type": 'multipart/related; boundary="' + boundary + '"' },
+        body: body
+      });
+      var data = await res.json();
+      if (data.id) localStorage.setItem("gt_drive_file_id", data.id);
+    }
+    updateDriveStatus("connected — saved just now");
+  } catch (e) {
+    updateDriveStatus("save failed — try again");
+  }
+}
+
+async function doLoadFromDrive() {
+  updateDriveStatus("loading...");
+  try {
+    var fileId = await findDriveFileId();
+    if (!fileId) {
+      updateDriveStatus("connected — no backup found yet, save first");
+      return;
+    }
+    var res = await fetch("https://www.googleapis.com/drive/v3/files/" + fileId + "?alt=media", {
+      headers: { "Authorization": "Bearer " + driveAccessToken }
+    });
+    var data = await res.json();
+    if (!data || typeof data !== "object") throw new Error("bad data");
+    db = data;
+    ACCOUNTS.forEach(function(a) { if (!db[a]) db[a] = { targets: [], rolls: [] }; });
+    if (!db.recommended) db.recommended = {};
+    saveDB();
+    renderAll();
+    updateDriveStatus("connected — loaded just now");
+  } catch (e) {
+    updateDriveStatus("load failed — try again");
+  }
+}
+
+function saveToDrive() { ensureDriveAuth(doSaveToDrive); }
+function loadFromDrive() { ensureDriveAuth(doLoadFromDrive); }
 
 function openIOModal() {
   document.getElementById("io-text").value = JSON.stringify(db, null, 2);
