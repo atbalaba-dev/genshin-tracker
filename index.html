@@ -1531,6 +1531,7 @@ function escapeHtml(str) {
   await Promise.all([loadCharacters(), loadArtifactSets(), loadGoReference()]);
   onSlotChange();
   renderAll();
+  setTimeout(renderAll, 150);
 })();
 </script>
 </body>
