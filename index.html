@@ -27,6 +27,7 @@
     --missing: #5f5d66;
     --placeholder: #d97b4f;
     --offset: #c94f9b;
+    --reshape: #d9c94a;
   }
   * { box-sizing: border-box; }
   body {
@@ -124,7 +125,6 @@
   .board-card-progress { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-left: 4px; vertical-align: middle; }
   .board-cons { font-family: 'IBM Plex Mono', monospace; font-size: 10px; background: var(--bg); color: var(--text-dim); border: 1px solid var(--line); border-radius: 4px; padding: 0 1px; margin-right: 5px; cursor: pointer; vertical-align: middle; -webkit-appearance: none; appearance: none; text-align: center; }
   .board-cons.has-cons { color: #e8c76a; border-color: #6b5a22; }
-  .board-bis-badge { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-align: center; border-radius: 4px; padding: 2px 0; margin-top: 4px; }
   .board-toggle-btn { background: var(--surface); border: 1px solid var(--line); color: var(--text-dim); border-radius: 999px; padding: 4px 12px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
   .board-toggle-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
   .board-cap { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-align: right; color: var(--text-faint); margin-top: 4px; }
@@ -256,7 +256,7 @@
     <div class="add-row">
       <span class="empty" style="padding:0;font-size:11px;flex:1;">Ranked by star priority, then lowest completion % first</span>
       <button class="ghost" id="archive-toggle-btn" onclick="toggleArchiveView()">Show archived</button>
-      <button class="ghost" onclick="resetAllSlotStatuses()">Reset all slots to Missing</button>
+      <button class="ghost" onclick="resetAllSlotStatuses()">Reset all slots to None</button>
       <button class="ghost" onclick="openIOModal()">Export / Import backup</button>
     </div>
     <div class="add-row">
@@ -278,7 +278,6 @@
   <div id="view-board" class="view active">
     <div class="board-filters-row" id="board-filters-row1">
       <div class="board-filters-group" id="board-filters-elements"></div>
-      <button class="board-toggle-btn" id="board-bis-toggle" onclick="toggleBoardBisCount()">Show BiS count</button>
     </div>
     <div class="board-filters-group" id="board-filters-row2" style="margin-bottom:8px;"></div>
     <div class="board-filters-group" id="board-filters-row3" style="margin-bottom:8px;"></div>
@@ -359,15 +358,15 @@
     <div class="field">
       <label>Per-slot status</label>
       <div class="field-row" style="flex-wrap:wrap;gap:6px;">
-        <select id="t-status-flower"><option value="missing">Flower: Missing</option><option value="placeholder">Flower: Placeholder</option><option value="offset">Flower: Offset</option><option value="good">Flower: Good</option><option value="bis">Flower: BiS</option></select>
-        <select id="t-status-plume"><option value="missing">Plume: Missing</option><option value="placeholder">Plume: Placeholder</option><option value="offset">Plume: Offset</option><option value="good">Plume: Good</option><option value="bis">Plume: BiS</option></select>
+        <select id="t-status-flower"><option value="none">Flower: None</option><option value="reroll">Flower: Reroll</option><option value="reshape">Flower: Reshape</option><option value="offset">Flower: Offset</option><option value="good">Flower: Good</option></select>
+        <select id="t-status-plume"><option value="none">Plume: None</option><option value="reroll">Plume: Reroll</option><option value="reshape">Plume: Reshape</option><option value="offset">Plume: Offset</option><option value="good">Plume: Good</option></select>
       </div>
       <div class="field-row" style="flex-wrap:wrap;gap:6px;margin-top:6px;">
-        <select id="t-status-sands"><option value="missing">Sands: Missing</option><option value="placeholder">Sands: Placeholder</option><option value="offset">Sands: Offset</option><option value="good">Sands: Good</option><option value="bis">Sands: BiS</option></select>
-        <select id="t-status-goblet"><option value="missing">Goblet: Missing</option><option value="placeholder">Goblet: Placeholder</option><option value="offset">Goblet: Offset</option><option value="good">Goblet: Good</option><option value="bis">Goblet: BiS</option></select>
-        <select id="t-status-circlet"><option value="missing">Circlet: Missing</option><option value="placeholder">Circlet: Placeholder</option><option value="offset">Circlet: Offset</option><option value="good">Circlet: Good</option><option value="bis">Circlet: BiS</option></select>
+        <select id="t-status-sands"><option value="none">Sands: None</option><option value="reroll">Sands: Reroll</option><option value="reshape">Sands: Reshape</option><option value="offset">Sands: Offset</option><option value="good">Sands: Good</option></select>
+        <select id="t-status-goblet"><option value="none">Goblet: None</option><option value="reroll">Goblet: Reroll</option><option value="reshape">Goblet: Reshape</option><option value="offset">Goblet: Offset</option><option value="good">Goblet: Good</option></select>
+        <select id="t-status-circlet"><option value="none">Circlet: None</option><option value="reroll">Circlet: Reroll</option><option value="reshape">Circlet: Reshape</option><option value="offset">Circlet: Offset</option><option value="good">Circlet: Good</option></select>
       </div>
-      <button type="button" style="margin-top:8px;background:none;border:1px solid var(--line);color:var(--text);padding:5px 10px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'Space Grotesk',sans-serif;" onclick="resetSlotStatuses()">Reset all slots to Missing</button>
+      <button type="button" style="margin-top:8px;background:none;border:1px solid var(--line);color:var(--text);padding:5px 10px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'Space Grotesk',sans-serif;" onclick="resetSlotStatuses()">Reset all slots to None</button>
     </div>
     <div class="field">
       <label>Notes</label>
@@ -406,9 +405,10 @@
 <script>
 var ACCOUNTS = ["main", "alt1", "alt2"];
 var ACCOUNT_LABELS = { main: "Main (Khym)", alt1: "Alt 1 (Beelzebul)", alt2: "Alt 2 (Barbatos)" };
-var STATUS_ORDER = { missing: 0, placeholder: 1, offset: 2, good: 3, bis: 4 };
-var STATUS_LABEL = { missing: "Missing", placeholder: "Placeholder", offset: "Offset", good: "Good", bis: "BiS" };
-var STATUS_COLOR = { missing: "var(--missing)", placeholder: "var(--placeholder)", offset: "var(--offset)", good: "var(--good)", bis: "var(--excellent)" };
+var STATUS_ORDER = { none: 0, reroll: 1, reshape: 2, offset: 3, good: 4 };
+var OLD_STATUS_MAP = { missing: "none", placeholder: "reroll", bis: "good" };
+var STATUS_LABEL = { none: "None", reroll: "Reroll", reshape: "Reshape", offset: "Offset", good: "Good" };
+var STATUS_COLOR = { none: "var(--missing)", reroll: "var(--placeholder)", reshape: "var(--reshape)", offset: "var(--offset)", good: "var(--good)" };
 var SLOTS = ["flower", "plume", "sands", "goblet", "circlet"];
 
 var ELEMENTS = ["Pyro", "Electro", "Hydro", "Cryo", "Anemo", "Geo", "Dendro"];
@@ -595,6 +595,13 @@ function loadDB() {
     if (!db[a]) db[a] = { targets: [], rolls: [] };
     db[a].targets.forEach(function(t) {
       if (t.archived === undefined) t.archived = false;
+      if (!t.status) t.status = {};
+      SLOTS.forEach(function(sl) {
+        var v = t.status[sl];
+        if (OLD_STATUS_MAP[v]) v = OLD_STATUS_MAP[v];
+        if (STATUS_ORDER[v] === undefined) v = "none";
+        t.status[sl] = v;
+      });
       if (t.tier === undefined) {
         t.tier = (typeof t.priority === "number" && starToTier[t.priority]) ? starToTier[t.priority] : "C";
       }
@@ -659,14 +666,6 @@ var ZONE_ROWSPAN = { Apex: "2 / 4", Meta: "4 / 7", "Off-meta": "7 / 9", Bench: "
 var ZONE_STYLE = { Apex: "background:#3d1616;color:#e8615a;", Meta: "background:#3d2510;color:#e8954a;", "Off-meta": "background:#3a3510;color:#d9c94a;", Bench: "background:#1a3018;color:#6bc46a;" };
 
 var boardFilters = { element: new Set(), weapon: new Set(), rarity: new Set() };
-var showBoardBisCount = false;
-
-function toggleBoardBisCount() {
-  showBoardBisCount = !showBoardBisCount;
-  document.getElementById("board-bis-toggle").classList.toggle("active", showBoardBisCount);
-  renderBoard();
-}
-
 function passesBoardFilters(charName) {
   var c = findChar(charName);
   if (!c) return true;
@@ -710,7 +709,7 @@ function buildNewTargetFromReference(charName, tier, role) {
   var c = findChar(charName);
   var refKey = Object.keys(GO_REFERENCE).find(function(k) { return k.toLowerCase() === charName.toLowerCase(); });
   var ref = refKey ? GO_REFERENCE[refKey] : null;
-  var status = {}; SLOTS.forEach(function(s) { status[s] = "missing"; });
+  var status = {}; SLOTS.forEach(function(s) { status[s] = "none"; });
 
   var sands = "None", sandsAlt = "None", goblet = "None", gobletAlt = "None", circlet = "None", circletAlt = "None";
   var substat1 = "", substat2 = "", substat3 = "";
@@ -790,9 +789,9 @@ function onBoardAddSearch() {
 
 function boardDotStatus(t) {
   var pct = completionPct(t);
-  var placeholderCount = SLOTS.filter(function(s) { return t.status[s] === "placeholder"; }).length;
-  if (placeholderCount >= 2) return { key: "yellow", color: "#d9c94a", label: "Temporary/placeholder set (" + placeholderCount + " slots)" };
-  if (pct >= 100) return { key: "green", color: "var(--good)", label: "Done farming (at least Good everywhere)" };
+  var rerollCount = SLOTS.filter(function(s) { return t.status[s] === "reroll"; }).length;
+  if (rerollCount >= 2) return { key: "yellow", color: "#d9c94a", label: "Temporary set (" + rerollCount + " slots to reroll)" };
+  if (pct >= 100) return { key: "green", color: "var(--good)", label: "Done farming (every slot Offset or Good)" };
   return { key: "gray", color: "#5a5a5a", label: "Still needs work" };
 }
 
@@ -837,14 +836,7 @@ function renderBoard() {
         var dotStatus = boardDotStatus(t);
         var dotColor = dotStatus.color;
         var dotLabel = dotStatus.label;
-        var bisBadge = "";
-        if (showBoardBisCount) {
-          var bc = bisCount(t);
-          var bisColors = ["#e8615a", "#e8954a", "#d9c94a", "#c9d94a", "#9bc94a", "#6bc46a"];
-          var bisBgColors = ["#3a1414", "#3a2814", "#3a3414", "#2e3414", "#243414", "#1a3018"];
-          bisBadge = '<div class="board-bis-badge" style="background:' + bisBgColors[bc] + ';color:' + bisColors[bc] + ';">' + bc + '/5 BiS</div>';
-        }
-        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + pct + '% complete — ' + dotLabel + '">' + consSelectHtml(t) + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span>' + bisBadge + '</div>';
+        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + pct + '% complete — ' + dotLabel + '">' + consSelectHtml(t) + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span></div>';
       }).join('');
       var capText = mode === "none" ? (cardsHere.length + " placed") : (cardsHere.length + "/" + cap);
       var capClass = (mode === "soft" && cardsHere.length > cap) ? "board-cap over" : "board-cap";
@@ -993,13 +985,9 @@ function renderSets() {
 function getTargets() { return db[currentAccount].targets; }
 
 function completionPct(t) {
-  var vals = SLOTS.map(function(s) { return STATUS_ORDER[t.status[s]] >= 2 ? 1 : 0; });
+  var vals = SLOTS.map(function(s) { return STATUS_ORDER[t.status[s]] >= 3 ? 1 : 0; });
   var sum = vals.reduce(function(a, b) { return a + b; }, 0);
   return Math.round((sum / 5) * 100);
-}
-
-function bisCount(t) {
-  return SLOTS.filter(function(s) { return t.status[s] === "bis"; }).length;
 }
 
 function mainStatDisplay(primary, alt) {
@@ -1047,7 +1035,7 @@ function renderTargets() {
 function cycleSlotStatus(id, slot) {
   var t = getTargets().find(function(x) { return x.id === id; });
   if (!t) return;
-  var order = ["missing", "placeholder", "offset", "good", "bis"];
+  var order = ["none", "reroll", "reshape", "offset", "good"];
   var idx = order.indexOf(t.status[slot]);
   t.status[slot] = order[(idx + 1) % order.length];
   saveDB();
@@ -1101,20 +1089,20 @@ function openTargetModal(id) {
     document.getElementById("t-role").value = "";
     document.getElementById("t-cons").value = "0";
     document.getElementById("t-autofill").textContent = "";
-    SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "missing"; });
+    SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "none"; });
   }
   document.getElementById("target-backdrop").classList.add("open");
 }
-function resetSlotStatuses() { SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "missing"; }); }
+function resetSlotStatuses() { SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "none"; }); }
 function resetAllSlotStatuses() {
   var targets = getTargets();
   var label = ACCOUNT_LABELS[currentAccount];
   if (!targets.length) { alert("No characters on " + label + " to reset."); return; }
-  var changed = targets.filter(function(t) { return SLOTS.some(function(s) { return t.status && t.status[s] !== "missing"; }); }).length;
-  if (!confirm("Reset EVERY slot (flower, plume, sands, goblet, circlet) to Missing for ALL " + targets.length + " characters on " + label + "?\n\n" + changed + " character(s) currently have progress that will be wiped.\nOther accounts are not affected.\nThis cannot be undone (export a backup first if unsure).\n\nAre you sure you want to do this?")) return;
+  var changed = targets.filter(function(t) { return SLOTS.some(function(s) { return t.status && t.status[s] !== "none"; }); }).length;
+  if (!confirm("Reset EVERY slot (flower, plume, sands, goblet, circlet) to None for ALL " + targets.length + " characters on " + label + "?\n\n" + changed + " character(s) currently have progress that will be wiped.\nOther accounts are not affected.\nThis cannot be undone (export a backup first if unsure).\n\nAre you sure you want to do this?")) return;
   targets.forEach(function(t) {
     if (!t.status) t.status = {};
-    SLOTS.forEach(function(s) { t.status[s] = "missing"; });
+    SLOTS.forEach(function(s) { t.status[s] = "none"; });
   });
   saveDB();
   renderAll();
@@ -1195,7 +1183,7 @@ function performCopy() {
         erRequirement: t.erRequirement, cvThreshold: t.cvThreshold, notes: t.notes
       });
     } else {
-      var status = {}; SLOTS.forEach(function(s) { status[s] = "missing"; });
+      var status = {}; SLOTS.forEach(function(s) { status[s] = "none"; });
       db[acct].targets.push({
         id: "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
         name: t.name, tier: t.tier, role: t.role, metaTeams: (t.metaTeams || []).slice(),
@@ -1543,6 +1531,7 @@ function importIOData() {
     ACCOUNTS.forEach(function(a) { if (!parsed[a]) parsed[a] = { targets: [], rolls: [] }; });
     db = parsed;
     saveDB();
+    loadDB();
     closeIOModal();
     renderAll();
   } catch (e) {
