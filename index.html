@@ -122,7 +122,7 @@
   .board-card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 7px; font-size: 11px; cursor: grab; text-align: center; position: relative; }
   .board-card:hover { background: var(--surface-hover); }
   .board-card-progress { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-left: 4px; vertical-align: middle; }
-  .board-cons { font-family: 'IBM Plex Mono', monospace; font-size: 10px; background: var(--bg); color: var(--text-dim); border: 1px solid var(--line); border-radius: 4px; padding: 0 1px; margin-left: 4px; cursor: pointer; vertical-align: middle; -webkit-appearance: none; appearance: none; text-align: center; }
+  .board-cons { font-family: 'IBM Plex Mono', monospace; font-size: 10px; background: var(--bg); color: var(--text-dim); border: 1px solid var(--line); border-radius: 4px; padding: 0 1px; margin-right: 5px; cursor: pointer; vertical-align: middle; -webkit-appearance: none; appearance: none; text-align: center; }
   .board-cons.has-cons { color: #e8c76a; border-color: #6b5a22; }
   .board-bis-badge { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-align: center; border-radius: 4px; padding: 2px 0; margin-top: 4px; }
   .board-toggle-btn { background: var(--surface); border: 1px solid var(--line); color: var(--text-dim); border-radius: 999px; padding: 4px 12px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
@@ -851,7 +851,7 @@ function renderBoard() {
           var bisBgColors = ["#3a1414", "#3a2814", "#3a3414", "#2e3414", "#243414", "#1a3018"];
           bisBadge = '<div class="board-bis-badge" style="background:' + bisBgColors[bc] + ';color:' + bisColors[bc] + ';">' + bc + '/5 BiS</div>';
         }
-        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + pct + '% complete — ' + dotLabel + '">' + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span>' + consSelectHtml(t) + bisBadge + '</div>';
+        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + pct + '% complete — ' + dotLabel + '">' + consSelectHtml(t) + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span>' + bisBadge + '</div>';
       }).join('');
       var capText = mode === "none" ? (cardsHere.length + " placed") : (cardsHere.length + "/" + cap);
       var capClass = (mode === "soft" && cardsHere.length > cap) ? "board-cap over" : "board-cap";
