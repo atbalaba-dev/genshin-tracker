@@ -1529,6 +1529,13 @@ function openIOModal() {
   document.getElementById("io-backdrop").classList.add("open");
 }
 function closeIOModal() { document.getElementById("io-backdrop").classList.remove("open"); }
+document.addEventListener("keydown", function(e) {
+  if (e.key !== "Escape") return;
+  var io = document.getElementById("io-backdrop");
+  var tg = document.getElementById("target-backdrop");
+  if (io && io.classList.contains("open")) closeIOModal();
+  else if (tg && tg.classList.contains("open")) closeTargetModal();
+});
 function importIOData() {
   try {
     var parsed = JSON.parse(document.getElementById("io-text").value);
