@@ -122,6 +122,8 @@
   .board-card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 7px; font-size: 11px; cursor: grab; text-align: center; position: relative; }
   .board-card:hover { background: var(--surface-hover); }
   .board-card-progress { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-left: 4px; vertical-align: middle; }
+  .board-cons { font-family: 'IBM Plex Mono', monospace; font-size: 10px; background: var(--bg); color: var(--text-dim); border: 1px solid var(--line); border-radius: 4px; padding: 0 1px; margin-left: 4px; cursor: pointer; vertical-align: middle; -webkit-appearance: none; appearance: none; text-align: center; }
+  .board-cons.has-cons { color: #e8c76a; border-color: #6b5a22; }
   .board-bis-badge { font-family: 'IBM Plex Mono', monospace; font-size: 9px; text-align: center; border-radius: 4px; padding: 2px 0; margin-top: 4px; }
   .board-toggle-btn { background: var(--surface); border: 1px solid var(--line); color: var(--text-dim); border-radius: 999px; padding: 4px 12px; font-size: 11px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
   .board-toggle-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
@@ -312,6 +314,10 @@
           <option value="T5">T5 — Off-meta</option>
           <option value="T6">T6 — Bench</option>
         </select>
+      </div>
+      <div class="field">
+        <label>Constellation</label>
+        <select id="t-cons"><option value="0">C0</option><option value="1">C1</option><option value="2">C2</option><option value="3">C3</option><option value="4">C4</option><option value="5">C5</option><option value="6">C6</option></select>
       </div>
       <div class="field">
         <label>Role</label>
@@ -797,6 +803,20 @@ function boardDotStatus(t) {
   return { key: "gray", color: "#5a5a5a", label: "Still needs work" };
 }
 
+function consSelectHtml(t) {
+  var c = (typeof t.cons === "number" && t.cons >= 0 && t.cons <= 6) ? t.cons : 0;
+  var opts = "";
+  for (var i = 0; i <= 6; i++) opts += '<option value="' + i + '"' + (i === c ? ' selected' : '') + '>C' + i + '</option>';
+  return '<select class="board-cons' + (c > 0 ? ' has-cons' : '') + '" title="Constellation" draggable="false" onclick="event.stopPropagation()" onmousedown="event.stopPropagation()" onchange="setTargetCons(\'' + t.id + '\', this.value)">' + opts + '</select>';
+}
+function setTargetCons(id, val) {
+  var t = getTargets().find(function(x) { return x.id === id; });
+  if (!t) return;
+  t.cons = parseInt(val, 10) || 0;
+  saveDB();
+  renderAll();
+}
+
 function renderBoard() {
   renderBoardFilters();
   var targets = getTargets().filter(function(t) { return !t.archived && BOARD_TIERS.indexOf(t.tier) !== -1 && passesBoardFilters(t.name); });
@@ -831,7 +851,7 @@ function renderBoard() {
           var bisBgColors = ["#3a1414", "#3a2814", "#3a3414", "#2e3414", "#243414", "#1a3018"];
           bisBadge = '<div class="board-bis-badge" style="background:' + bisBgColors[bc] + ';color:' + bisColors[bc] + ';">' + bc + '/5 BiS</div>';
         }
-        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + pct + '% complete — ' + dotLabel + '">' + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span>' + bisBadge + '</div>';
+        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + pct + '% complete — ' + dotLabel + '">' + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span>' + consSelectHtml(t) + bisBadge + '</div>';
       }).join('');
       var capText = mode === "none" ? (cardsHere.length + " placed") : (cardsHere.length + "/" + cap);
       var capClass = (mode === "soft" && cardsHere.length > cap) ? "board-cap over" : "board-cap";
@@ -1054,6 +1074,7 @@ function openTargetModal(id) {
     document.getElementById("t-name").value = t.name;
     document.getElementById("t-tier").value = t.tier;
     document.getElementById("t-role").value = t.role || "";
+    document.getElementById("t-cons").value = String(t.cons || 0);
     document.getElementById("t-sets").value = t.sets || "";
     populateSelect(document.getElementById("t-sands"), SANDS_OPTS, t.sands || "None");
     populateSelect(document.getElementById("t-goblet"), GOBLET_OPTS, t.goblet || "None");
@@ -1089,6 +1110,7 @@ function openTargetModal(id) {
     document.getElementById("t-critreq").value = "";
     document.getElementById("t-tier").value = "T3";
     document.getElementById("t-role").value = "";
+    document.getElementById("t-cons").value = "0";
     document.getElementById("t-autofill").textContent = "";
     SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "missing"; });
   }
@@ -1106,6 +1128,7 @@ function saveTarget() {
     name: name,
     tier: document.getElementById("t-tier").value,
     role: document.getElementById("t-role").value,
+    cons: parseInt(document.getElementById("t-cons").value, 10) || 0,
     metaTeams: metaTeams,
     sets: document.getElementById("t-sets").value.trim(),
     sands: document.getElementById("t-sands").value,
