@@ -366,6 +366,7 @@
         <select id="t-status-goblet"><option value="missing">Goblet: Missing</option><option value="placeholder">Goblet: Placeholder</option><option value="offset">Goblet: Offset</option><option value="good">Goblet: Good</option><option value="bis">Goblet: BiS</option></select>
         <select id="t-status-circlet"><option value="missing">Circlet: Missing</option><option value="placeholder">Circlet: Placeholder</option><option value="offset">Circlet: Offset</option><option value="good">Circlet: Good</option><option value="bis">Circlet: BiS</option></select>
       </div>
+      <button type="button" style="margin-top:8px;background:none;border:1px solid var(--line);color:var(--text);padding:5px 10px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'Space Grotesk',sans-serif;" onclick="resetSlotStatuses()">Reset all slots to Missing</button>
     </div>
     <div class="field">
       <label>Notes</label>
@@ -1103,6 +1104,7 @@ function openTargetModal(id) {
   }
   document.getElementById("target-backdrop").classList.add("open");
 }
+function resetSlotStatuses() { SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "missing"; }); }
 function closeTargetModal() { document.getElementById("target-backdrop").classList.remove("open"); }
 
 function saveTarget() {
