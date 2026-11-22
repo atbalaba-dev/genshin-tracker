@@ -2103,5 +2103,385 @@
     "er": 160,
     "critRequirement": null,
     "notes": "Optimize For: Charged Atk"
+  },
+  "Aloy": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Noblesse Oblige",
+      "Emblem of Severed Fate"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Cryo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT DMG%",
+    "substat3": "CRIT Rate%",
+    "er": 180,
+    "critRequirement": null,
+    "notes": "Optimize For: Burst DMG"
+  },
+  "Amber": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Shimenawa's Reminiscence",
+      "Crimson Witch of Flames"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "ATK%",
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "CRIT DMG%",
+    "er": 110,
+    "critRequirement": null,
+    "notes": "Optimize For: Charged Shot DMG"
+  },
+  "Diluc": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Crimson Witch of Flames",
+      "Marechaussee Hunter"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Elemental Mastery",
+    "goblet": "Pyro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "CRIT DMG%",
+    "substat3": "ATK%",
+    "er": 130,
+    "critRequirement": null,
+    "notes": "Optimize For: Vaporize/Melt DMG"
+  },
+  "Dori": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Gilded Dreams",
+      "Thundering Fury"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": "HP%",
+    "circlet": "Elemental Mastery",
+    "circletAlt": "HP%",
+    "substat1": "CRIT Rate%",
+    "substat2": "Energy Recharge%",
+    "substat3": "Elemental Mastery",
+    "er": 160,
+    "critRequirement": null,
+    "notes": "Optimize For: Electro Reaction DMG"
+  },
+  "Freminet": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Pale Flame",
+      "Blizzard Strayer"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Physical DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "CRIT DMG%",
+    "er": 165,
+    "critRequirement": null,
+    "notes": "Optimize For: Physical DMG"
+  },
+  "Jahoda": {
+    "role": "Support-Healer",
+    "metaTeams": [],
+    "sets": [
+      "Viridescent Venerer",
+      "Silken Moon's Serenade"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "ATK%",
+    "circletAlt": "Healing Bonus%",
+    "substat1": "ATK%",
+    "substat2": "CRIT Rate%",
+    "substat3": "Energy Recharge%",
+    "er": 180,
+    "critRequirement": null,
+    "notes": "Optimize For: Healing / RES Shred"
+  },
+  "Kachina": {
+    "role": "Support-Healer",
+    "metaTeams": [],
+    "sets": [
+      "Scroll of the Hero of Cinder City",
+      "Husk of Opulent Dreams"
+    ],
+    "sands": "Energy Recharge%",
+    "sandsAlt": "DEF%",
+    "goblet": "Geo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "CRIT DMG%",
+    "er": 200,
+    "critRequirement": null,
+    "notes": "Optimize For: DEF Geo DMG"
+  },
+  "Kaeya": {
+    "role": "Off-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Blizzard Strayer",
+      "Emblem of Severed Fate"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Cryo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT DMG%",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT DMG%",
+    "substat3": "CRIT Rate%",
+    "er": 160,
+    "critRequirement": null,
+    "notes": "Optimize For: Cryo Application"
+  },
+  "Kaveh": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Flower of Paradise Lost",
+      "Deepwood Memories"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Elemental Mastery",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "Elemental Mastery",
+    "substat3": "ATK%",
+    "er": 175,
+    "critRequirement": null,
+    "notes": "Optimize For: Bloom DMG"
+  },
+  "Lisa": {
+    "role": "Support-Healer",
+    "metaTeams": [],
+    "sets": [
+      "Thundering Fury",
+      "Gilded Dreams"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "Elemental Mastery",
+    "circletAlt": null,
+    "substat1": "Elemental Mastery",
+    "substat2": "Energy Recharge%",
+    "substat3": "CRIT Rate%",
+    "er": 160,
+    "critRequirement": null,
+    "notes": "Optimize For: Aggravate DMG"
+  },
+  "Lynette": {
+    "role": "Support-Healer",
+    "metaTeams": [],
+    "sets": [
+      "Viridescent Venerer",
+      "Emblem of Severed Fate"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "Anemo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "CRIT DMG%",
+    "er": 200,
+    "critRequirement": null,
+    "notes": "Optimize For: Burst DMG"
+  },
+  "Mitya": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Gilded Dreams",
+      "Disenchantment in Deep Shadow"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": null,
+    "goblet": "Elemental Mastery",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT DMG%",
+    "substat2": "CRIT Rate%",
+    "substat3": "Elemental Mastery",
+    "er": 130,
+    "critRequirement": null,
+    "notes": "Optimize For: Stellar-Conduct DMG"
+  },
+  "Noelle": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Husk of Opulent Dreams",
+      "Marechaussee Hunter"
+    ],
+    "sands": "DEF%",
+    "sandsAlt": null,
+    "goblet": "Geo DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "CRIT DMG%",
+    "substat3": "DEF%",
+    "er": 200,
+    "critRequirement": null,
+    "notes": "Optimize For: DEF Geo DMG"
+  },
+  "Razor": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Thundering Fury",
+      "Thundersoother"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "CRIT DMG%",
+    "substat3": "ATK%",
+    "er": 160,
+    "critRequirement": null,
+    "notes": "Optimize For: Physical DMG"
+  },
+  "Sethos": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Wanderer's Troupe",
+      "Gilded Dreams"
+    ],
+    "sands": "Elemental Mastery",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Electro DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "Energy Recharge%",
+    "substat2": "CRIT Rate%",
+    "substat3": "CRIT DMG%",
+    "er": 160,
+    "critRequirement": null,
+    "notes": "Optimize For: Charged Attack DMG"
+  },
+  "Valeriy": {
+    "role": "Support-Healer",
+    "metaTeams": [],
+    "sets": [
+      "A Day Carved From Rising Winds",
+      "Noblesse Oblige"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "ATK%",
+    "circletAlt": null,
+    "substat1": "ATK%",
+    "substat2": "ATK",
+    "substat3": "Energy Recharge%",
+    "er": 160,
+    "critRequirement": null,
+    "notes": "Optimize For: Electro DMG (ATK)"
+  },
+  "Vesna": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Scarlet Proof",
+      "Viridescent Venerer"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": null,
+    "goblet": "ATK%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT Rate%",
+    "substat2": "CRIT DMG%",
+    "substat3": "ATK%",
+    "er": 125,
+    "critRequirement": null,
+    "notes": "Optimize For: Stellar Swirl DMG"
+  },
+  "Vodyanitsa": {
+    "role": "Support-Healer",
+    "metaTeams": [],
+    "sets": [
+      "Tenacity of the Millelith",
+      "Song of Days Past"
+    ],
+    "sands": "HP%",
+    "sandsAlt": null,
+    "goblet": "HP%",
+    "gobletAlt": null,
+    "circlet": "HP%",
+    "circletAlt": null,
+    "substat1": "HP%",
+    "substat2": "HP",
+    "substat3": "Energy Recharge%",
+    "er": 100,
+    "critRequirement": null,
+    "notes": "Optimize For: Max HP"
+  },
+  "Xinyan": {
+    "role": "On-field DPS",
+    "metaTeams": [],
+    "sets": [
+      "Pale Flame",
+      "Marechaussee Hunter"
+    ],
+    "sands": "ATK%",
+    "sandsAlt": "Energy Recharge%",
+    "goblet": "Physical DMG Bonus%",
+    "gobletAlt": null,
+    "circlet": "CRIT Rate / DMG",
+    "circletAlt": null,
+    "substat1": "CRIT DMG%",
+    "substat2": "CRIT Rate%",
+    "substat3": "ATK%",
+    "er": 170,
+    "critRequirement": null,
+    "notes": "Optimize For: Physical DMG"
   }
 }
