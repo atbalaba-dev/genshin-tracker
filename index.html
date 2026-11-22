@@ -256,6 +256,7 @@
     <div class="add-row">
       <span class="empty" style="padding:0;font-size:11px;flex:1;">Ranked by star priority, then lowest completion % first</span>
       <button class="ghost" id="archive-toggle-btn" onclick="toggleArchiveView()">Show archived</button>
+      <button class="ghost" onclick="resetAllSlotStatuses()">Reset all slots to Missing</button>
       <button class="ghost" onclick="openIOModal()">Export / Import backup</button>
     </div>
     <div class="add-row">
@@ -1105,6 +1106,19 @@ function openTargetModal(id) {
   document.getElementById("target-backdrop").classList.add("open");
 }
 function resetSlotStatuses() { SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = "missing"; }); }
+function resetAllSlotStatuses() {
+  var targets = getTargets();
+  var label = ACCOUNT_LABELS[currentAccount];
+  if (!targets.length) { alert("No characters on " + label + " to reset."); return; }
+  var changed = targets.filter(function(t) { return SLOTS.some(function(s) { return t.status && t.status[s] !== "missing"; }); }).length;
+  if (!confirm("Reset EVERY slot (flower, plume, sands, goblet, circlet) to Missing for ALL " + targets.length + " characters on " + label + "?\n\n" + changed + " character(s) currently have progress that will be wiped.\nOther accounts are not affected.\nThis cannot be undone (export a backup first if unsure).\n\nAre you sure you want to do this?")) return;
+  targets.forEach(function(t) {
+    if (!t.status) t.status = {};
+    SLOTS.forEach(function(s) { t.status[s] = "missing"; });
+  });
+  saveDB();
+  renderAll();
+}
 function closeTargetModal() { document.getElementById("target-backdrop").classList.remove("open"); }
 
 function saveTarget() {
