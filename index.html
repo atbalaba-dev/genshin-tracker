@@ -793,7 +793,7 @@ function boardDotStatus(t) {
   var pct = completionPct(t);
   var rerollCount = SLOTS.filter(function(s) { return t.status[s] === "reroll"; }).length;
   if (rerollCount >= 2) return { key: "yellow", color: "#d9c94a", label: "Temporary set (" + rerollCount + " slots to reroll)" };
-  if (pct >= 100) return { key: "green", color: "var(--good)", label: "Done farming (every slot Offset or Good)" };
+  if (pct >= 100) return { key: "green", color: "var(--good)", label: "Done farming (no slot on None or Reroll)" };
   return { key: "gray", color: "#5a5a5a", label: "Still needs work" };
 }
 
@@ -987,7 +987,7 @@ function renderSets() {
 function getTargets() { return db[currentAccount].targets; }
 
 function completionPct(t) {
-  var vals = SLOTS.map(function(s) { return STATUS_ORDER[t.status[s]] >= 3 ? 1 : 0; });
+  var vals = SLOTS.map(function(s) { return STATUS_ORDER[t.status[s]] >= 2 ? 1 : 0; });
   var sum = vals.reduce(function(a, b) { return a + b; }, 0);
   return Math.round((sum / 5) * 100);
 }
