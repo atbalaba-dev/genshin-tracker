@@ -248,13 +248,13 @@
 
   <div class="tabs">
     <button class="tab active" id="tab-board" onclick="switchView('board')">Board</button>
-    <button class="tab" id="tab-queue" onclick="switchView('queue')">Priority Queue</button>
+    <button class="tab" id="tab-queue" onclick="switchView('queue')">Artifact</button>
     <button class="tab" id="tab-sets" onclick="switchView('sets')">Sets</button>
   </div>
 
   <div id="view-queue" class="view">
     <div class="add-row">
-      <span class="empty" style="padding:0;font-size:11px;flex:1;">Ranked by star priority, then lowest completion % first</span>
+      <span class="empty" style="padding:0;font-size:11px;flex:1;">Ranked by board tier, then role, then lowest completion % first</span>
       <button class="ghost" id="archive-toggle-btn" onclick="toggleArchiveView()">Show archived</button>
       <button class="ghost" onclick="openIOModal()">Export / Import backup</button>
     </div>
@@ -263,6 +263,7 @@
       <button class="ghost" onclick="saveToDrive()">Save to Drive</button>
       <button class="ghost" onclick="loadFromDrive()">Load from Drive</button>
     </div>
+    <div id="queue-subtabs" style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px;"></div>
     <div id="queue-list"></div>
   </div>
 
@@ -790,11 +791,13 @@ function onBoardAddSearch() {
 }
 
 function boardDotStatus(t) {
-  var pct = completionPct(t);
-  var rerollCount = SLOTS.filter(function(s) { return t.status[s] === "reroll"; }).length;
-  if (rerollCount >= 2) return { key: "yellow", color: "#d9c94a", label: "Temporary set (" + rerollCount + " slots to reroll)" };
-  if (pct >= 100) return { key: "green", color: "var(--good)", label: "Done farming (no slot on None or Reroll)" };
-  return { key: "gray", color: "#5a5a5a", label: "Still needs work" };
+  var done = SLOTS.filter(function(sl) { return STATUS_ORDER[t.status[sl]] >= 2; }).length;
+  var rerollCount = SLOTS.filter(function(sl) { return t.status[sl] === "reroll"; }).length;
+  var extra = rerollCount ? " (" + rerollCount + " to reroll)" : "";
+  if (done >= 5) return { key: "green", color: "var(--good)", label: "Done farming (no slot on None or Reroll)" };
+  if (done >= 3) return { key: "yellow", color: "#d9c94a", label: done + "/5 slots done" + extra };
+  if (done >= 1) return { key: "orange", color: "#e8954a", label: done + "/5 slots done" + extra };
+  return { key: "gray", color: "#5a5a5a", label: "Nothing equipped" + extra };
 }
 
 function consSelectHtml(t) {
@@ -814,10 +817,10 @@ function setTargetCons(id, val) {
 function renderBoard() {
   renderBoardFilters();
   var targets = getTargets().filter(function(t) { return !t.archived && BOARD_TIERS.indexOf(t.tier) !== -1 && passesBoardFilters(t.name); });
-  var greenCount = 0, yellowCount = 0;
-  targets.forEach(function(t) { var s = boardDotStatus(t).key; if (s === "green") greenCount++; else if (s === "yellow") yellowCount++; });
+  var dotCounts = { green: 0, yellow: 0, orange: 0, gray: 0 };
+  targets.forEach(function(t) { dotCounts[boardDotStatus(t).key]++; });
   document.getElementById("board-summary").innerHTML =
-    '<span style="color:var(--good);">●</span> ' + greenCount + ' complete &nbsp; &nbsp; <span style="color:#d9c94a;">●</span> ' + yellowCount + ' on temporary set &nbsp; &nbsp; <span style="color:#5a5a5a;">●</span> ' + (targets.length - greenCount - yellowCount) + ' still needs work';
+    '<span style="color:var(--good);">●</span> ' + dotCounts.green + ' complete &nbsp; &nbsp; <span style="color:#d9c94a;">●</span> ' + dotCounts.yellow + ' equipped (3-4/5) &nbsp; &nbsp; <span style="color:#e8954a;">●</span> ' + dotCounts.orange + ' started (1-2/5) &nbsp; &nbsp; <span style="color:#5a5a5a;">●</span> ' + dotCounts.gray + ' nothing equipped';
   var html = '<div style="grid-column:1;grid-row:1;"></div>';
   BOARD_ROLES.forEach(function(r, i) {
     html += '<div class="board-colhead" style="grid-column:' + (i + 2) + ';grid-row:1;">' + r + '</div>';
@@ -1245,7 +1248,7 @@ function sortByPriority(arr) {
   });
 }
 
-function renderQueueCard(t, rank, dimmed) {
+function renderQueueCard(t, rank, dimmed, slotStatus) {
   var pct = completionPct(t);
   var barColor = pct >= 80 ? 'var(--good)' : pct >= 40 ? 'var(--filler)' : 'var(--fodder)';
   var archTag = t.archived ? '<span class="archived-tag">Archived</span>' : '';
@@ -1256,36 +1259,62 @@ function renderQueueCard(t, rank, dimmed) {
       '<div><span class="char-name">' + escapeHtml(t.name) + '</span> &nbsp; <span class="tier-badge tier-' + t.tier + '">' + t.tier + '</span>' +
       (t.role ? ' &nbsp; <span class="role-tag">' + escapeHtml(t.role) + '</span>' : '') + archTag + '</div>' +
       '<div class="queue-bar-track"><div class="queue-bar-fill" style="width:' + pct + '%;background:' + barColor + '"></div></div>' +
-      '<div class="queue-pct">' + pct + '% complete &middot; ' + escapeHtml(t.sets || 'no set set') + '</div>' +
+      '<div class="queue-pct">' + (slotStatus ? slotsWithStatus(t, slotStatus).map(function(x) { return x.charAt(0).toUpperCase() + x.slice(1); }).join(', ') + ' &middot; ' : '') + pct + '% complete &middot; ' + escapeHtml(t.sets || 'no set set') + '</div>' +
     '</div>' +
   '</div>';
 }
 
+var queueSub = "farm";
+var QUEUE_SUBS = [["farm", "Farm"], ["strongbox", "Strongbox"], ["reshape", "Reshape"], ["reroll", "Reroll"]];
+function setQueueSub(k) { queueSub = k; renderQueue(); }
+function slotsWithStatus(t, status) {
+  return SLOTS.filter(function(sl) { return t.status[sl] === status; });
+}
+
 function renderQueue() {
   var list = document.getElementById("queue-list");
+  var subtabs = document.getElementById("queue-subtabs");
   var targets = getTargets().filter(function(t) { return !!t.archived === showArchived; });
   if (targets.length === 0) {
+    subtabs.style.display = "none";
     list.innerHTML = '<div class="empty">' + (showArchived ? "No archived characters yet." : "Add characters in the Targets tab to generate a farm queue.") + '</div>';
     return;
   }
-  var html = "";
   if (showArchived) {
-    var archivedSorted = sortByPriority(targets);
-    html += archivedSorted.map(function(t, i) { return renderQueueCard(t, i + 1, false); }).join('');
-    list.innerHTML = html;
+    subtabs.style.display = "none";
+    list.innerHTML = sortByPriority(targets).map(function(t, i) { return renderQueueCard(t, i + 1, false); }).join('');
     return;
   }
   var complete = targets.filter(function(t) { return completionPct(t) === 100; });
   var active = targets.filter(function(t) { return completionPct(t) !== 100; });
-  var mustFarm = sortByPriority(active.filter(function(t) { return !targetIsStrongboxable(t); }));
-  var strongboxable = sortByPriority(active.filter(function(t) { return targetIsStrongboxable(t); }));
-  var completeSorted = sortByPriority(complete);
-  html += '<div class="queue-section-header">Must farm directly (' + mustFarm.length + ')</div>';
-  html += mustFarm.length ? mustFarm.map(function(t, i) { return renderQueueCard(t, i + 1, false); }).join('') : '<div class="empty">Nothing here.</div>';
-  html += '<div class="queue-section-header">Strongbox-eligible (' + strongboxable.length + ')</div>';
-  html += strongboxable.length ? strongboxable.map(function(t, i) { return renderQueueCard(t, i + 1, false); }).join('') : '<div class="empty">Nothing here.</div>';
-  html += '<div class="queue-section-header">Complete (' + completeSorted.length + ')</div>';
-  html += completeSorted.length ? completeSorted.map(function(t, i) { return renderQueueCard(t, i + 1, true); }).join('') : '<div class="empty">Nothing here.</div>';
+  var groups = {
+    farm: active.filter(function(t) { return !targetIsStrongboxable(t); }),
+    strongbox: active.filter(function(t) { return targetIsStrongboxable(t); }),
+    reshape: targets.filter(function(t) { return slotsWithStatus(t, "reshape").length > 0; }),
+    reroll: targets.filter(function(t) { return slotsWithStatus(t, "reroll").length > 0; })
+  };
+  subtabs.style.display = "flex";
+  subtabs.innerHTML = QUEUE_SUBS.map(function(p) {
+    var n = (p[0] === "reshape" || p[0] === "reroll")
+      ? groups[p[0]].reduce(function(sum, t) { return sum + slotsWithStatus(t, p[0]).length; }, 0)
+      : groups[p[0]].length;
+    return '<button class="board-toggle-btn' + (queueSub === p[0] ? ' active' : '') + '" onclick="setQueueSub(\'' + p[0] + '\')">' + p[1] + ' (' + n + ')</button>';
+  }).join('');
+  var html = "";
+  if (queueSub === "reshape" || queueSub === "reroll") {
+    var rows = sortByPriority(groups[queueSub]);
+    var slotTotal = rows.reduce(function(sum, t) { return sum + slotsWithStatus(t, queueSub).length; }, 0);
+    html += '<div class="queue-section-header">' + (queueSub === "reshape" ? "Reshape" : "Reroll") + ' (' + slotTotal + ' slot' + (slotTotal === 1 ? '' : 's') + ' across ' + rows.length + ' character' + (rows.length === 1 ? '' : 's') + ')</div>';
+    html += rows.length ? rows.map(function(t, i) { return renderQueueCard(t, i + 1, false, queueSub); }).join('') : '<div class="empty">Nothing here.</div>';
+  } else {
+    var isSb = queueSub === "strongbox";
+    var activeList = sortByPriority(groups[queueSub]);
+    var doneList = sortByPriority(complete.filter(function(t) { return targetIsStrongboxable(t) === isSb; }));
+    html += '<div class="queue-section-header">' + (isSb ? 'Strongbox-eligible' : 'Must farm directly') + ' (' + activeList.length + ')</div>';
+    html += activeList.length ? activeList.map(function(t, i) { return renderQueueCard(t, i + 1, false); }).join('') : '<div class="empty">Nothing here.</div>';
+    html += '<div class="queue-section-header">Complete (' + doneList.length + ')</div>';
+    html += doneList.length ? doneList.map(function(t, i) { return renderQueueCard(t, i + 1, true); }).join('') : '<div class="empty">Nothing here.</div>';
+  }
   list.innerHTML = html;
 }
 
