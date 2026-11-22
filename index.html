@@ -256,7 +256,6 @@
     <div class="add-row">
       <span class="empty" style="padding:0;font-size:11px;flex:1;">Ranked by star priority, then lowest completion % first</span>
       <button class="ghost" id="archive-toggle-btn" onclick="toggleArchiveView()">Show archived</button>
-      <button class="ghost" onclick="resetAllSlotStatuses()">Reset all slots to None</button>
       <button class="ghost" onclick="openIOModal()">Export / Import backup</button>
     </div>
     <div class="add-row">
@@ -286,6 +285,9 @@
     <div id="board-summary" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);margin:6px 0 10px;"></div>
     <div class="board-wrap">
       <div class="board-grid" id="board-grid"></div>
+    </div>
+    <div style="margin-top:12px;text-align:left;">
+      <button class="ghost" onclick="resetAllSlotStatuses()">Reset all slots to None</button>
     </div>
   </div>
 </div>
