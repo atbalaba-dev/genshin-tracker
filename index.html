@@ -356,14 +356,6 @@
       <input id="t-er" type="number" placeholder="e.g. 160" />
     </div>
     <div class="field">
-      <label>Required Crit Rate (%) — total build target, reference only</label>
-      <input id="t-critreq" type="number" placeholder="e.g. 70" />
-    </div>
-    <div class="field">
-      <label>CV threshold ("good enough")</label>
-      <input id="t-cv" type="number" placeholder="e.g. 20" />
-    </div>
-    <div class="field">
       <label>Per-slot status</label>
       <div class="field-row" style="flex-wrap:wrap;gap:6px;">
         <select id="t-status-flower"><option value="missing">Flower: Missing</option><option value="placeholder">Flower: Placeholder</option><option value="offset">Flower: Offset</option><option value="good">Flower: Good</option><option value="bis">Flower: BiS</option></select>
@@ -547,7 +539,6 @@ function onCharNameInput() {
       if (ref.substat2) document.getElementById("t-substat2").value = ref.substat2;
       if (ref.substat3) document.getElementById("t-substat3").value = ref.substat3;
       if (ref.er) document.getElementById("t-er").value = ref.er;
-      if (ref.critRequirement) document.getElementById("t-critreq").value = ref.critRequirement;
       if (ref.role) {
         var oldRoleMap = { "On-field DPS": "On Field", "Off-field DPS": "Damage Support", "Support-Healer": "Support-Sustain" };
         document.getElementById("t-role").value = oldRoleMap[ref.role] || ref.role;
@@ -1044,7 +1035,7 @@ function renderTargets() {
       '</div>' +
       '<div class="meta-row"><b>Set:</b> ' + escapeHtml(t.sets || '—') + ' &nbsp; | &nbsp; <b>Sands:</b> ' + escapeHtml(mainStatDisplay(t.sands, t.sandsAlt)) +
         ' &nbsp; <b>Goblet:</b> ' + escapeHtml(mainStatDisplay(t.goblet, t.gobletAlt)) + ' &nbsp; <b>Circlet:</b> ' + escapeHtml(mainStatDisplay(t.circlet, t.circletAlt)) + '</div>' +
-      '<div class="meta-row"><b>Substats:</b> ' + substatText + ' &nbsp; | &nbsp; <b>ER req:</b> ' + (t.erRequirement || '—') + ' &nbsp; | &nbsp; <b>Crit req:</b> ' + (t.critRequirement || '—') + ' &nbsp; | &nbsp; <b>CV target:</b> ' + (t.cvThreshold || '—') +
+      '<div class="meta-row"><b>Substats:</b> ' + substatText + ' &nbsp; | &nbsp; <b>ER req:</b> ' + (t.erRequirement || '—') +
         ' &nbsp; | &nbsp; <b>Complete:</b> ' + completionPct(t) + '%</div>' +
       '<div class="slot-badges">' + slotBadges + '</div>' +
     '</div>';
@@ -1086,8 +1077,6 @@ function openTargetModal(id) {
     populateSelect(document.getElementById("t-substat2"), SUBSTAT_OPTS, t.substat2 || "None");
     populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, t.substat3 || "None");
     document.getElementById("t-er").value = t.erRequirement || "";
-    document.getElementById("t-critreq").value = t.critRequirement || "";
-    document.getElementById("t-cv").value = t.cvThreshold || "";
     document.getElementById("t-notes").value = t.notes || "";
     SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = t.status[s]; });
     document.getElementById("t-archive-btn").textContent = t.archived ? "Un-archive" : "Archive";
@@ -1096,7 +1085,6 @@ function openTargetModal(id) {
     ["t-name","t-sets","t-notes"].forEach(function(id2) {
       document.getElementById(id2).value = "";
     });
-    document.getElementById("t-cv").value = "";
     populateSelect(document.getElementById("t-sands"), SANDS_OPTS, "None");
     populateSelect(document.getElementById("t-goblet"), GOBLET_OPTS, "None");
     populateSelect(document.getElementById("t-circlet"), CIRCLET_OPTS, "None");
@@ -1107,7 +1095,6 @@ function openTargetModal(id) {
     populateSelect(document.getElementById("t-substat2"), SUBSTAT_OPTS, "None");
     populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, "None");
     document.getElementById("t-er").value = "";
-    document.getElementById("t-critreq").value = "";
     document.getElementById("t-tier").value = "T3";
     document.getElementById("t-role").value = "";
     document.getElementById("t-cons").value = "0";
@@ -1141,8 +1128,6 @@ function saveTarget() {
     substat2: document.getElementById("t-substat2").value,
     substat3: document.getElementById("t-substat3").value,
     erRequirement: parseFloat(document.getElementById("t-er").value) || null,
-    critRequirement: parseFloat(document.getElementById("t-critreq").value) || null,
-    cvThreshold: parseFloat(document.getElementById("t-cv").value) || null,
     notes: document.getElementById("t-notes").value.trim(),
     status: status
   };
