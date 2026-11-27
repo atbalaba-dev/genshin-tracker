@@ -810,8 +810,7 @@ function setTargetCons(id, val) {
 }
 
 function primarySet(t) {
-  var first = (t.sets || "").split(",")[0].trim();
-  return first || "No set";
+  return (t.sets || "").trim() || "No set";
 }
 
 function renderBoard() {
