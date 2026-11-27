@@ -809,6 +809,11 @@ function setTargetCons(id, val) {
   renderAll();
 }
 
+function primarySet(t) {
+  var first = (t.sets || "").split(",")[0].trim();
+  return first || "No set";
+}
+
 function renderBoard() {
   renderBoardFilters();
   var targets = getTargets().filter(function(t) { return !t.archived && BOARD_TIERS.indexOf(t.tier) !== -1 && passesBoardFilters(t.name); });
@@ -835,8 +840,7 @@ function renderBoard() {
         var pct = completionPct(t);
         var dotStatus = boardDotStatus(t);
         var dotColor = dotStatus.color;
-        var dotLabel = dotStatus.label;
-        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + pct + '% complete — ' + dotLabel + '">' + consSelectHtml(t) + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span></div>';
+        return '<div class="board-card" draggable="true" ondragstart="event.dataTransfer.setData(\'text\',\'' + t.name.replace(/'/g, "\\'") + '\')" onclick="openTargetModal(\'' + t.id + '\')" title="' + escapeHtml(primarySet(t)) + ': ' + pct + '% complete">' + consSelectHtml(t) + escapeHtml(t.name) + '<span class="board-card-progress" style="background:' + dotColor + '"></span></div>';
       }).join('');
       var capText = mode === "none" ? (cardsHere.length + " placed") : (cardsHere.length + "/" + cap);
       var capClass = (mode === "soft" && cardsHere.length > cap) ? "board-cap over" : "board-cap";
