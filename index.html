@@ -355,19 +355,15 @@
       </div>
     </div>
     <div class="field">
-      <label>ER requirement (%)</label>
-      <input id="t-er" type="number" placeholder="e.g. 160" />
-    </div>
-    <div class="field">
       <label>Per-slot status</label>
       <div class="field-row" style="flex-wrap:wrap;gap:6px;">
-        <select id="t-status-flower"><option value="none">Flower: None</option><option value="reroll">Flower: Reroll</option><option value="reshape">Flower: Reshape</option><option value="offset">Flower: Offset</option><option value="good">Flower: Good</option></select>
-        <select id="t-status-plume"><option value="none">Plume: None</option><option value="reroll">Plume: Reroll</option><option value="reshape">Plume: Reshape</option><option value="offset">Plume: Offset</option><option value="good">Plume: Good</option></select>
+        <select id="t-status-flower"><option value="none">Flower: None</option><option value="replace">Flower: Replace</option><option value="reshape">Flower: Reshape</option><option value="offset">Flower: Offset</option><option value="good">Flower: Good</option></select>
+        <select id="t-status-plume"><option value="none">Plume: None</option><option value="replace">Plume: Replace</option><option value="reshape">Plume: Reshape</option><option value="offset">Plume: Offset</option><option value="good">Plume: Good</option></select>
       </div>
       <div class="field-row" style="flex-wrap:wrap;gap:6px;margin-top:6px;">
-        <select id="t-status-sands"><option value="none">Sands: None</option><option value="reroll">Sands: Reroll</option><option value="reshape">Sands: Reshape</option><option value="offset">Sands: Offset</option><option value="good">Sands: Good</option></select>
-        <select id="t-status-goblet"><option value="none">Goblet: None</option><option value="reroll">Goblet: Reroll</option><option value="reshape">Goblet: Reshape</option><option value="offset">Goblet: Offset</option><option value="good">Goblet: Good</option></select>
-        <select id="t-status-circlet"><option value="none">Circlet: None</option><option value="reroll">Circlet: Reroll</option><option value="reshape">Circlet: Reshape</option><option value="offset">Circlet: Offset</option><option value="good">Circlet: Good</option></select>
+        <select id="t-status-sands"><option value="none">Sands: None</option><option value="replace">Sands: Replace</option><option value="reshape">Sands: Reshape</option><option value="offset">Sands: Offset</option><option value="good">Sands: Good</option></select>
+        <select id="t-status-goblet"><option value="none">Goblet: None</option><option value="replace">Goblet: Replace</option><option value="reshape">Goblet: Reshape</option><option value="offset">Goblet: Offset</option><option value="good">Goblet: Good</option></select>
+        <select id="t-status-circlet"><option value="none">Circlet: None</option><option value="replace">Circlet: Replace</option><option value="reshape">Circlet: Reshape</option><option value="offset">Circlet: Offset</option><option value="good">Circlet: Good</option></select>
       </div>
       <button type="button" style="margin-top:8px;background:none;border:1px solid var(--line);color:var(--text);padding:5px 10px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'Space Grotesk',sans-serif;" onclick="resetSlotStatuses()">Reset all slots to None</button>
     </div>
@@ -408,10 +404,10 @@
 <script>
 var ACCOUNTS = ["main", "alt1", "alt2"];
 var ACCOUNT_LABELS = { main: "Main (Khym)", alt1: "Alt 1 (Beelzebul)", alt2: "Alt 2 (Barbatos)" };
-var STATUS_ORDER = { none: 0, reroll: 1, reshape: 2, offset: 3, good: 4 };
-var OLD_STATUS_MAP = { missing: "none", placeholder: "reroll", bis: "good" };
-var STATUS_LABEL = { none: "None", reroll: "Reroll", reshape: "Reshape", offset: "Offset", good: "Good" };
-var STATUS_COLOR = { none: "var(--missing)", reroll: "var(--placeholder)", reshape: "var(--reshape)", offset: "var(--offset)", good: "var(--good)" };
+var STATUS_ORDER = { none: 0, replace: 1, reshape: 2, offset: 3, good: 4 };
+var OLD_STATUS_MAP = { missing: "none", placeholder: "replace", reroll: "replace", bis: "good" };
+var STATUS_LABEL = { none: "None", replace: "Replace", reshape: "Reshape", offset: "Offset", good: "Good" };
+var STATUS_COLOR = { none: "var(--missing)", replace: "var(--placeholder)", reshape: "var(--reshape)", offset: "var(--offset)", good: "var(--good)" };
 var SLOTS = ["flower", "plume", "sands", "goblet", "circlet"];
 
 var ELEMENTS = ["Pyro", "Electro", "Hydro", "Cryo", "Anemo", "Geo", "Dendro"];
@@ -543,7 +539,6 @@ function onCharNameInput() {
       if (ref.substat1) document.getElementById("t-substat1").value = ref.substat1;
       if (ref.substat2) document.getElementById("t-substat2").value = ref.substat2;
       if (ref.substat3) document.getElementById("t-substat3").value = ref.substat3;
-      if (ref.er) document.getElementById("t-er").value = ref.er;
       if (ref.role) {
         var oldRoleMap = { "On-field DPS": "On Field", "Off-field DPS": "Damage Support", "Support-Healer": "Support-Sustain" };
         document.getElementById("t-role").value = oldRoleMap[ref.role] || ref.role;
@@ -792,9 +787,9 @@ function onBoardAddSearch() {
 
 function boardDotStatus(t) {
   var done = SLOTS.filter(function(sl) { return STATUS_ORDER[t.status[sl]] >= 2; }).length;
-  var rerollCount = SLOTS.filter(function(sl) { return t.status[sl] === "reroll"; }).length;
-  var extra = rerollCount ? " (" + rerollCount + " to reroll)" : "";
-  if (done >= 5) return { key: "green", color: "var(--good)", label: "Done farming (no slot on None or Reroll)" };
+  var replaceCount = SLOTS.filter(function(sl) { return t.status[sl] === "replace"; }).length;
+  var extra = replaceCount ? " (" + replaceCount + " to replace)" : "";
+  if (done >= 5) return { key: "green", color: "var(--good)", label: "Done farming (no slot on None or Replace)" };
   if (done >= 3) return { key: "yellow", color: "#d9c94a", label: done + "/5 slots done" + extra };
   if (done >= 1) return { key: "orange", color: "#e8954a", label: done + "/5 slots done" + extra };
   return { key: "gray", color: "#5a5a5a", label: "Nothing equipped" + extra };
@@ -1030,7 +1025,7 @@ function renderTargets() {
       '</div>' +
       '<div class="meta-row"><b>Set:</b> ' + escapeHtml(t.sets || '—') + ' &nbsp; | &nbsp; <b>Sands:</b> ' + escapeHtml(mainStatDisplay(t.sands, t.sandsAlt)) +
         ' &nbsp; <b>Goblet:</b> ' + escapeHtml(mainStatDisplay(t.goblet, t.gobletAlt)) + ' &nbsp; <b>Circlet:</b> ' + escapeHtml(mainStatDisplay(t.circlet, t.circletAlt)) + '</div>' +
-      '<div class="meta-row"><b>Substats:</b> ' + substatText + ' &nbsp; | &nbsp; <b>ER req:</b> ' + (t.erRequirement || '—') +
+      '<div class="meta-row"><b>Substats:</b> ' + substatText +
         ' &nbsp; | &nbsp; <b>Complete:</b> ' + completionPct(t) + '%</div>' +
       '<div class="slot-badges">' + slotBadges + '</div>' +
     '</div>';
@@ -1040,7 +1035,7 @@ function renderTargets() {
 function cycleSlotStatus(id, slot) {
   var t = getTargets().find(function(x) { return x.id === id; });
   if (!t) return;
-  var order = ["none", "reroll", "reshape", "offset", "good"];
+  var order = ["none", "replace", "reshape", "offset", "good"];
   var idx = order.indexOf(t.status[slot]);
   t.status[slot] = order[(idx + 1) % order.length];
   saveDB();
@@ -1071,7 +1066,6 @@ function openTargetModal(id) {
     populateSelect(document.getElementById("t-substat1"), SUBSTAT_OPTS, t.substat1 || "None");
     populateSelect(document.getElementById("t-substat2"), SUBSTAT_OPTS, t.substat2 || "None");
     populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, t.substat3 || "None");
-    document.getElementById("t-er").value = t.erRequirement || "";
     document.getElementById("t-notes").value = t.notes || "";
     SLOTS.forEach(function(s) { document.getElementById("t-status-" + s).value = t.status[s]; });
     document.getElementById("t-archive-btn").textContent = t.archived ? "Un-archive" : "Archive";
@@ -1089,7 +1083,6 @@ function openTargetModal(id) {
     populateSelect(document.getElementById("t-substat1"), SUBSTAT_OPTS, "None");
     populateSelect(document.getElementById("t-substat2"), SUBSTAT_OPTS, "None");
     populateSelect(document.getElementById("t-substat3"), SUBSTAT_OPTS, "None");
-    document.getElementById("t-er").value = "";
     document.getElementById("t-tier").value = "T3";
     document.getElementById("t-role").value = "";
     document.getElementById("t-cons").value = "0";
@@ -1136,7 +1129,6 @@ function saveTarget() {
     substat1: document.getElementById("t-substat1").value,
     substat2: document.getElementById("t-substat2").value,
     substat3: document.getElementById("t-substat3").value,
-    erRequirement: parseFloat(document.getElementById("t-er").value) || null,
     notes: document.getElementById("t-notes").value.trim(),
     status: status
   };
@@ -1265,7 +1257,7 @@ function renderQueueCard(t, rank, dimmed, slotStatus) {
 }
 
 var queueSub = "farm";
-var QUEUE_SUBS = [["farm", "Farm"], ["strongbox", "Strongbox"], ["reshape", "Reshape"], ["reroll", "Reroll"]];
+var QUEUE_SUBS = [["farm", "Farm"], ["strongbox", "Strongbox"], ["reshape", "Reshape"], ["replace", "Replace"]];
 function setQueueSub(k) { queueSub = k; renderQueue(); }
 function slotsWithStatus(t, status) {
   return SLOTS.filter(function(sl) { return t.status[sl] === status; });
@@ -1291,20 +1283,20 @@ function renderQueue() {
     farm: active.filter(function(t) { return !targetIsStrongboxable(t); }),
     strongbox: active.filter(function(t) { return targetIsStrongboxable(t); }),
     reshape: targets.filter(function(t) { return slotsWithStatus(t, "reshape").length > 0; }),
-    reroll: targets.filter(function(t) { return slotsWithStatus(t, "reroll").length > 0; })
+    replace: targets.filter(function(t) { return slotsWithStatus(t, "replace").length > 0; })
   };
   subtabs.style.display = "flex";
   subtabs.innerHTML = QUEUE_SUBS.map(function(p) {
-    var n = (p[0] === "reshape" || p[0] === "reroll")
+    var n = (p[0] === "reshape" || p[0] === "replace")
       ? groups[p[0]].reduce(function(sum, t) { return sum + slotsWithStatus(t, p[0]).length; }, 0)
       : groups[p[0]].length;
     return '<button class="board-toggle-btn' + (queueSub === p[0] ? ' active' : '') + '" onclick="setQueueSub(\'' + p[0] + '\')">' + p[1] + ' (' + n + ')</button>';
   }).join('');
   var html = "";
-  if (queueSub === "reshape" || queueSub === "reroll") {
+  if (queueSub === "reshape" || queueSub === "replace") {
     var rows = sortByPriority(groups[queueSub]);
     var slotTotal = rows.reduce(function(sum, t) { return sum + slotsWithStatus(t, queueSub).length; }, 0);
-    html += '<div class="queue-section-header">' + (queueSub === "reshape" ? "Reshape" : "Reroll") + ' (' + slotTotal + ' slot' + (slotTotal === 1 ? '' : 's') + ' across ' + rows.length + ' character' + (rows.length === 1 ? '' : 's') + ')</div>';
+    html += '<div class="queue-section-header">' + (queueSub === "reshape" ? "Reshape" : "Replace") + ' (' + slotTotal + ' slot' + (slotTotal === 1 ? '' : 's') + ' across ' + rows.length + ' character' + (rows.length === 1 ? '' : 's') + ')</div>';
     html += rows.length ? rows.map(function(t, i) { return renderQueueCard(t, i + 1, false, queueSub); }).join('') : '<div class="empty">Nothing here.</div>';
   } else {
     var isSb = queueSub === "strongbox";
